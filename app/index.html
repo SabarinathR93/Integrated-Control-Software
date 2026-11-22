@@ -3549,18 +3549,35 @@ END_CASE;`
   }
   window.connectNewProjectIpc = connectNewProjectIpc;
 
-  function connectNewProjectPlc() {
+  async function connectNewProjectPlc() {
     const pill = document.getElementById('np-plc-conn-status');
     const card = document.getElementById('np-step-plc-comm');
     const brandEl = document.getElementById('pplc');
+    const ipEl = document.getElementById('np-plc-ip');
     const pt = document.getElementById('np-plc-port');
     const brand = brandEl ? brandEl.value : 'MELSEC';
+    const ipStr = (ipEl && ipEl.value.trim()) || '192.168.1.10';
     const ptStr = (pt && pt.value.trim()) || '5007';
     if (pill) {
-      pill.textContent = 'ONLINE - ' + brand + ' (:' + ptStr + ')';
-      pill.classList.add('ok');
+      pill.textContent = 'CONNECTING...';
+      pill.classList.remove('ok');
     }
-    if (card) card.classList.add('done');
+    const res = (typeof CommClient !== 'undefined' && CommClient.connectPlcByBrand)
+      ? await CommClient.connectPlcByBrand(brand, ipStr, ptStr)
+      : { ok: false, error: 'CommClient unavailable' };
+    if (res.ok) {
+      if (pill) {
+        pill.textContent = 'ONLINE - ' + brand + ' (' + ipStr + ':' + ptStr + ')';
+        pill.classList.add('ok');
+      }
+      if (card) card.classList.add('done');
+    } else {
+      if (pill) {
+        pill.textContent = 'OFFLINE - ' + (res.error || 'No PLC');
+        pill.classList.remove('ok');
+      }
+      if (card) card.classList.remove('done');
+    }
   }
   window.connectNewProjectPlc = connectNewProjectPlc;
 
@@ -3711,18 +3728,35 @@ END_CASE;`
   }
   window.scanImportIpcRecovery = scanImportIpcRecovery;
 
-  function connectImportPlc() {
+  async function connectImportPlc() {
     const pill = document.getElementById('plc-conn-status');
     const card = document.getElementById('step-plc-comm');
     const brandEl = document.getElementById('imp-plc');
+    const ipEl = document.getElementById('imp-ip');
     const pt = document.getElementById('imp-port');
     const brand = brandEl ? brandEl.value : 'MELSEC';
+    const ipStr = (ipEl && ipEl.value.trim()) || '192.168.1.10';
     const ptStr = (pt && pt.value.trim()) || '5007';
     if (pill) {
-      pill.textContent = 'ONLINE - ' + brand + ' (:' + ptStr + ')';
-      pill.classList.add('ok');
+      pill.textContent = 'CONNECTING...';
+      pill.classList.remove('ok');
     }
-    if (card) card.classList.add('done');
+    const res = (typeof CommClient !== 'undefined' && CommClient.connectPlcByBrand)
+      ? await CommClient.connectPlcByBrand(brand, ipStr, ptStr)
+      : { ok: false, error: 'CommClient unavailable' };
+    if (res.ok) {
+      if (pill) {
+        pill.textContent = 'ONLINE - ' + brand + ' (' + ipStr + ':' + ptStr + ')';
+        pill.classList.add('ok');
+      }
+      if (card) card.classList.add('done');
+    } else {
+      if (pill) {
+        pill.textContent = 'OFFLINE - ' + (res.error || 'No PLC');
+        pill.classList.remove('ok');
+      }
+      if (card) card.classList.remove('done');
+    }
   }
   window.connectImportPlc = connectImportPlc;
 

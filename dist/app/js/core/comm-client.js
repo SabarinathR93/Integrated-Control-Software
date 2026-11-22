@@ -294,9 +294,41 @@ const CommClient = (() => {
     overlay.style.display = 'flex';
   }
 
+  function mapBrandToDriver(brand) {
+    const b = String(brand || '').toUpperCase();
+    if (b.includes('MODBUS') || b.includes('DELTA')) return 'modbus';
+    if (b.includes('SIEMENS') || b.includes('S7')) return 's7';
+    if (b.includes('OMRON') || b.includes('FINS')) return 'omron_fins';
+    if (b.includes('ROCKWELL') || b.includes('ALLEN') || b.includes('EIP')) return 'eip_cip';
+    if (b.includes('ETHERCAT')) return 'ethercat';
+    return 'melsec_mc';
+  }
+
+  async function connectPlcByBrand(brand, ip, port) {
+    if (!hasNativeBridge()) {
+      return { ok: false, error: 'Native C++ bridge unavailable in standalone browser' };
+    }
+    const driverId = mapBrandToDriver(brand);
+    const res = await window.electronAPI.commConnect({
+      driverId,
+      transport: 'TCP',
+      address: String(ip || '192.168.1.10').trim(),
+      port: Number(port) || 5000,
+      unitId: 1
+    });
+    if (res && res.ok) {
+      connId = res.connId;
+      connected = true;
+      updateToolbarBadge();
+      return { ok: true, connId: res.connId, driverId };
+    }
+    return { ok: false, error: (res && res.error) ? res.error : 'Connection failed' };
+  }
+
   return {
     openDialog,
     disconnect,
+    connectPlcByBrand,
     isConnected: () => connected,
     getLiveValues: () => liveValues
   };
