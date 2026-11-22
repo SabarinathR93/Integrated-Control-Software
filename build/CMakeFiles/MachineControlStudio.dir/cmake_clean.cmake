@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.obj"
+  "CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.obj.d"
   "CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj"
   "CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj.d"
   "CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj"

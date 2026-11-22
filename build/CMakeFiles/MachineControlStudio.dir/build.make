@@ -116,11 +116,27 @@ CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.s"
 	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "D:\Application\Integrated Control Software\src\prjr_crypto.cpp" -o CMakeFiles\MachineControlStudio.dir\src\prjr_crypto.cpp.s
 
+CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.obj: CMakeFiles/MachineControlStudio.dir/flags.make
+CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.obj: CMakeFiles/MachineControlStudio.dir/includes_CXX.rsp
+CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.obj: D:/Application/Integrated\ Control\ Software/src/comm/comm_manager.cpp
+CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.obj: CMakeFiles/MachineControlStudio.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="D:\Application\Integrated Control Software\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.obj"
+	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.obj -MF CMakeFiles\MachineControlStudio.dir\src\comm\comm_manager.cpp.obj.d -o CMakeFiles\MachineControlStudio.dir\src\comm\comm_manager.cpp.obj -c "D:\Application\Integrated Control Software\src\comm\comm_manager.cpp"
+
+CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.i"
+	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "D:\Application\Integrated Control Software\src\comm\comm_manager.cpp" > CMakeFiles\MachineControlStudio.dir\src\comm\comm_manager.cpp.i
+
+CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.s"
+	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "D:\Application\Integrated Control Software\src\comm\comm_manager.cpp" -o CMakeFiles\MachineControlStudio.dir\src\comm\comm_manager.cpp.s
+
 # Object files for target MachineControlStudio
 MachineControlStudio_OBJECTS = \
 "CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj" \
 "CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj" \
-"CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj"
+"CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj" \
+"CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.obj"
 
 # External object files for target MachineControlStudio
 MachineControlStudio_EXTERNAL_OBJECTS =
@@ -128,11 +144,12 @@ MachineControlStudio_EXTERNAL_OBJECTS =
 d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj
 d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj
 d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj
+d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.obj
 d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/build.make
 d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/linkLibs.rsp
 d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/objects1.rsp
 d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="D:\Application\Integrated Control Software\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable \"d:\Application\Integrated Control Software\dist\MachineControlStudio.exe\""
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="D:\Application\Integrated Control Software\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable \"d:\Application\Integrated Control Software\dist\MachineControlStudio.exe\""
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\MachineControlStudio.dir\link.txt --verbose=$(VERBOSE)
 	"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "D:/Application/Integrated Control Software/vendor/webview2/build/native/x64/WebView2Loader.dll" "d:/Application/Integrated Control Software/dist/WebView2Loader.dll"
 	"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory "D:/Application/Integrated Control Software/app" "d:/Application/Integrated Control Software/dist/app"

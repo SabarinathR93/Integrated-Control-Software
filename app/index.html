@@ -1283,6 +1283,10 @@
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
         <span>Simulate</span>
       </button>
+      <button class="tb-action-btn" id="btn-plc-comms" onclick="CommClient.openDialog()" title="PLC Communications &amp; Live Driver Setup">
+        <span class="comm-dot" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#94A3B8;margin-right:2px;"></span>
+        <span>PLC Comms</span>
+      </button>
       <button class="tb-action-btn" data-cmd="Save" title="Save Project (Ctrl+S)">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
         <span>Save</span>
@@ -2215,6 +2219,7 @@
 <script src="js/dialogs/modals.js"></script>
 <script src="js/simulator/hmi-simulator.js"></script>
 <script src="js/core/plc-instructions.js"></script>
+<script src="js/core/comm-client.js"></script>
 <script src="js/app.js"></script>
 
 <!-- Unified Rail, Project Location & Core Control System Controller -->

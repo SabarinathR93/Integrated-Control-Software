@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "D:/Application/Integrated Control Software/src/comm/comm_manager.cpp" "CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.obj" "gcc" "CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.obj.d"
   "D:/Application/Integrated Control Software/src/main.cpp" "CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj" "gcc" "CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj.d"
   "D:/Application/Integrated Control Software/src/prjr_crypto.cpp" "CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj" "gcc" "CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj.d"
   "D:/Application/Integrated Control Software/src/win32_dialogs.cpp" "CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj" "gcc" "CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj.d"

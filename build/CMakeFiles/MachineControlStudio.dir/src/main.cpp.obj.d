@@ -447,4 +447,5 @@ CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj: \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/bits/stl_vector.h \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/bits/stl_bvector.h \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/bits/vector.tcc \
- D:\Application\Integrated\ Control\ Software\src\prjr_crypto.hpp
+ D:\Application\Integrated\ Control\ Software\src\prjr_crypto.hpp \
+ D:\Application\Integrated\ Control\ Software\src\comm/comm_manager.hpp

@@ -1,3 +1,9 @@
 D:/Application/Integrated Control Software/build/CMakeFiles/MachineControlStudio.dir
+D:/Application/Integrated Control Software/build/CMakeFiles/drv_modbus.dir
+D:/Application/Integrated Control Software/build/CMakeFiles/drv_melsec_mc.dir
+D:/Application/Integrated Control Software/build/CMakeFiles/drv_ethercat.dir
+D:/Application/Integrated Control Software/build/CMakeFiles/drv_s7.dir
+D:/Application/Integrated Control Software/build/CMakeFiles/drv_omron_fins.dir
+D:/Application/Integrated Control Software/build/CMakeFiles/drv_eip_cip.dir
 D:/Application/Integrated Control Software/build/CMakeFiles/edit_cache.dir
 D:/Application/Integrated Control Software/build/CMakeFiles/rebuild_cache.dir

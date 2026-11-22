@@ -8,6 +8,7 @@ add_executable(MachineControlStudio WIN32
     src/main.cpp
     src/win32_dialogs.cpp
     src/prjr_crypto.cpp
+    src/comm/comm_manager.cpp
 )
 
 target_include_directories(MachineControlStudio PRIVATE
@@ -38,4 +39,25 @@ add_custom_command(TARGET MachineControlStudio POST_BUILD
         "${CMAKE_CURRENT_SOURCE_DIR}/app"
         "$<TARGET_FILE_DIR:MachineControlStudio>/app"
 )
+
+function(add_comm_driver target_name source_file)
+    add_library(${target_name} SHARED ${source_file})
+    target_include_directories(${target_name} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+    target_link_libraries(${target_name} PRIVATE ws2_32 iphlpapi)
+    set_target_properties(${target_name} PROPERTIES
+        PREFIX ""
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/drivers"
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/drivers"
+    )
+    if(MINGW)
+        target_link_options(${target_name} PRIVATE -static -static-libgcc -static-libstdc++)
+    endif()
+endfunction()
+
+add_comm_driver(drv_modbus     src/comm/drv_modbus.cpp)
+add_comm_driver(drv_melsec_mc  src/comm/drv_melsec_mc.cpp)
+add_comm_driver(drv_ethercat   src/comm/drv_ethercat.cpp)
+add_comm_driver(drv_s7         src/comm/drv_s7.cpp)
+add_comm_driver(drv_omron_fins src/comm/drv_omron_fins.cpp)
+add_comm_driver(drv_eip_cip    src/comm/drv_eip_cip.cpp)
 

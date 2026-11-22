@@ -128,6 +128,252 @@ MachineControlStudio/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MachineControlStudio.dir\build.make CMakeFiles/MachineControlStudio.dir/build
 .PHONY : MachineControlStudio/fast
 
+#=============================================================================
+# Target rules for targets named drv_modbus
+
+# Build rule for target.
+drv_modbus: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 drv_modbus
+.PHONY : drv_modbus
+
+# fast build rule for target.
+drv_modbus/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_modbus.dir\build.make CMakeFiles/drv_modbus.dir/build
+.PHONY : drv_modbus/fast
+
+#=============================================================================
+# Target rules for targets named drv_melsec_mc
+
+# Build rule for target.
+drv_melsec_mc: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 drv_melsec_mc
+.PHONY : drv_melsec_mc
+
+# fast build rule for target.
+drv_melsec_mc/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_melsec_mc.dir\build.make CMakeFiles/drv_melsec_mc.dir/build
+.PHONY : drv_melsec_mc/fast
+
+#=============================================================================
+# Target rules for targets named drv_ethercat
+
+# Build rule for target.
+drv_ethercat: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 drv_ethercat
+.PHONY : drv_ethercat
+
+# fast build rule for target.
+drv_ethercat/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_ethercat.dir\build.make CMakeFiles/drv_ethercat.dir/build
+.PHONY : drv_ethercat/fast
+
+#=============================================================================
+# Target rules for targets named drv_s7
+
+# Build rule for target.
+drv_s7: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 drv_s7
+.PHONY : drv_s7
+
+# fast build rule for target.
+drv_s7/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_s7.dir\build.make CMakeFiles/drv_s7.dir/build
+.PHONY : drv_s7/fast
+
+#=============================================================================
+# Target rules for targets named drv_omron_fins
+
+# Build rule for target.
+drv_omron_fins: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 drv_omron_fins
+.PHONY : drv_omron_fins
+
+# fast build rule for target.
+drv_omron_fins/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_omron_fins.dir\build.make CMakeFiles/drv_omron_fins.dir/build
+.PHONY : drv_omron_fins/fast
+
+#=============================================================================
+# Target rules for targets named drv_eip_cip
+
+# Build rule for target.
+drv_eip_cip: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 drv_eip_cip
+.PHONY : drv_eip_cip
+
+# fast build rule for target.
+drv_eip_cip/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_eip_cip.dir\build.make CMakeFiles/drv_eip_cip.dir/build
+.PHONY : drv_eip_cip/fast
+
+src/comm/comm_manager.obj: src/comm/comm_manager.cpp.obj
+.PHONY : src/comm/comm_manager.obj
+
+# target to build an object file
+src/comm/comm_manager.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MachineControlStudio.dir\build.make CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.obj
+.PHONY : src/comm/comm_manager.cpp.obj
+
+src/comm/comm_manager.i: src/comm/comm_manager.cpp.i
+.PHONY : src/comm/comm_manager.i
+
+# target to preprocess a source file
+src/comm/comm_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MachineControlStudio.dir\build.make CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.i
+.PHONY : src/comm/comm_manager.cpp.i
+
+src/comm/comm_manager.s: src/comm/comm_manager.cpp.s
+.PHONY : src/comm/comm_manager.s
+
+# target to generate assembly for a file
+src/comm/comm_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MachineControlStudio.dir\build.make CMakeFiles/MachineControlStudio.dir/src/comm/comm_manager.cpp.s
+.PHONY : src/comm/comm_manager.cpp.s
+
+src/comm/drv_eip_cip.obj: src/comm/drv_eip_cip.cpp.obj
+.PHONY : src/comm/drv_eip_cip.obj
+
+# target to build an object file
+src/comm/drv_eip_cip.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_eip_cip.dir\build.make CMakeFiles/drv_eip_cip.dir/src/comm/drv_eip_cip.cpp.obj
+.PHONY : src/comm/drv_eip_cip.cpp.obj
+
+src/comm/drv_eip_cip.i: src/comm/drv_eip_cip.cpp.i
+.PHONY : src/comm/drv_eip_cip.i
+
+# target to preprocess a source file
+src/comm/drv_eip_cip.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_eip_cip.dir\build.make CMakeFiles/drv_eip_cip.dir/src/comm/drv_eip_cip.cpp.i
+.PHONY : src/comm/drv_eip_cip.cpp.i
+
+src/comm/drv_eip_cip.s: src/comm/drv_eip_cip.cpp.s
+.PHONY : src/comm/drv_eip_cip.s
+
+# target to generate assembly for a file
+src/comm/drv_eip_cip.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_eip_cip.dir\build.make CMakeFiles/drv_eip_cip.dir/src/comm/drv_eip_cip.cpp.s
+.PHONY : src/comm/drv_eip_cip.cpp.s
+
+src/comm/drv_ethercat.obj: src/comm/drv_ethercat.cpp.obj
+.PHONY : src/comm/drv_ethercat.obj
+
+# target to build an object file
+src/comm/drv_ethercat.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_ethercat.dir\build.make CMakeFiles/drv_ethercat.dir/src/comm/drv_ethercat.cpp.obj
+.PHONY : src/comm/drv_ethercat.cpp.obj
+
+src/comm/drv_ethercat.i: src/comm/drv_ethercat.cpp.i
+.PHONY : src/comm/drv_ethercat.i
+
+# target to preprocess a source file
+src/comm/drv_ethercat.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_ethercat.dir\build.make CMakeFiles/drv_ethercat.dir/src/comm/drv_ethercat.cpp.i
+.PHONY : src/comm/drv_ethercat.cpp.i
+
+src/comm/drv_ethercat.s: src/comm/drv_ethercat.cpp.s
+.PHONY : src/comm/drv_ethercat.s
+
+# target to generate assembly for a file
+src/comm/drv_ethercat.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_ethercat.dir\build.make CMakeFiles/drv_ethercat.dir/src/comm/drv_ethercat.cpp.s
+.PHONY : src/comm/drv_ethercat.cpp.s
+
+src/comm/drv_melsec_mc.obj: src/comm/drv_melsec_mc.cpp.obj
+.PHONY : src/comm/drv_melsec_mc.obj
+
+# target to build an object file
+src/comm/drv_melsec_mc.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_melsec_mc.dir\build.make CMakeFiles/drv_melsec_mc.dir/src/comm/drv_melsec_mc.cpp.obj
+.PHONY : src/comm/drv_melsec_mc.cpp.obj
+
+src/comm/drv_melsec_mc.i: src/comm/drv_melsec_mc.cpp.i
+.PHONY : src/comm/drv_melsec_mc.i
+
+# target to preprocess a source file
+src/comm/drv_melsec_mc.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_melsec_mc.dir\build.make CMakeFiles/drv_melsec_mc.dir/src/comm/drv_melsec_mc.cpp.i
+.PHONY : src/comm/drv_melsec_mc.cpp.i
+
+src/comm/drv_melsec_mc.s: src/comm/drv_melsec_mc.cpp.s
+.PHONY : src/comm/drv_melsec_mc.s
+
+# target to generate assembly for a file
+src/comm/drv_melsec_mc.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_melsec_mc.dir\build.make CMakeFiles/drv_melsec_mc.dir/src/comm/drv_melsec_mc.cpp.s
+.PHONY : src/comm/drv_melsec_mc.cpp.s
+
+src/comm/drv_modbus.obj: src/comm/drv_modbus.cpp.obj
+.PHONY : src/comm/drv_modbus.obj
+
+# target to build an object file
+src/comm/drv_modbus.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_modbus.dir\build.make CMakeFiles/drv_modbus.dir/src/comm/drv_modbus.cpp.obj
+.PHONY : src/comm/drv_modbus.cpp.obj
+
+src/comm/drv_modbus.i: src/comm/drv_modbus.cpp.i
+.PHONY : src/comm/drv_modbus.i
+
+# target to preprocess a source file
+src/comm/drv_modbus.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_modbus.dir\build.make CMakeFiles/drv_modbus.dir/src/comm/drv_modbus.cpp.i
+.PHONY : src/comm/drv_modbus.cpp.i
+
+src/comm/drv_modbus.s: src/comm/drv_modbus.cpp.s
+.PHONY : src/comm/drv_modbus.s
+
+# target to generate assembly for a file
+src/comm/drv_modbus.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_modbus.dir\build.make CMakeFiles/drv_modbus.dir/src/comm/drv_modbus.cpp.s
+.PHONY : src/comm/drv_modbus.cpp.s
+
+src/comm/drv_omron_fins.obj: src/comm/drv_omron_fins.cpp.obj
+.PHONY : src/comm/drv_omron_fins.obj
+
+# target to build an object file
+src/comm/drv_omron_fins.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_omron_fins.dir\build.make CMakeFiles/drv_omron_fins.dir/src/comm/drv_omron_fins.cpp.obj
+.PHONY : src/comm/drv_omron_fins.cpp.obj
+
+src/comm/drv_omron_fins.i: src/comm/drv_omron_fins.cpp.i
+.PHONY : src/comm/drv_omron_fins.i
+
+# target to preprocess a source file
+src/comm/drv_omron_fins.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_omron_fins.dir\build.make CMakeFiles/drv_omron_fins.dir/src/comm/drv_omron_fins.cpp.i
+.PHONY : src/comm/drv_omron_fins.cpp.i
+
+src/comm/drv_omron_fins.s: src/comm/drv_omron_fins.cpp.s
+.PHONY : src/comm/drv_omron_fins.s
+
+# target to generate assembly for a file
+src/comm/drv_omron_fins.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_omron_fins.dir\build.make CMakeFiles/drv_omron_fins.dir/src/comm/drv_omron_fins.cpp.s
+.PHONY : src/comm/drv_omron_fins.cpp.s
+
+src/comm/drv_s7.obj: src/comm/drv_s7.cpp.obj
+.PHONY : src/comm/drv_s7.obj
+
+# target to build an object file
+src/comm/drv_s7.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_s7.dir\build.make CMakeFiles/drv_s7.dir/src/comm/drv_s7.cpp.obj
+.PHONY : src/comm/drv_s7.cpp.obj
+
+src/comm/drv_s7.i: src/comm/drv_s7.cpp.i
+.PHONY : src/comm/drv_s7.i
+
+# target to preprocess a source file
+src/comm/drv_s7.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_s7.dir\build.make CMakeFiles/drv_s7.dir/src/comm/drv_s7.cpp.i
+.PHONY : src/comm/drv_s7.cpp.i
+
+src/comm/drv_s7.s: src/comm/drv_s7.cpp.s
+.PHONY : src/comm/drv_s7.s
+
+# target to generate assembly for a file
+src/comm/drv_s7.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\drv_s7.dir\build.make CMakeFiles/drv_s7.dir/src/comm/drv_s7.cpp.s
+.PHONY : src/comm/drv_s7.cpp.s
+
 src/main.obj: src/main.cpp.obj
 .PHONY : src/main.obj
 
@@ -209,6 +455,33 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... MachineControlStudio
+	@echo ... drv_eip_cip
+	@echo ... drv_ethercat
+	@echo ... drv_melsec_mc
+	@echo ... drv_modbus
+	@echo ... drv_omron_fins
+	@echo ... drv_s7
+	@echo ... src/comm/comm_manager.obj
+	@echo ... src/comm/comm_manager.i
+	@echo ... src/comm/comm_manager.s
+	@echo ... src/comm/drv_eip_cip.obj
+	@echo ... src/comm/drv_eip_cip.i
+	@echo ... src/comm/drv_eip_cip.s
+	@echo ... src/comm/drv_ethercat.obj
+	@echo ... src/comm/drv_ethercat.i
+	@echo ... src/comm/drv_ethercat.s
+	@echo ... src/comm/drv_melsec_mc.obj
+	@echo ... src/comm/drv_melsec_mc.i
+	@echo ... src/comm/drv_melsec_mc.s
+	@echo ... src/comm/drv_modbus.obj
+	@echo ... src/comm/drv_modbus.i
+	@echo ... src/comm/drv_modbus.s
+	@echo ... src/comm/drv_omron_fins.obj
+	@echo ... src/comm/drv_omron_fins.i
+	@echo ... src/comm/drv_omron_fins.s
+	@echo ... src/comm/drv_s7.obj
+	@echo ... src/comm/drv_s7.i
+	@echo ... src/comm/drv_s7.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s

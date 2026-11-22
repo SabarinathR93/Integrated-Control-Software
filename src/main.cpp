@@ -9,6 +9,7 @@
 #include "json_mini.hpp"
 #include "win32_dialogs.hpp"
 #include "prjr_crypto.hpp"
+#include "comm/comm_manager.hpp"
 
 // Dynamically loaded from WebView2Loader.dll
 typedef HRESULT(STDAPICALLTYPE* PFN_CreateCoreWebView2EnvironmentWithOptions)(
@@ -236,6 +237,31 @@ static void handleBridgeMessage(const std::string& msgJson) {
         return;
     }
 
+    if (method == "comm-list-drivers") {
+        sendBridgeReply(id, comm_mgr::listDriversJson());
+        return;
+    }
+    if (method == "comm-connect") {
+        sendBridgeReply(id, comm_mgr::connectJson(argsRaw));
+        return;
+    }
+    if (method == "comm-disconnect") {
+        sendBridgeReply(id, comm_mgr::disconnectJson(argsRaw));
+        return;
+    }
+    if (method == "comm-status") {
+        sendBridgeReply(id, comm_mgr::getStatusJson(argsRaw));
+        return;
+    }
+    if (method == "comm-read-tag") {
+        sendBridgeReply(id, comm_mgr::readTagJson(argsRaw));
+        return;
+    }
+    if (method == "comm-write-tag") {
+        sendBridgeReply(id, comm_mgr::writeTagJson(argsRaw));
+        return;
+    }
+
     sendBridgeReply(id, "{\"success\":false,\"error\":\"Unknown method\"}");
 }
 
@@ -350,7 +376,13 @@ public:
     exportProject: (payload) => invoke('export-project', payload),
     deleteProject: (payload) => invoke('delete-project', payload),
     getStartupFile: () => invoke('get-startup-file', {}),
-    onFileOpened: (cb) => { if (typeof cb === 'function') fileOpenedCallbacks.push(cb); }
+    onFileOpened: (cb) => { if (typeof cb === 'function') fileOpenedCallbacks.push(cb); },
+    commListDrivers: () => invoke('comm-list-drivers', {}),
+    commConnect: (config) => invoke('comm-connect', config),
+    commDisconnect: (connId) => invoke('comm-disconnect', { connId }),
+    commStatus: (connId) => invoke('comm-status', { connId }),
+    commReadTag: (connId, address) => invoke('comm-read-tag', { connId, address }),
+    commWriteTag: (connId, address, value) => invoke('comm-write-tag', { connId, address, value })
   };
 })();
 )JS";
@@ -507,12 +539,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int nCmdShow) {
     }
     pfnCreateEnv(nullptr, userDataDir.c_str(), nullptr, new EnvironmentCompletedHandler());
 
+    comm_mgr::initDrivers(getExeDirectory());
+
     MSG msg;
     while (GetMessageW(&msg, nullptr, 0, 0)) {
         TranslateMessage(&msg);
         DispatchMessageW(&msg);
     }
 
+    comm_mgr::shutdown();
     CoUninitialize();
     return static_cast<int>(msg.wParam);
 }
