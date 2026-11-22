@@ -1,0 +1,3 @@
+C:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/build/CMakeFiles/MachineControlStudio.dir
+C:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/build/CMakeFiles/edit_cache.dir
+C:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/build/CMakeFiles/rebuild_cache.dir
