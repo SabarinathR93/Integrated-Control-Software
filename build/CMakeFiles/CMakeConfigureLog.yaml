@@ -11,716 +11,6 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeMinGWFindMake.cmake:5 (find_program)"
-      - "CMakeLists.txt:2 (project)"
-    mode: "program"
-    variable: "CMAKE_MAKE_PROGRAM"
-    description: "Path to a program."
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "mingw32-make.exe"
-    candidate_directories:
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
-      - "C:/Windows/System32/"
-      - "C:/Windows/"
-      - "C:/Windows/System32/wbem/"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
-      - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files/nodejs/"
-      - "C:/Program Files/Git/cmd/"
-      - "C:/Program Files/dotnet/"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
-      - "C:/Users/rsaba/anaconda3/"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
-      - "C:/Users/rsaba/anaconda3/Library/bin/"
-      - "C:/Users/rsaba/anaconda3/Scripts/"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/rsaba/AppData/Roaming/npm/"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/"
-      - "C:/Users/rsaba/.dotnet/tools/"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
-      - "/REGISTRY-NOTFOUND/bin/"
-      - "c:/MinGW/bin/"
-      - "/MinGW/bin/"
-      - "/REGISTRY-NOTFOUND/MinGW/bin/"
-    searched_directories:
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/mingw32-make.exe.com"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/mingw32-make.exe"
-      - "C:/Windows/System32/mingw32-make.exe.com"
-      - "C:/Windows/System32/mingw32-make.exe"
-      - "C:/Windows/mingw32-make.exe.com"
-      - "C:/Windows/mingw32-make.exe"
-      - "C:/Windows/System32/wbem/mingw32-make.exe.com"
-      - "C:/Windows/System32/wbem/mingw32-make.exe"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/mingw32-make.exe.com"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/mingw32-make.exe"
-      - "C:/Windows/System32/OpenSSH/mingw32-make.exe.com"
-      - "C:/Windows/System32/OpenSSH/mingw32-make.exe"
-      - "C:/Program Files/nodejs/mingw32-make.exe.com"
-      - "C:/Program Files/nodejs/mingw32-make.exe"
-      - "C:/Program Files/Git/cmd/mingw32-make.exe.com"
-      - "C:/Program Files/Git/cmd/mingw32-make.exe"
-      - "C:/Program Files/dotnet/mingw32-make.exe.com"
-      - "C:/Program Files/dotnet/mingw32-make.exe"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/mingw32-make.exe.com"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/mingw32-make.exe"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/mingw32-make.exe.com"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/mingw32-make.exe"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/mingw32-make.exe.com"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/mingw32-make.exe"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/mingw32-make.exe.com"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/mingw32-make.exe"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/mingw32-make.exe.com"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/mingw32-make.exe"
-      - "C:/Program Files/CMake/bin/mingw32-make.exe.com"
-      - "C:/Program Files/CMake/bin/mingw32-make.exe"
-      - "C:/Users/rsaba/anaconda3/mingw32-make.exe.com"
-      - "C:/Users/rsaba/anaconda3/mingw32-make.exe"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/mingw32-make.exe.com"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/mingw32-make.exe"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/mingw32-make.exe.com"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/mingw32-make.exe"
-      - "C:/Users/rsaba/anaconda3/Library/bin/mingw32-make.exe.com"
-      - "C:/Users/rsaba/anaconda3/Library/bin/mingw32-make.exe"
-      - "C:/Users/rsaba/anaconda3/Scripts/mingw32-make.exe.com"
-      - "C:/Users/rsaba/anaconda3/Scripts/mingw32-make.exe"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/mingw32-make.exe.com"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/mingw32-make.exe"
-      - "C:/Users/rsaba/AppData/Roaming/npm/mingw32-make.exe.com"
-      - "C:/Users/rsaba/AppData/Roaming/npm/mingw32-make.exe"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/mingw32-make.exe.com"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/mingw32-make.exe"
-      - "C:/Users/rsaba/.dotnet/tools/mingw32-make.exe.com"
-      - "C:/Users/rsaba/.dotnet/tools/mingw32-make.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/mingw32-make.exe.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/mingw32-make.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/mingw32-make.exe.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/mingw32-make.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/mingw32-make.exe.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/mingw32-make.exe"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/mingw32-make.exe.com"
-    found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/mingw32-make.exe"
-    search_context:
-      ENV{PATH}:
-        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files\\Git\\cmd"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files (x86)\\Microsoft SQL Server\\160\\Tools\\Binn\\"
-        - "C:\\Program Files\\Microsoft SQL Server\\160\\Tools\\Binn\\"
-        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
-        - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
-        - "C:\\Users\\rsaba\\anaconda3"
-        - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
-        - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
-        - "C:\\Users\\rsaba\\anaconda3\\Library\\bin"
-        - "C:\\Users\\rsaba\\anaconda3\\Scripts"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\rsaba\\AppData\\Roaming\\npm"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Python\\bin"
-        - "C:\\Users\\rsaba\\.dotnet\\tools"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCompiler.cmake:63 (find_program)"
-      - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCXXCompiler.cmake:69 (_cmake_find_compiler)"
-      - "CMakeLists.txt:2 (project)"
-    mode: "program"
-    variable: "CMAKE_CXX_COMPILER"
-    description: "CXX compiler"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: false
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: false
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "c++"
-      - "g++"
-      - "cl"
-      - "bcc"
-      - "icx"
-      - "clang++"
-    candidate_directories:
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
-      - "C:/Windows/System32/"
-      - "C:/Windows/"
-      - "C:/Windows/System32/wbem/"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
-      - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files/nodejs/"
-      - "C:/Program Files/Git/cmd/"
-      - "C:/Program Files/dotnet/"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
-      - "C:/Users/rsaba/anaconda3/"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
-      - "C:/Users/rsaba/anaconda3/Library/bin/"
-      - "C:/Users/rsaba/anaconda3/Scripts/"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/rsaba/AppData/Roaming/npm/"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/"
-      - "C:/Users/rsaba/.dotnet/tools/"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
-    searched_directories:
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/c++.com"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/c++.exe"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/c++"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/g++.com"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/g++.exe"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/g++"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/cl.com"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/cl.exe"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/cl"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/bcc.com"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/bcc.exe"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/bcc"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/icx.com"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/icx.exe"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/icx"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/clang++.com"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/clang++.exe"
-      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/clang++"
-      - "C:/Windows/System32/c++.com"
-      - "C:/Windows/System32/c++.exe"
-      - "C:/Windows/System32/c++"
-      - "C:/Windows/System32/g++.com"
-      - "C:/Windows/System32/g++.exe"
-      - "C:/Windows/System32/g++"
-      - "C:/Windows/System32/cl.com"
-      - "C:/Windows/System32/cl.exe"
-      - "C:/Windows/System32/cl"
-      - "C:/Windows/System32/bcc.com"
-      - "C:/Windows/System32/bcc.exe"
-      - "C:/Windows/System32/bcc"
-      - "C:/Windows/System32/icx.com"
-      - "C:/Windows/System32/icx.exe"
-      - "C:/Windows/System32/icx"
-      - "C:/Windows/System32/clang++.com"
-      - "C:/Windows/System32/clang++.exe"
-      - "C:/Windows/System32/clang++"
-      - "C:/Windows/c++.com"
-      - "C:/Windows/c++.exe"
-      - "C:/Windows/c++"
-      - "C:/Windows/g++.com"
-      - "C:/Windows/g++.exe"
-      - "C:/Windows/g++"
-      - "C:/Windows/cl.com"
-      - "C:/Windows/cl.exe"
-      - "C:/Windows/cl"
-      - "C:/Windows/bcc.com"
-      - "C:/Windows/bcc.exe"
-      - "C:/Windows/bcc"
-      - "C:/Windows/icx.com"
-      - "C:/Windows/icx.exe"
-      - "C:/Windows/icx"
-      - "C:/Windows/clang++.com"
-      - "C:/Windows/clang++.exe"
-      - "C:/Windows/clang++"
-      - "C:/Windows/System32/wbem/c++.com"
-      - "C:/Windows/System32/wbem/c++.exe"
-      - "C:/Windows/System32/wbem/c++"
-      - "C:/Windows/System32/wbem/g++.com"
-      - "C:/Windows/System32/wbem/g++.exe"
-      - "C:/Windows/System32/wbem/g++"
-      - "C:/Windows/System32/wbem/cl.com"
-      - "C:/Windows/System32/wbem/cl.exe"
-      - "C:/Windows/System32/wbem/cl"
-      - "C:/Windows/System32/wbem/bcc.com"
-      - "C:/Windows/System32/wbem/bcc.exe"
-      - "C:/Windows/System32/wbem/bcc"
-      - "C:/Windows/System32/wbem/icx.com"
-      - "C:/Windows/System32/wbem/icx.exe"
-      - "C:/Windows/System32/wbem/icx"
-      - "C:/Windows/System32/wbem/clang++.com"
-      - "C:/Windows/System32/wbem/clang++.exe"
-      - "C:/Windows/System32/wbem/clang++"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/c++.com"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/c++.exe"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/c++"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/g++.com"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/g++.exe"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/g++"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/cl.com"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/cl.exe"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/cl"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/bcc.com"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/bcc.exe"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/bcc"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/icx.com"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/icx.exe"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/icx"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/clang++.com"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/clang++.exe"
-      - "C:/Windows/System32/WindowsPowerShell/v1.0/clang++"
-      - "C:/Windows/System32/OpenSSH/c++.com"
-      - "C:/Windows/System32/OpenSSH/c++.exe"
-      - "C:/Windows/System32/OpenSSH/c++"
-      - "C:/Windows/System32/OpenSSH/g++.com"
-      - "C:/Windows/System32/OpenSSH/g++.exe"
-      - "C:/Windows/System32/OpenSSH/g++"
-      - "C:/Windows/System32/OpenSSH/cl.com"
-      - "C:/Windows/System32/OpenSSH/cl.exe"
-      - "C:/Windows/System32/OpenSSH/cl"
-      - "C:/Windows/System32/OpenSSH/bcc.com"
-      - "C:/Windows/System32/OpenSSH/bcc.exe"
-      - "C:/Windows/System32/OpenSSH/bcc"
-      - "C:/Windows/System32/OpenSSH/icx.com"
-      - "C:/Windows/System32/OpenSSH/icx.exe"
-      - "C:/Windows/System32/OpenSSH/icx"
-      - "C:/Windows/System32/OpenSSH/clang++.com"
-      - "C:/Windows/System32/OpenSSH/clang++.exe"
-      - "C:/Windows/System32/OpenSSH/clang++"
-      - "C:/Program Files/nodejs/c++.com"
-      - "C:/Program Files/nodejs/c++.exe"
-      - "C:/Program Files/nodejs/c++"
-      - "C:/Program Files/nodejs/g++.com"
-      - "C:/Program Files/nodejs/g++.exe"
-      - "C:/Program Files/nodejs/g++"
-      - "C:/Program Files/nodejs/cl.com"
-      - "C:/Program Files/nodejs/cl.exe"
-      - "C:/Program Files/nodejs/cl"
-      - "C:/Program Files/nodejs/bcc.com"
-      - "C:/Program Files/nodejs/bcc.exe"
-      - "C:/Program Files/nodejs/bcc"
-      - "C:/Program Files/nodejs/icx.com"
-      - "C:/Program Files/nodejs/icx.exe"
-      - "C:/Program Files/nodejs/icx"
-      - "C:/Program Files/nodejs/clang++.com"
-      - "C:/Program Files/nodejs/clang++.exe"
-      - "C:/Program Files/nodejs/clang++"
-      - "C:/Program Files/Git/cmd/c++.com"
-      - "C:/Program Files/Git/cmd/c++.exe"
-      - "C:/Program Files/Git/cmd/c++"
-      - "C:/Program Files/Git/cmd/g++.com"
-      - "C:/Program Files/Git/cmd/g++.exe"
-      - "C:/Program Files/Git/cmd/g++"
-      - "C:/Program Files/Git/cmd/cl.com"
-      - "C:/Program Files/Git/cmd/cl.exe"
-      - "C:/Program Files/Git/cmd/cl"
-      - "C:/Program Files/Git/cmd/bcc.com"
-      - "C:/Program Files/Git/cmd/bcc.exe"
-      - "C:/Program Files/Git/cmd/bcc"
-      - "C:/Program Files/Git/cmd/icx.com"
-      - "C:/Program Files/Git/cmd/icx.exe"
-      - "C:/Program Files/Git/cmd/icx"
-      - "C:/Program Files/Git/cmd/clang++.com"
-      - "C:/Program Files/Git/cmd/clang++.exe"
-      - "C:/Program Files/Git/cmd/clang++"
-      - "C:/Program Files/dotnet/c++.com"
-      - "C:/Program Files/dotnet/c++.exe"
-      - "C:/Program Files/dotnet/c++"
-      - "C:/Program Files/dotnet/g++.com"
-      - "C:/Program Files/dotnet/g++.exe"
-      - "C:/Program Files/dotnet/g++"
-      - "C:/Program Files/dotnet/cl.com"
-      - "C:/Program Files/dotnet/cl.exe"
-      - "C:/Program Files/dotnet/cl"
-      - "C:/Program Files/dotnet/bcc.com"
-      - "C:/Program Files/dotnet/bcc.exe"
-      - "C:/Program Files/dotnet/bcc"
-      - "C:/Program Files/dotnet/icx.com"
-      - "C:/Program Files/dotnet/icx.exe"
-      - "C:/Program Files/dotnet/icx"
-      - "C:/Program Files/dotnet/clang++.com"
-      - "C:/Program Files/dotnet/clang++.exe"
-      - "C:/Program Files/dotnet/clang++"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/c++.com"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/c++.exe"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/c++"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/g++.com"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/g++.exe"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/g++"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/cl.com"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/cl.exe"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/cl"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/bcc.com"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/bcc.exe"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/bcc"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/icx.com"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/icx.exe"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/icx"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/clang++.com"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/clang++.exe"
-      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/clang++"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/c++.com"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/c++.exe"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/c++"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/g++.com"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/g++.exe"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/g++"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/cl.com"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/cl.exe"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/cl"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/bcc.com"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/bcc.exe"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/bcc"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/icx.com"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/icx.exe"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/icx"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/clang++.com"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/clang++.exe"
-      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/clang++"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/c++.com"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/c++.exe"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/c++"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/g++.com"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/g++.exe"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/g++"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/cl.com"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/cl.exe"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/cl"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/bcc.com"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/bcc.exe"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/bcc"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/icx.com"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/icx.exe"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/icx"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/clang++.com"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/clang++.exe"
-      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/clang++"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/c++.com"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/c++.exe"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/c++"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/g++.com"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/g++.exe"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/g++"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/cl.com"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/cl.exe"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/cl"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/bcc.com"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/bcc.exe"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/bcc"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/icx.com"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/icx.exe"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/icx"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/clang++.com"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/clang++.exe"
-      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/clang++"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/c++.com"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/c++.exe"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/c++"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/g++.com"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/g++.exe"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/g++"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/cl.com"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/cl.exe"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/cl"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/bcc.com"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/bcc.exe"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/bcc"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/icx.com"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/icx.exe"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/icx"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/clang++.com"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/clang++.exe"
-      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/clang++"
-      - "C:/Program Files/CMake/bin/c++.com"
-      - "C:/Program Files/CMake/bin/c++.exe"
-      - "C:/Program Files/CMake/bin/c++"
-      - "C:/Program Files/CMake/bin/g++.com"
-      - "C:/Program Files/CMake/bin/g++.exe"
-      - "C:/Program Files/CMake/bin/g++"
-      - "C:/Program Files/CMake/bin/cl.com"
-      - "C:/Program Files/CMake/bin/cl.exe"
-      - "C:/Program Files/CMake/bin/cl"
-      - "C:/Program Files/CMake/bin/bcc.com"
-      - "C:/Program Files/CMake/bin/bcc.exe"
-      - "C:/Program Files/CMake/bin/bcc"
-      - "C:/Program Files/CMake/bin/icx.com"
-      - "C:/Program Files/CMake/bin/icx.exe"
-      - "C:/Program Files/CMake/bin/icx"
-      - "C:/Program Files/CMake/bin/clang++.com"
-      - "C:/Program Files/CMake/bin/clang++.exe"
-      - "C:/Program Files/CMake/bin/clang++"
-      - "C:/Users/rsaba/anaconda3/c++.com"
-      - "C:/Users/rsaba/anaconda3/c++.exe"
-      - "C:/Users/rsaba/anaconda3/c++"
-      - "C:/Users/rsaba/anaconda3/g++.com"
-      - "C:/Users/rsaba/anaconda3/g++.exe"
-      - "C:/Users/rsaba/anaconda3/g++"
-      - "C:/Users/rsaba/anaconda3/cl.com"
-      - "C:/Users/rsaba/anaconda3/cl.exe"
-      - "C:/Users/rsaba/anaconda3/cl"
-      - "C:/Users/rsaba/anaconda3/bcc.com"
-      - "C:/Users/rsaba/anaconda3/bcc.exe"
-      - "C:/Users/rsaba/anaconda3/bcc"
-      - "C:/Users/rsaba/anaconda3/icx.com"
-      - "C:/Users/rsaba/anaconda3/icx.exe"
-      - "C:/Users/rsaba/anaconda3/icx"
-      - "C:/Users/rsaba/anaconda3/clang++.com"
-      - "C:/Users/rsaba/anaconda3/clang++.exe"
-      - "C:/Users/rsaba/anaconda3/clang++"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/c++.com"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/c++.exe"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/c++"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/g++.com"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/g++.exe"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/g++"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/cl.com"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/cl.exe"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/cl"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/bcc.com"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/bcc.exe"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/bcc"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/icx.com"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/icx.exe"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/icx"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/clang++.com"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/clang++.exe"
-      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/clang++"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/c++.com"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/c++.exe"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/c++"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/g++.com"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/g++.exe"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/g++"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/cl.com"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/cl.exe"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/cl"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/bcc.com"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/bcc.exe"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/bcc"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/icx.com"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/icx.exe"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/icx"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/clang++.com"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/clang++.exe"
-      - "C:/Users/rsaba/anaconda3/Library/usr/bin/clang++"
-      - "C:/Users/rsaba/anaconda3/Library/bin/c++.com"
-      - "C:/Users/rsaba/anaconda3/Library/bin/c++.exe"
-      - "C:/Users/rsaba/anaconda3/Library/bin/c++"
-      - "C:/Users/rsaba/anaconda3/Library/bin/g++.com"
-      - "C:/Users/rsaba/anaconda3/Library/bin/g++.exe"
-      - "C:/Users/rsaba/anaconda3/Library/bin/g++"
-      - "C:/Users/rsaba/anaconda3/Library/bin/cl.com"
-      - "C:/Users/rsaba/anaconda3/Library/bin/cl.exe"
-      - "C:/Users/rsaba/anaconda3/Library/bin/cl"
-      - "C:/Users/rsaba/anaconda3/Library/bin/bcc.com"
-      - "C:/Users/rsaba/anaconda3/Library/bin/bcc.exe"
-      - "C:/Users/rsaba/anaconda3/Library/bin/bcc"
-      - "C:/Users/rsaba/anaconda3/Library/bin/icx.com"
-      - "C:/Users/rsaba/anaconda3/Library/bin/icx.exe"
-      - "C:/Users/rsaba/anaconda3/Library/bin/icx"
-      - "C:/Users/rsaba/anaconda3/Library/bin/clang++.com"
-      - "C:/Users/rsaba/anaconda3/Library/bin/clang++.exe"
-      - "C:/Users/rsaba/anaconda3/Library/bin/clang++"
-      - "C:/Users/rsaba/anaconda3/Scripts/c++.com"
-      - "C:/Users/rsaba/anaconda3/Scripts/c++.exe"
-      - "C:/Users/rsaba/anaconda3/Scripts/c++"
-      - "C:/Users/rsaba/anaconda3/Scripts/g++.com"
-      - "C:/Users/rsaba/anaconda3/Scripts/g++.exe"
-      - "C:/Users/rsaba/anaconda3/Scripts/g++"
-      - "C:/Users/rsaba/anaconda3/Scripts/cl.com"
-      - "C:/Users/rsaba/anaconda3/Scripts/cl.exe"
-      - "C:/Users/rsaba/anaconda3/Scripts/cl"
-      - "C:/Users/rsaba/anaconda3/Scripts/bcc.com"
-      - "C:/Users/rsaba/anaconda3/Scripts/bcc.exe"
-      - "C:/Users/rsaba/anaconda3/Scripts/bcc"
-      - "C:/Users/rsaba/anaconda3/Scripts/icx.com"
-      - "C:/Users/rsaba/anaconda3/Scripts/icx.exe"
-      - "C:/Users/rsaba/anaconda3/Scripts/icx"
-      - "C:/Users/rsaba/anaconda3/Scripts/clang++.com"
-      - "C:/Users/rsaba/anaconda3/Scripts/clang++.exe"
-      - "C:/Users/rsaba/anaconda3/Scripts/clang++"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/c++.com"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/c++.exe"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/c++"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/g++.com"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/g++.exe"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/g++"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/cl.com"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/cl.exe"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/cl"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/bcc.com"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/bcc.exe"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/bcc"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/icx.com"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/icx.exe"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/icx"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/clang++.com"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/clang++.exe"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/clang++"
-      - "C:/Users/rsaba/AppData/Roaming/npm/c++.com"
-      - "C:/Users/rsaba/AppData/Roaming/npm/c++.exe"
-      - "C:/Users/rsaba/AppData/Roaming/npm/c++"
-      - "C:/Users/rsaba/AppData/Roaming/npm/g++.com"
-      - "C:/Users/rsaba/AppData/Roaming/npm/g++.exe"
-      - "C:/Users/rsaba/AppData/Roaming/npm/g++"
-      - "C:/Users/rsaba/AppData/Roaming/npm/cl.com"
-      - "C:/Users/rsaba/AppData/Roaming/npm/cl.exe"
-      - "C:/Users/rsaba/AppData/Roaming/npm/cl"
-      - "C:/Users/rsaba/AppData/Roaming/npm/bcc.com"
-      - "C:/Users/rsaba/AppData/Roaming/npm/bcc.exe"
-      - "C:/Users/rsaba/AppData/Roaming/npm/bcc"
-      - "C:/Users/rsaba/AppData/Roaming/npm/icx.com"
-      - "C:/Users/rsaba/AppData/Roaming/npm/icx.exe"
-      - "C:/Users/rsaba/AppData/Roaming/npm/icx"
-      - "C:/Users/rsaba/AppData/Roaming/npm/clang++.com"
-      - "C:/Users/rsaba/AppData/Roaming/npm/clang++.exe"
-      - "C:/Users/rsaba/AppData/Roaming/npm/clang++"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/c++.com"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/c++.exe"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/c++"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/g++.com"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/g++.exe"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/g++"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/cl.com"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/cl.exe"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/cl"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/bcc.com"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/bcc.exe"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/bcc"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/icx.com"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/icx.exe"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/icx"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/clang++.com"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/clang++.exe"
-      - "C:/Users/rsaba/AppData/Local/Python/bin/clang++"
-      - "C:/Users/rsaba/.dotnet/tools/c++.com"
-      - "C:/Users/rsaba/.dotnet/tools/c++.exe"
-      - "C:/Users/rsaba/.dotnet/tools/c++"
-      - "C:/Users/rsaba/.dotnet/tools/g++.com"
-      - "C:/Users/rsaba/.dotnet/tools/g++.exe"
-      - "C:/Users/rsaba/.dotnet/tools/g++"
-      - "C:/Users/rsaba/.dotnet/tools/cl.com"
-      - "C:/Users/rsaba/.dotnet/tools/cl.exe"
-      - "C:/Users/rsaba/.dotnet/tools/cl"
-      - "C:/Users/rsaba/.dotnet/tools/bcc.com"
-      - "C:/Users/rsaba/.dotnet/tools/bcc.exe"
-      - "C:/Users/rsaba/.dotnet/tools/bcc"
-      - "C:/Users/rsaba/.dotnet/tools/icx.com"
-      - "C:/Users/rsaba/.dotnet/tools/icx.exe"
-      - "C:/Users/rsaba/.dotnet/tools/icx"
-      - "C:/Users/rsaba/.dotnet/tools/clang++.com"
-      - "C:/Users/rsaba/.dotnet/tools/clang++.exe"
-      - "C:/Users/rsaba/.dotnet/tools/clang++"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/c++.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/c++.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/c++"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/g++.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/g++.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/g++"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/cl.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/cl.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/cl"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/bcc.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/bcc.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/bcc"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/icx.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/icx.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/icx"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/clang++.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/clang++.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/clang++"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/c++.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/c++.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/c++"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/g++.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/g++.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/g++"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/cl.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/cl.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/cl"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/bcc.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/bcc.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/bcc"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/icx.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/icx.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/icx"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/clang++.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/clang++.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/clang++"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/c++.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/c++.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/c++"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/g++.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/g++.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/g++"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/cl.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/cl.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/cl"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/bcc.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/bcc.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/bcc"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/icx.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/icx.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/icx"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/clang++.com"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/clang++.exe"
-      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/clang++"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/c++.com"
-    found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/c++.exe"
-    search_context:
-      ENV{PATH}:
-        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files\\Git\\cmd"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files (x86)\\Microsoft SQL Server\\160\\Tools\\Binn\\"
-        - "C:\\Program Files\\Microsoft SQL Server\\160\\Tools\\Binn\\"
-        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
-        - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
-        - "C:\\Users\\rsaba\\anaconda3"
-        - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
-        - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
-        - "C:\\Users\\rsaba\\anaconda3\\Library\\bin"
-        - "C:\\Users\\rsaba\\anaconda3\\Scripts"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\rsaba\\AppData\\Roaming\\npm"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Python\\bin"
-        - "C:\\Users\\rsaba\\.dotnet\\tools"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
-  -
-    kind: "find-v1"
-    backtrace:
       - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:501 (find_file)"
       - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:538 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
       - "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
@@ -745,6 +35,7 @@ events:
     found: "C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeCXXCompilerId.cpp.in"
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -759,7 +50,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -772,7 +62,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
   -
     kind: "message-v1"
     backtrace:
@@ -793,7 +82,7 @@ events:
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
       
       The CXX compiler identification is GNU, found in:
-        C:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/build/CMakeFiles/4.4.4/CompilerIdCXX/a.exe
+        D:/Application/Integrated Control Software/build/CMakeFiles/4.4.4/CompilerIdCXX/a.exe
       
   -
     kind: "find-v1"
@@ -816,6 +105,7 @@ events:
       - "ar"
     candidate_directories:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
@@ -830,7 +120,6 @@ events:
       - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
       - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
       - "C:/Users/rsaba/anaconda3/"
       - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
       - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
@@ -848,6 +137,7 @@ events:
     found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/ar.exe"
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -862,7 +152,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -875,7 +164,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -897,6 +185,7 @@ events:
       - "ranlib"
     candidate_directories:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
@@ -911,7 +200,6 @@ events:
       - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
       - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
       - "C:/Users/rsaba/anaconda3/"
       - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
       - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
@@ -929,6 +217,7 @@ events:
     found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/ranlib.exe"
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -943,7 +232,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -956,7 +244,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -978,6 +265,7 @@ events:
       - "strip"
     candidate_directories:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
@@ -992,7 +280,6 @@ events:
       - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
       - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
       - "C:/Users/rsaba/anaconda3/"
       - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
       - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
@@ -1010,6 +297,7 @@ events:
     found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/strip.exe"
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -1024,7 +312,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -1037,7 +324,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1059,6 +345,7 @@ events:
       - "ld"
     candidate_directories:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
@@ -1073,7 +360,6 @@ events:
       - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
       - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
       - "C:/Users/rsaba/anaconda3/"
       - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
       - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
@@ -1091,6 +377,7 @@ events:
     found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/ld.exe"
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -1105,7 +392,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -1118,7 +404,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1140,6 +425,7 @@ events:
       - "nm"
     candidate_directories:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
@@ -1154,7 +440,6 @@ events:
       - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
       - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
       - "C:/Users/rsaba/anaconda3/"
       - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
       - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
@@ -1172,6 +457,7 @@ events:
     found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/nm.exe"
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -1186,7 +472,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -1199,7 +484,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1221,6 +505,7 @@ events:
       - "objdump"
     candidate_directories:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
@@ -1235,7 +520,6 @@ events:
       - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
       - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
       - "C:/Users/rsaba/anaconda3/"
       - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
       - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
@@ -1253,6 +537,7 @@ events:
     found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/objdump.exe"
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -1267,7 +552,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -1280,7 +564,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1302,6 +585,7 @@ events:
       - "objcopy"
     candidate_directories:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
@@ -1316,7 +600,6 @@ events:
       - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
       - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
       - "C:/Users/rsaba/anaconda3/"
       - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
       - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
@@ -1334,6 +617,7 @@ events:
     found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/objcopy.exe"
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -1348,7 +632,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -1361,7 +644,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1383,6 +665,7 @@ events:
       - "readelf"
     candidate_directories:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
@@ -1397,7 +680,6 @@ events:
       - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
       - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
       - "C:/Users/rsaba/anaconda3/"
       - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
       - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
@@ -1415,6 +697,7 @@ events:
     found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/readelf.exe"
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -1429,7 +712,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -1442,7 +724,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1464,6 +745,7 @@ events:
       - "dlltool"
     candidate_directories:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
@@ -1478,7 +760,6 @@ events:
       - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
       - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
       - "C:/Users/rsaba/anaconda3/"
       - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
       - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
@@ -1496,6 +777,7 @@ events:
     found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/dlltool.exe"
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -1510,7 +792,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -1523,7 +804,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1545,6 +825,7 @@ events:
       - "addr2line"
     candidate_directories:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
@@ -1559,7 +840,6 @@ events:
       - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
       - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
       - "C:/Users/rsaba/anaconda3/"
       - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
       - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
@@ -1577,6 +857,7 @@ events:
     found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/addr2line.exe"
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -1591,7 +872,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -1604,7 +884,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1626,6 +905,7 @@ events:
       - "tapi"
     candidate_directories:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
@@ -1640,7 +920,6 @@ events:
       - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
       - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
       - "C:/Users/rsaba/anaconda3/"
       - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
       - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
@@ -1657,6 +936,9 @@ events:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/tapi.com"
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/tapi.exe"
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/tapi"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/tapi.com"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/tapi.exe"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/tapi"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/tapi.com"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/tapi.exe"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/tapi"
@@ -1699,9 +981,6 @@ events:
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/tapi.com"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/tapi.exe"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/tapi"
-      - "C:/Program Files/CMake/bin/tapi.com"
-      - "C:/Program Files/CMake/bin/tapi.exe"
-      - "C:/Program Files/CMake/bin/tapi"
       - "C:/Users/rsaba/anaconda3/tapi.com"
       - "C:/Users/rsaba/anaconda3/tapi.exe"
       - "C:/Users/rsaba/anaconda3/tapi"
@@ -1741,6 +1020,7 @@ events:
     found: false
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -1755,7 +1035,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -1768,7 +1047,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1793,6 +1071,7 @@ events:
       - "gcc-ar"
     candidate_directories:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
@@ -1807,7 +1086,6 @@ events:
       - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
       - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
       - "C:/Users/rsaba/anaconda3/"
       - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
       - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
@@ -1824,6 +1102,9 @@ events:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ar-16.2.com"
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ar-16.2.exe"
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ar-16.2"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ar-16.2.com"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ar-16.2.exe"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ar-16.2"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ar-16.2.com"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ar-16.2.exe"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ar-16.2"
@@ -1866,9 +1147,6 @@ events:
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ar-16.2.com"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ar-16.2.exe"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ar-16.2"
-      - "C:/Program Files/CMake/bin/gcc-ar-16.2.com"
-      - "C:/Program Files/CMake/bin/gcc-ar-16.2.exe"
-      - "C:/Program Files/CMake/bin/gcc-ar-16.2"
       - "C:/Users/rsaba/anaconda3/gcc-ar-16.2.com"
       - "C:/Users/rsaba/anaconda3/gcc-ar-16.2.exe"
       - "C:/Users/rsaba/anaconda3/gcc-ar-16.2"
@@ -1908,6 +1186,9 @@ events:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ar-16.com"
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ar-16.exe"
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ar-16"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ar-16.com"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ar-16.exe"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ar-16"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ar-16.com"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ar-16.exe"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ar-16"
@@ -1950,9 +1231,6 @@ events:
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ar-16.com"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ar-16.exe"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ar-16"
-      - "C:/Program Files/CMake/bin/gcc-ar-16.com"
-      - "C:/Program Files/CMake/bin/gcc-ar-16.exe"
-      - "C:/Program Files/CMake/bin/gcc-ar-16"
       - "C:/Users/rsaba/anaconda3/gcc-ar-16.com"
       - "C:/Users/rsaba/anaconda3/gcc-ar-16.exe"
       - "C:/Users/rsaba/anaconda3/gcc-ar-16"
@@ -1992,6 +1270,9 @@ events:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ar16.com"
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ar16.exe"
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ar16"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ar16.com"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ar16.exe"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ar16"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ar16.com"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ar16.exe"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ar16"
@@ -2034,9 +1315,6 @@ events:
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ar16.com"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ar16.exe"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ar16"
-      - "C:/Program Files/CMake/bin/gcc-ar16.com"
-      - "C:/Program Files/CMake/bin/gcc-ar16.exe"
-      - "C:/Program Files/CMake/bin/gcc-ar16"
       - "C:/Users/rsaba/anaconda3/gcc-ar16.com"
       - "C:/Users/rsaba/anaconda3/gcc-ar16.exe"
       - "C:/Users/rsaba/anaconda3/gcc-ar16"
@@ -2077,6 +1355,7 @@ events:
     found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ar.exe"
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -2091,7 +1370,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -2104,7 +1382,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -2129,6 +1406,7 @@ events:
       - "gcc-ranlib"
     candidate_directories:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
@@ -2143,7 +1421,6 @@ events:
       - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
       - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
       - "C:/Users/rsaba/anaconda3/"
       - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
       - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
@@ -2160,6 +1437,9 @@ events:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ranlib-16.2.com"
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ranlib-16.2.exe"
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ranlib-16.2"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ranlib-16.2.com"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ranlib-16.2.exe"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ranlib-16.2"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ranlib-16.2.com"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ranlib-16.2.exe"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ranlib-16.2"
@@ -2202,9 +1482,6 @@ events:
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ranlib-16.2.com"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ranlib-16.2.exe"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ranlib-16.2"
-      - "C:/Program Files/CMake/bin/gcc-ranlib-16.2.com"
-      - "C:/Program Files/CMake/bin/gcc-ranlib-16.2.exe"
-      - "C:/Program Files/CMake/bin/gcc-ranlib-16.2"
       - "C:/Users/rsaba/anaconda3/gcc-ranlib-16.2.com"
       - "C:/Users/rsaba/anaconda3/gcc-ranlib-16.2.exe"
       - "C:/Users/rsaba/anaconda3/gcc-ranlib-16.2"
@@ -2244,6 +1521,9 @@ events:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ranlib-16.com"
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ranlib-16.exe"
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ranlib-16"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ranlib-16.com"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ranlib-16.exe"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ranlib-16"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ranlib-16.com"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ranlib-16.exe"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ranlib-16"
@@ -2286,9 +1566,6 @@ events:
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ranlib-16.com"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ranlib-16.exe"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ranlib-16"
-      - "C:/Program Files/CMake/bin/gcc-ranlib-16.com"
-      - "C:/Program Files/CMake/bin/gcc-ranlib-16.exe"
-      - "C:/Program Files/CMake/bin/gcc-ranlib-16"
       - "C:/Users/rsaba/anaconda3/gcc-ranlib-16.com"
       - "C:/Users/rsaba/anaconda3/gcc-ranlib-16.exe"
       - "C:/Users/rsaba/anaconda3/gcc-ranlib-16"
@@ -2328,6 +1605,9 @@ events:
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ranlib16.com"
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ranlib16.exe"
       - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ranlib16"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ranlib16.com"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ranlib16.exe"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/gcc-ranlib16"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ranlib16.com"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ranlib16.exe"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/gcc-ranlib16"
@@ -2370,9 +1650,6 @@ events:
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ranlib16.com"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ranlib16.exe"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/gcc-ranlib16"
-      - "C:/Program Files/CMake/bin/gcc-ranlib16.com"
-      - "C:/Program Files/CMake/bin/gcc-ranlib16.exe"
-      - "C:/Program Files/CMake/bin/gcc-ranlib16"
       - "C:/Users/rsaba/anaconda3/gcc-ranlib16.com"
       - "C:/Users/rsaba/anaconda3/gcc-ranlib16.exe"
       - "C:/Users/rsaba/anaconda3/gcc-ranlib16"
@@ -2413,6 +1690,7 @@ events:
     found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/gcc-ranlib.exe"
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -2427,7 +1705,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -2440,7 +1717,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
   -
     kind: "find-v1"
     backtrace:
@@ -2464,6 +1740,7 @@ events:
       - "windres"
       - "windres"
     candidate_directories:
+      - "C:/Users/rsaba/.gemini/antigravity/bin/"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
@@ -2478,7 +1755,6 @@ events:
       - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
       - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/"
-      - "C:/Program Files/CMake/bin/"
       - "C:/Users/rsaba/anaconda3/"
       - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/"
       - "C:/Users/rsaba/anaconda3/Library/usr/bin/"
@@ -2491,7 +1767,6 @@ events:
       - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/"
       - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/"
       - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/"
       - "C:/Program Files/bin/"
       - "C:/Program Files/sbin/"
       - "C:/Program Files/"
@@ -2505,6 +1780,9 @@ events:
       - "C:/Program Files (x86)/MachineControlStudioCpp/sbin/"
       - "C:/Program Files (x86)/MachineControlStudioCpp/"
     searched_directories:
+      - "C:/Users/rsaba/.gemini/antigravity/bin/windres.com"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/windres.exe"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/windres"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/windres.com"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/windres.exe"
       - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/windres"
@@ -2547,9 +1825,6 @@ events:
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/windres.com"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/windres.exe"
       - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/windres"
-      - "C:/Program Files/CMake/bin/windres.com"
-      - "C:/Program Files/CMake/bin/windres.exe"
-      - "C:/Program Files/CMake/bin/windres"
       - "C:/Users/rsaba/anaconda3/windres.com"
       - "C:/Users/rsaba/anaconda3/windres.exe"
       - "C:/Users/rsaba/anaconda3/windres"
@@ -2586,10 +1861,163 @@ events:
       - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/windres.com"
       - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/windres.exe"
       - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/windres"
-      - "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/windres.com"
-    found: "C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/windres.exe"
+      - "C:/Program Files/bin/windres.com"
+      - "C:/Program Files/bin/windres.exe"
+      - "C:/Program Files/bin/windres"
+      - "C:/Program Files/sbin/windres.com"
+      - "C:/Program Files/sbin/windres.exe"
+      - "C:/Program Files/sbin/windres"
+      - "C:/Program Files/windres.com"
+      - "C:/Program Files/windres.exe"
+      - "C:/Program Files/windres"
+      - "C:/Program Files (x86)/bin/windres.com"
+      - "C:/Program Files (x86)/bin/windres.exe"
+      - "C:/Program Files (x86)/bin/windres"
+      - "C:/Program Files (x86)/sbin/windres.com"
+      - "C:/Program Files (x86)/sbin/windres.exe"
+      - "C:/Program Files (x86)/sbin/windres"
+      - "C:/Program Files (x86)/windres.com"
+      - "C:/Program Files (x86)/windres.exe"
+      - "C:/Program Files (x86)/windres"
+      - "C:/Program Files/CMake/bin/windres.com"
+      - "C:/Program Files/CMake/bin/windres.exe"
+      - "C:/Program Files/CMake/bin/windres"
+      - "C:/Program Files/CMake/sbin/windres.com"
+      - "C:/Program Files/CMake/sbin/windres.exe"
+      - "C:/Program Files/CMake/sbin/windres"
+      - "C:/Program Files/CMake/windres.com"
+      - "C:/Program Files/CMake/windres.exe"
+      - "C:/Program Files/CMake/windres"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/bin/windres.com"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/bin/windres.exe"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/bin/windres"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/sbin/windres.com"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/sbin/windres.exe"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/sbin/windres"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/windres.com"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/windres.exe"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/windres"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/windres.com"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/windres.exe"
+      - "C:/Users/rsaba/.gemini/antigravity/bin/windres"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/windres.com"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/windres.exe"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/windres"
+      - "C:/Windows/System32/windres.com"
+      - "C:/Windows/System32/windres.exe"
+      - "C:/Windows/System32/windres"
+      - "C:/Windows/windres.com"
+      - "C:/Windows/windres.exe"
+      - "C:/Windows/windres"
+      - "C:/Windows/System32/wbem/windres.com"
+      - "C:/Windows/System32/wbem/windres.exe"
+      - "C:/Windows/System32/wbem/windres"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/windres.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/windres.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/windres"
+      - "C:/Windows/System32/OpenSSH/windres.com"
+      - "C:/Windows/System32/OpenSSH/windres.exe"
+      - "C:/Windows/System32/OpenSSH/windres"
+      - "C:/Program Files/nodejs/windres.com"
+      - "C:/Program Files/nodejs/windres.exe"
+      - "C:/Program Files/nodejs/windres"
+      - "C:/Program Files/Git/cmd/windres.com"
+      - "C:/Program Files/Git/cmd/windres.exe"
+      - "C:/Program Files/Git/cmd/windres"
+      - "C:/Program Files/dotnet/windres.com"
+      - "C:/Program Files/dotnet/windres.exe"
+      - "C:/Program Files/dotnet/windres"
+      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/windres.com"
+      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/windres.exe"
+      - "C:/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/windres"
+      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/windres.com"
+      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/windres.exe"
+      - "C:/Program Files/Microsoft SQL Server/160/Tools/Binn/windres"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/windres.com"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/windres.exe"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/windres"
+      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/windres.com"
+      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/windres.exe"
+      - "C:/Program Files/Microsoft SQL Server/160/DTS/Binn/windres"
+      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/windres.com"
+      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/windres.exe"
+      - "C:/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/windres"
+      - "C:/Users/rsaba/anaconda3/windres.com"
+      - "C:/Users/rsaba/anaconda3/windres.exe"
+      - "C:/Users/rsaba/anaconda3/windres"
+      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/windres.com"
+      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/windres.exe"
+      - "C:/Users/rsaba/anaconda3/Library/mingw-w64/bin/windres"
+      - "C:/Users/rsaba/anaconda3/Library/usr/bin/windres.com"
+      - "C:/Users/rsaba/anaconda3/Library/usr/bin/windres.exe"
+      - "C:/Users/rsaba/anaconda3/Library/usr/bin/windres"
+      - "C:/Users/rsaba/anaconda3/Library/bin/windres.com"
+      - "C:/Users/rsaba/anaconda3/Library/bin/windres.exe"
+      - "C:/Users/rsaba/anaconda3/Library/bin/windres"
+      - "C:/Users/rsaba/anaconda3/Scripts/windres.com"
+      - "C:/Users/rsaba/anaconda3/Scripts/windres.exe"
+      - "C:/Users/rsaba/anaconda3/Scripts/windres"
+      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/windres.com"
+      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/windres.exe"
+      - "C:/Users/rsaba/AppData/Local/Microsoft/WindowsApps/windres"
+      - "C:/Users/rsaba/AppData/Roaming/npm/windres.com"
+      - "C:/Users/rsaba/AppData/Roaming/npm/windres.exe"
+      - "C:/Users/rsaba/AppData/Roaming/npm/windres"
+      - "C:/Users/rsaba/AppData/Local/Python/bin/windres.com"
+      - "C:/Users/rsaba/AppData/Local/Python/bin/windres.exe"
+      - "C:/Users/rsaba/AppData/Local/Python/bin/windres"
+      - "C:/Users/rsaba/.dotnet/tools/windres.com"
+      - "C:/Users/rsaba/.dotnet/tools/windres.exe"
+      - "C:/Users/rsaba/.dotnet/tools/windres"
+      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/windres.com"
+      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/windres.exe"
+      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity/bin/windres"
+      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/windres.com"
+      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/windres.exe"
+      - "C:/Users/rsaba/AppData/Local/Programs/Microsoft VS Code/bin/windres"
+      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/windres.com"
+      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/windres.exe"
+      - "C:/Users/rsaba/AppData/Local/Programs/Antigravity IDE/bin/windres"
+      - "C:/Program Files/bin/windres.com"
+      - "C:/Program Files/bin/windres.exe"
+      - "C:/Program Files/bin/windres"
+      - "C:/Program Files/sbin/windres.com"
+      - "C:/Program Files/sbin/windres.exe"
+      - "C:/Program Files/sbin/windres"
+      - "C:/Program Files/windres.com"
+      - "C:/Program Files/windres.exe"
+      - "C:/Program Files/windres"
+      - "C:/Program Files (x86)/bin/windres.com"
+      - "C:/Program Files (x86)/bin/windres.exe"
+      - "C:/Program Files (x86)/bin/windres"
+      - "C:/Program Files (x86)/sbin/windres.com"
+      - "C:/Program Files (x86)/sbin/windres.exe"
+      - "C:/Program Files (x86)/sbin/windres"
+      - "C:/Program Files (x86)/windres.com"
+      - "C:/Program Files (x86)/windres.exe"
+      - "C:/Program Files (x86)/windres"
+      - "C:/Program Files/CMake/bin/windres.com"
+      - "C:/Program Files/CMake/bin/windres.exe"
+      - "C:/Program Files/CMake/bin/windres"
+      - "C:/Program Files/CMake/sbin/windres.com"
+      - "C:/Program Files/CMake/sbin/windres.exe"
+      - "C:/Program Files/CMake/sbin/windres"
+      - "C:/Program Files/CMake/windres.com"
+      - "C:/Program Files/CMake/windres.exe"
+      - "C:/Program Files/CMake/windres"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/bin/windres.com"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/bin/windres.exe"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/bin/windres"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/sbin/windres.com"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/sbin/windres.exe"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/sbin/windres"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/windres.com"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/windres.exe"
+      - "C:/Program Files (x86)/MachineControlStudioCpp/windres"
+    found: false
     search_context:
       ENV{PATH}:
+        - "C:/Users/rsaba/.gemini/antigravity/bin"
         - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
@@ -2604,7 +2032,6 @@ events:
         - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
         - "C:\\Program Files\\Microsoft SQL Server\\160\\DTS\\Binn\\"
         - "C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\"
-        - "C:\\Program Files\\CMake\\bin"
         - "C:\\Users\\rsaba\\anaconda3"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\mingw-w64\\bin"
         - "C:\\Users\\rsaba\\anaconda3\\Library\\usr\\bin"
@@ -2617,7 +2044,6 @@ events:
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\rsaba\\AppData\\Local\\Programs\\Antigravity IDE\\bin"
-        - "C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin"
       CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/MachineControlStudioCpp"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"
@@ -2633,8 +2059,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/build/CMakeFiles/CMakeScratch/TryCompile-5nt7fi"
-      binary: "C:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/build/CMakeFiles/CMakeScratch/TryCompile-5nt7fi"
+      source: "D:/Application/Integrated Control Software/build/CMakeFiles/CMakeScratch/TryCompile-k72br7"
+      binary: "D:/Application/Integrated Control Software/build/CMakeFiles/CMakeScratch/TryCompile-k72br7"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -2645,13 +2071,13 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: false
       stdout: |
-        Change Dir: 'C:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/build/CMakeFiles/CMakeScratch/TryCompile-5nt7fi'
+        Change Dir: 'D:/Application/Integrated Control Software/build/CMakeFiles/CMakeScratch/TryCompile-k72br7'
         
-        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/mingw32-make.exe -f Makefile cmTC_7bcd2/fast
-        C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_7bcd2.dir\\build.make CMakeFiles/cmTC_7bcd2.dir/build
-        mingw32-make[1]: Entering directory 'C:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/build/CMakeFiles/CMakeScratch/TryCompile-5nt7fi'
-        Building CXX object CMakeFiles/cmTC_7bcd2.dir/CMakeCXXCompilerABI.cpp.obj
-        C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin\\c++.exe   -v -o CMakeFiles\\cmTC_7bcd2.dir\\CMakeCXXCompilerABI.cpp.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.4\\Modules\\CMakeCXXCompilerABI.cpp"
+        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin\\mingw32-make.exe -f Makefile cmTC_2ac0e/fast
+        C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_2ac0e.dir\\build.make CMakeFiles/cmTC_2ac0e.dir/build
+        mingw32-make[1]: Entering directory 'D:/Application/Integrated Control Software/build/CMakeFiles/CMakeScratch/TryCompile-k72br7'
+        Building CXX object CMakeFiles/cmTC_2ac0e.dir/CMakeCXXCompilerABI.cpp.obj
+        C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin\\c++.exe   -v -o CMakeFiles\\cmTC_2ac0e.dir\\CMakeCXXCompilerABI.cpp.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.4\\Modules\\CMakeCXXCompilerABI.cpp"
         Using built-in specs.
         COLLECT_GCC=C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin\\c++.exe
         OFFLOAD_TARGET_NAMES=nvptx-none
@@ -2660,8 +2086,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib zstd
         gcc version 16.2.0 (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r3) 
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_7bcd2.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_7bcd2.dir\\'
-         C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/cc1plus.exe -quiet -v -iprefix C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/ -D_REENTRANT C:\\Program Files\\CMake\\share\\cmake-4.4\\Modules\\CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles\\cmTC_7bcd2.dir\\ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o C:\\Users\\rsaba\\AppData\\Local\\Temp\\ccWTRWNT.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_2ac0e.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_2ac0e.dir\\'
+         C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/cc1plus.exe -quiet -v -iprefix C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/ -D_REENTRANT C:\\Program Files\\CMake\\share\\cmake-4.4\\Modules\\CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles\\cmTC_2ac0e.dir\\ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o C:\\Users\\rsaba\\AppData\\Local\\Temp\\cclYpZOa.s
         GNU C++20 (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r3) version 16.2.0 (x86_64-w64-mingw32)
         	compiled by GNU C version 16.2.0, GMP version 6.3.0, MPFR version 4.2.2, MPC version 1.4.1, isl version isl-0.28-GMP
         
@@ -2686,14 +2112,14 @@ events:
          C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/include
         End of search list.
         Compiler executable checksum: 444861d4cb08fde927369a9f8b0c420c
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_7bcd2.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_7bcd2.dir\\'
-         C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_7bcd2.dir\\CMakeCXXCompilerABI.cpp.obj C:\\Users\\rsaba\\AppData\\Local\\Temp\\ccWTRWNT.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_2ac0e.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_2ac0e.dir\\'
+         C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_2ac0e.dir\\CMakeCXXCompilerABI.cpp.obj C:\\Users\\rsaba\\AppData\\Local\\Temp\\cclYpZOa.s
         GNU assembler version 2.47 (x86_64-w64-mingw32) using BFD version (Binutils for MinGW-W64 x86_64, built by Brecht Sanders, r3) 2.47.20260726
         COMPILER_PATH=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/;C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/;C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/bin/
         LIBRARY_PATH=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/;C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/;C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/;C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib/;C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/;C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_7bcd2.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_7bcd2.dir\\CMakeCXXCompilerABI.cpp.'
-        Linking CXX executable cmTC_7bcd2.exe
-        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_7bcd2.dir\\link.txt --verbose=1
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_2ac0e.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_2ac0e.dir\\CMakeCXXCompilerABI.cpp.'
+        Linking CXX executable cmTC_2ac0e.exe
+        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_2ac0e.dir\\link.txt --verbose=1
         Using built-in specs.
         COLLECT_GCC=C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin\\c++.exe
         COLLECT_LTO_WRAPPER=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/lto-wrapper.exe
@@ -2705,16 +2131,16 @@ events:
         gcc version 16.2.0 (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r3) 
         COMPILER_PATH=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/;C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/;C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/bin/
         LIBRARY_PATH=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/;C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/;C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/;C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib/;C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/;C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_7bcd2.exe' '-foffload-options=-l_GCC_stdc++' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_7bcd2.'
-         C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/collect2.exe -plugin C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/liblto_plugin.dll -plugin-opt=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\rsaba\\AppData\\Local\\Temp\\ccirvdmf.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_7bcd2.exe C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtbegin.o -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0 -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_7bcd2.dir/objects.a --no-whole-archive --out-implib libcmTC_7bcd2.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtend.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_2ac0e.exe' '-foffload-options=-l_GCC_stdc++' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_2ac0e.'
+         C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/collect2.exe -plugin C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/liblto_plugin.dll -plugin-opt=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\rsaba\\AppData\\Local\\Temp\\cctg49mt.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_2ac0e.exe C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtbegin.o -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0 -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_2ac0e.dir/objects.a --no-whole-archive --out-implib libcmTC_2ac0e.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtend.o
         collect2 version 16.2.0
-        C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe -plugin C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/liblto_plugin.dll -plugin-opt=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\rsaba\\AppData\\Local\\Temp\\ccirvdmf.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_7bcd2.exe C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtbegin.o -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0 -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_7bcd2.dir/objects.a --no-whole-archive --out-implib libcmTC_7bcd2.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtend.o
+        C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe -plugin C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/liblto_plugin.dll -plugin-opt=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\rsaba\\AppData\\Local\\Temp\\cctg49mt.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_2ac0e.exe C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtbegin.o -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0 -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_2ac0e.dir/objects.a --no-whole-archive --out-implib libcmTC_2ac0e.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtend.o
         GNU ld (Binutils for MinGW-W64 x86_64, built by Brecht Sanders, r3) 2.47.20260726
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_7bcd2.exe' '-foffload-options=-l_GCC_stdc++' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_7bcd2.'
-        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E rm -f CMakeFiles\\cmTC_7bcd2.dir/objects.a
-        C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin\\ar.exe qc CMakeFiles\\cmTC_7bcd2.dir/objects.a @CMakeFiles\\cmTC_7bcd2.dir\\objects1.rsp
-        C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin\\c++.exe  -v -Wl,-v -Wl,--whole-archive CMakeFiles\\cmTC_7bcd2.dir/objects.a -Wl,--no-whole-archive -o cmTC_7bcd2.exe -Wl,--out-implib,libcmTC_7bcd2.dll.a -Wl,--major-image-version,0,--minor-image-version,0
-        mingw32-make[1]: Leaving directory 'C:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/build/CMakeFiles/CMakeScratch/TryCompile-5nt7fi'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_2ac0e.exe' '-foffload-options=-l_GCC_stdc++' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_2ac0e.'
+        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E rm -f CMakeFiles\\cmTC_2ac0e.dir/objects.a
+        C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin\\ar.exe qc CMakeFiles\\cmTC_2ac0e.dir/objects.a @CMakeFiles\\cmTC_2ac0e.dir\\objects1.rsp
+        C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin\\c++.exe  -v -Wl,-v -Wl,--whole-archive CMakeFiles\\cmTC_2ac0e.dir/objects.a -Wl,--no-whole-archive -o cmTC_2ac0e.exe -Wl,--out-implib,libcmTC_2ac0e.dll.a -Wl,--major-image-version,0,--minor-image-version,0
+        mingw32-make[1]: Leaving directory 'D:/Application/Integrated Control Software/build/CMakeFiles/CMakeScratch/TryCompile-k72br7'
         
       exitCode: 0
   -
@@ -2755,13 +2181,13 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|wild|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|wild))("|,| |$)]
-        ignore line: [Change Dir: 'C:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/build/CMakeFiles/CMakeScratch/TryCompile-5nt7fi']
+        ignore line: [Change Dir: 'D:/Application/Integrated Control Software/build/CMakeFiles/CMakeScratch/TryCompile-k72br7']
         ignore line: []
-        ignore line: [Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/mingw32-make.exe -f Makefile cmTC_7bcd2/fast]
-        ignore line: [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_7bcd2.dir\\build.make CMakeFiles/cmTC_7bcd2.dir/build]
-        ignore line: [mingw32-make[1]: Entering directory 'C:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/build/CMakeFiles/CMakeScratch/TryCompile-5nt7fi']
-        ignore line: [Building CXX object CMakeFiles/cmTC_7bcd2.dir/CMakeCXXCompilerABI.cpp.obj]
-        ignore line: [C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin\\c++.exe   -v -o CMakeFiles\\cmTC_7bcd2.dir\\CMakeCXXCompilerABI.cpp.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.4\\Modules\\CMakeCXXCompilerABI.cpp"]
+        ignore line: [Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin\\mingw32-make.exe -f Makefile cmTC_2ac0e/fast]
+        ignore line: [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_2ac0e.dir\\build.make CMakeFiles/cmTC_2ac0e.dir/build]
+        ignore line: [mingw32-make[1]: Entering directory 'D:/Application/Integrated Control Software/build/CMakeFiles/CMakeScratch/TryCompile-k72br7']
+        ignore line: [Building CXX object CMakeFiles/cmTC_2ac0e.dir/CMakeCXXCompilerABI.cpp.obj]
+        ignore line: [C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin\\c++.exe   -v -o CMakeFiles\\cmTC_2ac0e.dir\\CMakeCXXCompilerABI.cpp.obj -c "C:\\Program Files\\CMake\\share\\cmake-4.4\\Modules\\CMakeCXXCompilerABI.cpp"]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin\\c++.exe]
         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
@@ -2771,8 +2197,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib zstd]
         ignore line: [gcc version 16.2.0 (MinGW-W64 x86_64-ucrt-posix-seh  built by Brecht Sanders  r3) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_7bcd2.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_7bcd2.dir\\']
-        ignore line: [ C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/cc1plus.exe -quiet -v -iprefix C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/ -D_REENTRANT C:\\Program Files\\CMake\\share\\cmake-4.4\\Modules\\CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles\\cmTC_7bcd2.dir\\ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o C:\\Users\\rsaba\\AppData\\Local\\Temp\\ccWTRWNT.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_2ac0e.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_2ac0e.dir\\']
+        ignore line: [ C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/cc1plus.exe -quiet -v -iprefix C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/ -D_REENTRANT C:\\Program Files\\CMake\\share\\cmake-4.4\\Modules\\CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles\\cmTC_2ac0e.dir\\ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o C:\\Users\\rsaba\\AppData\\Local\\Temp\\cclYpZOa.s]
         ignore line: [GNU C++20 (MinGW-W64 x86_64-ucrt-posix-seh  built by Brecht Sanders  r3) version 16.2.0 (x86_64-w64-mingw32)]
         ignore line: [	compiled by GNU C version 16.2.0  GMP version 6.3.0  MPFR version 4.2.2  MPC version 1.4.1  isl version isl-0.28-GMP]
         ignore line: []
@@ -2797,8 +2223,8 @@ events:
         ignore line: [ C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/include]
         ignore line: [End of search list.]
         ignore line: [Compiler executable checksum: 444861d4cb08fde927369a9f8b0c420c]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_7bcd2.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_7bcd2.dir\\']
-        ignore line: [ C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_7bcd2.dir\\CMakeCXXCompilerABI.cpp.obj C:\\Users\\rsaba\\AppData\\Local\\Temp\\ccWTRWNT.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_2ac0e.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_2ac0e.dir\\']
+        ignore line: [ C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_2ac0e.dir\\CMakeCXXCompilerABI.cpp.obj C:\\Users\\rsaba\\AppData\\Local\\Temp\\cclYpZOa.s]
         ignore line: [GNU assembler version 2.47 (x86_64-w64-mingw32) using BFD version (Binutils for MinGW-W64 x86_64  built by Brecht Sanders  r3) 2.47.20260726]
         ignore line: [COMPILER_PATH=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/]
         ignore line: [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/]
@@ -2809,9 +2235,9 @@ events:
         ignore line: [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib/]
         ignore line: [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/]
         ignore line: [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_7bcd2.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_7bcd2.dir\\CMakeCXXCompilerABI.cpp.']
-        ignore line: [Linking CXX executable cmTC_7bcd2.exe]
-        ignore line: ["C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_7bcd2.dir\\link.txt --verbose=1]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_2ac0e.dir\\CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_2ac0e.dir\\CMakeCXXCompilerABI.cpp.']
+        ignore line: [Linking CXX executable cmTC_2ac0e.exe]
+        ignore line: ["C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_2ac0e.dir\\link.txt --verbose=1]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\Users\\rsaba\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\mingw64\\bin\\c++.exe]
         ignore line: [COLLECT_LTO_WRAPPER=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/lto-wrapper.exe]
@@ -2830,14 +2256,14 @@ events:
         ignore line: [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib/]
         ignore line: [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/]
         ignore line: [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_7bcd2.exe' '-foffload-options=-l_GCC_stdc++' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_7bcd2.']
-        link line: [ C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/collect2.exe -plugin C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/liblto_plugin.dll -plugin-opt=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\rsaba\\AppData\\Local\\Temp\\ccirvdmf.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_7bcd2.exe C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtbegin.o -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0 -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_7bcd2.dir/objects.a --no-whole-archive --out-implib libcmTC_7bcd2.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtend.o] ==> linker architecture flags [-m;i386pep]
-        link line: [ C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/collect2.exe -plugin C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/liblto_plugin.dll -plugin-opt=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\rsaba\\AppData\\Local\\Temp\\ccirvdmf.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_7bcd2.exe C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtbegin.o -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0 -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_7bcd2.dir/objects.a --no-whole-archive --out-implib libcmTC_7bcd2.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtend.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_2ac0e.exe' '-foffload-options=-l_GCC_stdc++' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_2ac0e.']
+        link line: [ C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/collect2.exe -plugin C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/liblto_plugin.dll -plugin-opt=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\rsaba\\AppData\\Local\\Temp\\cctg49mt.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_2ac0e.exe C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtbegin.o -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0 -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_2ac0e.dir/objects.a --no-whole-archive --out-implib libcmTC_2ac0e.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtend.o] ==> linker architecture flags [-m;i386pep]
+        link line: [ C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/collect2.exe -plugin C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/liblto_plugin.dll -plugin-opt=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\rsaba\\AppData\\Local\\Temp\\cctg49mt.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_2ac0e.exe C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtbegin.o -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0 -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_2ac0e.dir/objects.a --no-whole-archive --out-implib libcmTC_2ac0e.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmingwex -lmsvcrt -lkernel32 C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtend.o]
           arg [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/collect2.exe] ==> ignore
           arg [-plugin] ==> ignore
           arg [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/liblto_plugin.dll] ==> ignore
           arg [-plugin-opt=C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../libexec/gcc/x86_64-w64-mingw32/16.2.0/lto-wrapper.exe] ==> ignore
-          arg [-plugin-opt=-fresolution=C:\\Users\\rsaba\\AppData\\Local\\Temp\\ccirvdmf.res] ==> ignore
+          arg [-plugin-opt=-fresolution=C:\\Users\\rsaba\\AppData\\Local\\Temp\\cctg49mt.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lmingw32] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
@@ -2859,7 +2285,7 @@ events:
           arg [i386pep] ==> ignore
           arg [-Bdynamic] ==> search dynamic
           arg [-o] ==> ignore
-          arg [cmTC_7bcd2.exe] ==> ignore
+          arg [cmTC_2ac0e.exe] ==> ignore
           arg [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o] ==> obj [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o]
           arg [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtbegin.o] ==> obj [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/crtbegin.o]
           arg [-LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0] ==> dir [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0]
@@ -2870,10 +2296,10 @@ events:
           arg [-LC:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../..] ==> dir [C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../..]
           arg [-v] ==> ignore
           arg [--whole-archive] ==> ignore
-          arg [CMakeFiles\\cmTC_7bcd2.dir/objects.a] ==> ignore
+          arg [CMakeFiles\\cmTC_2ac0e.dir/objects.a] ==> ignore
           arg [--no-whole-archive] ==> ignore
           arg [--out-implib] ==> ignore
-          arg [libcmTC_7bcd2.dll.a] ==> ignore
+          arg [libcmTC_2ac0e.dll.a] ==> ignore
           arg [--major-image-version] ==> ignore
           arg [0] ==> ignore
           arg [--minor-image-version] ==> ignore

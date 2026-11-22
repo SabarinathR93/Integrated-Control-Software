@@ -27,7 +27,7 @@ target_link_libraries(MachineControlStudio PRIVATE
 )
 
 if(MINGW)
-    target_link_options(MachineControlStudio PRIVATE -static-libgcc -static-libstdc++ -municode)
+    target_link_options(MachineControlStudio PRIVATE -static -static-libgcc -static-libstdc++ -municode)
 endif()
 
 add_custom_command(TARGET MachineControlStudio POST_BUILD

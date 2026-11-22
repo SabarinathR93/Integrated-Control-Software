@@ -52,10 +52,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder"
+CMAKE_SOURCE_DIR = "D:\Application\Integrated Control Software"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\build"
+CMAKE_BINARY_DIR = "D:\Application\Integrated Control Software\build"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/MachineControlStudio.dir/depend.make
@@ -73,48 +73,48 @@ CMakeFiles/MachineControlStudio.dir/codegen:
 
 CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj: CMakeFiles/MachineControlStudio.dir/flags.make
 CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj: CMakeFiles/MachineControlStudio.dir/includes_CXX.rsp
-CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj: C:/Users/rsaba/Downloads/HMI-Designer/C++\ Folder/src/main.cpp
+CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj: D:/Application/Integrated\ Control\ Software/src/main.cpp
 CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj: CMakeFiles/MachineControlStudio.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj"
-	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj -MF CMakeFiles\MachineControlStudio.dir\src\main.cpp.obj.d -o CMakeFiles\MachineControlStudio.dir\src\main.cpp.obj -c "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\src\main.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="D:\Application\Integrated Control Software\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj"
+	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj -MF CMakeFiles\MachineControlStudio.dir\src\main.cpp.obj.d -o CMakeFiles\MachineControlStudio.dir\src\main.cpp.obj -c "D:\Application\Integrated Control Software\src\main.cpp"
 
 CMakeFiles/MachineControlStudio.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MachineControlStudio.dir/src/main.cpp.i"
-	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\src\main.cpp" > CMakeFiles\MachineControlStudio.dir\src\main.cpp.i
+	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "D:\Application\Integrated Control Software\src\main.cpp" > CMakeFiles\MachineControlStudio.dir\src\main.cpp.i
 
 CMakeFiles/MachineControlStudio.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MachineControlStudio.dir/src/main.cpp.s"
-	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\src\main.cpp" -o CMakeFiles\MachineControlStudio.dir\src\main.cpp.s
+	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "D:\Application\Integrated Control Software\src\main.cpp" -o CMakeFiles\MachineControlStudio.dir\src\main.cpp.s
 
 CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj: CMakeFiles/MachineControlStudio.dir/flags.make
 CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj: CMakeFiles/MachineControlStudio.dir/includes_CXX.rsp
-CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj: C:/Users/rsaba/Downloads/HMI-Designer/C++\ Folder/src/win32_dialogs.cpp
+CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj: D:/Application/Integrated\ Control\ Software/src/win32_dialogs.cpp
 CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj: CMakeFiles/MachineControlStudio.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj"
-	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj -MF CMakeFiles\MachineControlStudio.dir\src\win32_dialogs.cpp.obj.d -o CMakeFiles\MachineControlStudio.dir\src\win32_dialogs.cpp.obj -c "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\src\win32_dialogs.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="D:\Application\Integrated Control Software\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj"
+	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj -MF CMakeFiles\MachineControlStudio.dir\src\win32_dialogs.cpp.obj.d -o CMakeFiles\MachineControlStudio.dir\src\win32_dialogs.cpp.obj -c "D:\Application\Integrated Control Software\src\win32_dialogs.cpp"
 
 CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.i"
-	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\src\win32_dialogs.cpp" > CMakeFiles\MachineControlStudio.dir\src\win32_dialogs.cpp.i
+	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "D:\Application\Integrated Control Software\src\win32_dialogs.cpp" > CMakeFiles\MachineControlStudio.dir\src\win32_dialogs.cpp.i
 
 CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.s"
-	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\src\win32_dialogs.cpp" -o CMakeFiles\MachineControlStudio.dir\src\win32_dialogs.cpp.s
+	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "D:\Application\Integrated Control Software\src\win32_dialogs.cpp" -o CMakeFiles\MachineControlStudio.dir\src\win32_dialogs.cpp.s
 
 CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj: CMakeFiles/MachineControlStudio.dir/flags.make
 CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj: CMakeFiles/MachineControlStudio.dir/includes_CXX.rsp
-CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj: C:/Users/rsaba/Downloads/HMI-Designer/C++\ Folder/src/prjr_crypto.cpp
+CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj: D:/Application/Integrated\ Control\ Software/src/prjr_crypto.cpp
 CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj: CMakeFiles/MachineControlStudio.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj"
-	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj -MF CMakeFiles\MachineControlStudio.dir\src\prjr_crypto.cpp.obj.d -o CMakeFiles\MachineControlStudio.dir\src\prjr_crypto.cpp.obj -c "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\src\prjr_crypto.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="D:\Application\Integrated Control Software\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj"
+	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj -MF CMakeFiles\MachineControlStudio.dir\src\prjr_crypto.cpp.obj.d -o CMakeFiles\MachineControlStudio.dir\src\prjr_crypto.cpp.obj -c "D:\Application\Integrated Control Software\src\prjr_crypto.cpp"
 
 CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.i"
-	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\src\prjr_crypto.cpp" > CMakeFiles\MachineControlStudio.dir\src\prjr_crypto.cpp.i
+	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "D:\Application\Integrated Control Software\src\prjr_crypto.cpp" > CMakeFiles\MachineControlStudio.dir\src\prjr_crypto.cpp.i
 
 CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.s"
-	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\src\prjr_crypto.cpp" -o CMakeFiles\MachineControlStudio.dir\src\prjr_crypto.cpp.s
+	C:\Users\rsaba\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "D:\Application\Integrated Control Software\src\prjr_crypto.cpp" -o CMakeFiles\MachineControlStudio.dir\src\prjr_crypto.cpp.s
 
 # Object files for target MachineControlStudio
 MachineControlStudio_OBJECTS = \
@@ -125,20 +125,20 @@ MachineControlStudio_OBJECTS = \
 # External object files for target MachineControlStudio
 MachineControlStudio_EXTERNAL_OBJECTS =
 
-c:/Users/rsaba/Downloads/HMI-Designer/C++\ Folder/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj
-c:/Users/rsaba/Downloads/HMI-Designer/C++\ Folder/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj
-c:/Users/rsaba/Downloads/HMI-Designer/C++\ Folder/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj
-c:/Users/rsaba/Downloads/HMI-Designer/C++\ Folder/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/build.make
-c:/Users/rsaba/Downloads/HMI-Designer/C++\ Folder/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/linkLibs.rsp
-c:/Users/rsaba/Downloads/HMI-Designer/C++\ Folder/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/objects1.rsp
-c:/Users/rsaba/Downloads/HMI-Designer/C++\ Folder/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable \"c:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\dist\MachineControlStudio.exe\""
+d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj
+d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj
+d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj
+d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/build.make
+d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/linkLibs.rsp
+d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/objects1.rsp
+d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe: CMakeFiles/MachineControlStudio.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="D:\Application\Integrated Control Software\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable \"d:\Application\Integrated Control Software\dist\MachineControlStudio.exe\""
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\MachineControlStudio.dir\link.txt --verbose=$(VERBOSE)
-	"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "C:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/vendor/webview2/build/native/x64/WebView2Loader.dll" "c:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/dist/WebView2Loader.dll"
-	"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory "C:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/app" "c:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/dist/app"
+	"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "D:/Application/Integrated Control Software/vendor/webview2/build/native/x64/WebView2Loader.dll" "d:/Application/Integrated Control Software/dist/WebView2Loader.dll"
+	"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory "D:/Application/Integrated Control Software/app" "d:/Application/Integrated Control Software/dist/app"
 
 # Rule to build all files generated by this target.
-CMakeFiles/MachineControlStudio.dir/build: c:/Users/rsaba/Downloads/HMI-Designer/C++\ Folder/dist/MachineControlStudio.exe
+CMakeFiles/MachineControlStudio.dir/build: d:/Application/Integrated\ Control\ Software/dist/MachineControlStudio.exe
 .PHONY : CMakeFiles/MachineControlStudio.dir/build
 
 CMakeFiles/MachineControlStudio.dir/clean:
@@ -146,6 +146,6 @@ CMakeFiles/MachineControlStudio.dir/clean:
 .PHONY : CMakeFiles/MachineControlStudio.dir/clean
 
 CMakeFiles/MachineControlStudio.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder" "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder" "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\build" "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\build" "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\build\CMakeFiles\MachineControlStudio.dir\DependInfo.cmake" "--color=$(COLOR)" MachineControlStudio
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "D:\Application\Integrated Control Software" "D:\Application\Integrated Control Software" "D:\Application\Integrated Control Software\build" "D:\Application\Integrated Control Software\build" "D:\Application\Integrated Control Software\build\CMakeFiles\MachineControlStudio.dir\DependInfo.cmake" "--color=$(COLOR)" MachineControlStudio
 .PHONY : CMakeFiles/MachineControlStudio.dir/depend
 

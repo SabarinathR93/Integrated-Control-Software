@@ -5,9 +5,9 @@ file(REMOVE_RECURSE
   "CMakeFiles/MachineControlStudio.dir/src/prjr_crypto.cpp.obj.d"
   "CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj"
   "CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj.d"
-  "c:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/dist/MachineControlStudio.exe"
-  "c:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/dist/MachineControlStudio.exe.manifest"
-  "c:/Users/rsaba/Downloads/HMI-Designer/C++ Folder/dist/MachineControlStudio.pdb"
+  "d:/Application/Integrated Control Software/dist/MachineControlStudio.exe"
+  "d:/Application/Integrated Control Software/dist/MachineControlStudio.exe.manifest"
+  "d:/Application/Integrated Control Software/dist/MachineControlStudio.pdb"
   "libMachineControlStudio.dll.a"
 )
 

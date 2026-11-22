@@ -1,6 +1,6 @@
 CMakeFiles/MachineControlStudio.dir/src/win32_dialogs.cpp.obj: \
- C:\Users\rsaba\Downloads\HMI-Designer\C++\ Folder\src\win32_dialogs.cpp \
- C:\Users\rsaba\Downloads\HMI-Designer\C++\ Folder\src\win32_dialogs.hpp \
+ D:\Application\Integrated\ Control\ Software\src\win32_dialogs.cpp \
+ D:\Application\Integrated\ Control\ Software\src\win32_dialogs.hpp \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/string \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/bits/requires_hosted.h \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/x86_64-w64-mingw32/bits/c++config.h \

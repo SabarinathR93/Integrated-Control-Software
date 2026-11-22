@@ -1,5 +1,5 @@
 CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj: \
- C:\Users\rsaba\Downloads\HMI-Designer\C++\ Folder\src\main.cpp \
+ D:\Application\Integrated\ Control\ Software\src\main.cpp \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/x86_64-w64-mingw32/include/windows.h \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/x86_64-w64-mingw32/include/_mingw.h \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/x86_64-w64-mingw32/include/_mingw_mac.h \
@@ -378,9 +378,9 @@ CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj: \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/cstdint \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/lib/gcc/x86_64-w64-mingw32/16.2.0/include/stdint.h \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/x86_64-w64-mingw32/include/stdint.h \
- C:/Users/rsaba/DOWNLO~1/HMI-DE~1/C__FOL~1/vendor/webview2/build/native/include/WebView2.h \
+ D:/Application/Integrated\ Control\ Software/vendor/webview2/build/native/include/WebView2.h \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/x86_64-w64-mingw32/include/eventtoken.h \
- C:\Users\rsaba\Downloads\HMI-Designer\C++\ Folder\src\json_mini.hpp \
+ D:\Application\Integrated\ Control\ Software\src\json_mini.hpp \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/sstream \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/istream \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/ios \
@@ -441,10 +441,10 @@ CMakeFiles/MachineControlStudio.dir/src/main.cpp.obj: \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/bits/locale_facets_nonio.tcc \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/bits/locale_conv.h \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/bits/quoted_string.h \
- C:\Users\rsaba\Downloads\HMI-Designer\C++\ Folder\src\win32_dialogs.hpp \
+ D:\Application\Integrated\ Control\ Software\src\win32_dialogs.hpp \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/vector \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/bits/stl_uninitialized.h \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/bits/stl_vector.h \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/bits/stl_bvector.h \
  C:/Users/rsaba/AppData/Local/Microsoft/WinGet/Packages/BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/include/c++/16.2.0/bits/vector.tcc \
- C:\Users\rsaba\Downloads\HMI-Designer\C++\ Folder\src\prjr_crypto.hpp
+ D:\Application\Integrated\ Control\ Software\src\prjr_crypto.hpp

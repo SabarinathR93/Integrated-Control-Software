@@ -53,10 +53,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder"
+CMAKE_SOURCE_DIR = "D:\Application\Integrated Control Software"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\build"
+CMAKE_BINARY_DIR = "D:\Application\Integrated Control Software\build"
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -84,14 +84,14 @@ clean: CMakeFiles/MachineControlStudio.dir/clean
 CMakeFiles/MachineControlStudio.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MachineControlStudio.dir\build.make CMakeFiles/MachineControlStudio.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MachineControlStudio.dir\build.make CMakeFiles/MachineControlStudio.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\build\CMakeFiles" --progress-num=1,2,3,4 "Built target MachineControlStudio"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="D:\Application\Integrated Control Software\build\CMakeFiles" --progress-num=1,2,3,4 "Built target MachineControlStudio"
 .PHONY : CMakeFiles/MachineControlStudio.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/MachineControlStudio.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\build\CMakeFiles" 4
+	$(CMAKE_COMMAND) -E cmake_progress_start "D:\Application\Integrated Control Software\build\CMakeFiles" 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/MachineControlStudio.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\build\CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "D:\Application\Integrated Control Software\build\CMakeFiles" 0
 .PHONY : CMakeFiles/MachineControlStudio.dir/rule
 
 # Convenience name for target.
@@ -101,7 +101,7 @@ MachineControlStudio: CMakeFiles/MachineControlStudio.dir/rule
 # codegen rule for target.
 CMakeFiles/MachineControlStudio.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MachineControlStudio.dir\build.make CMakeFiles/MachineControlStudio.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="C:\Users\rsaba\Downloads\HMI-Designer\C++ Folder\build\CMakeFiles" --progress-num=1,2,3,4 "Finished codegen for target MachineControlStudio"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="D:\Application\Integrated Control Software\build\CMakeFiles" --progress-num=1,2,3,4 "Finished codegen for target MachineControlStudio"
 .PHONY : CMakeFiles/MachineControlStudio.dir/codegen
 
 # clean rule for target.
