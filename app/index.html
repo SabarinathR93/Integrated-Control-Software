@@ -1169,9 +1169,248 @@
       border-color: #D9261C;
       box-shadow: 0 0 0 2px rgba(217, 38, 28, 0.25);
     }
+
+    /* ==========================================================================
+       Swiss Startup Splash Popup (Minimal Project-Launcher Card)
+       ========================================================================== */
+    #ics-splash-overlay {
+      --bg: #fafafa;
+      --ink: #0d0d0d;
+      --muted: #777;
+      --red: #e5321f;
+      --track: #e2e2e2;
+      --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(237, 235, 230, 0.92);
+      backdrop-filter: blur(4px);
+      color: var(--ink);
+      font-family: var(--font);
+      transition: opacity 0.4s cubic-bezier(.2,.7,.2,1);
+    }
+    #ics-splash-overlay.splash-hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #ics-splash-overlay .stage {
+      position: relative;
+      width: min(520px, 90vw);
+      background: var(--bg);
+      border: 1px solid #DDD;
+      border-left: 8px solid var(--red);
+      border-radius: 6px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.16);
+      padding: 28px 32px 24px;
+      overflow: hidden;
+      animation: icsPop .35s cubic-bezier(.2,.7,.2,1) both;
+    }
+    @keyframes icsPop {
+      from { opacity: 0; transform: scale(0.96) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    #ics-splash-overlay .grid {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 0;
+      pointer-events: none;
+      padding: 0 24px;
+    }
+    #ics-splash-overlay .grid i {
+      border-left: 1px solid rgba(0,0,0,.035);
+    }
+    #ics-splash-overlay .grid i:last-child {
+      border-right: 1px solid rgba(0,0,0,.035);
+    }
+    #ics-splash-overlay .top,
+    #ics-splash-overlay .bottom {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    #ics-splash-overlay .top { margin-bottom: 24px; }
+    #ics-splash-overlay .bottom { margin-top: 22px; padding-top: 14px; border-top: 1px solid #EAEAEA; }
+    #ics-splash-overlay .top b,
+    #ics-splash-overlay .bottom b {
+      color: var(--ink);
+      font-weight: 600;
+    }
+    #ics-splash-overlay .content {
+      position: relative;
+      z-index: 2;
+    }
+    #ics-splash-overlay .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    #ics-splash-overlay .logo {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      color: var(--ink);
+    }
+    #ics-splash-overlay .logo svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    #ics-splash-overlay .orbit {
+      transform-origin: 40px 40px;
+      animation: icsSpin 3.2s linear infinite;
+    }
+    #ics-splash-overlay .dot { fill: var(--red); }
+    @keyframes icsSpin { to { transform: rotate(360deg); } }
+    #ics-splash-overlay h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -.03em;
+      margin: 0;
+    }
+    #ics-splash-overlay h1 b { color: var(--red); }
+    #ics-splash-overlay .tag {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: .02em;
+    }
+    #ics-splash-overlay .loader { margin-top: 26px; }
+    #ics-splash-overlay .bar {
+      height: 5px;
+      background: var(--track);
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+    #ics-splash-overlay .bar i {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: calc(var(--p, 0) * 1%);
+      background: var(--ink);
+    }
+    #ics-splash-overlay .done .bar i {
+      background: var(--red);
+      transition: background .35s;
+    }
+    #ics-splash-overlay .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    #ics-splash-overlay .pct {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -.03em;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+    #ics-splash-overlay .pct small {
+      font-size: .55em;
+      font-weight: 500;
+      margin-left: 2px;
+    }
+    #ics-splash-overlay .done .pct { color: var(--red); }
+    @media (prefers-reduced-motion:reduce) {
+      #ics-splash-overlay * { animation-duration: .001s !important; animation-iteration-count: 1 !important; }
+    }
   </style>
 </head>
 <body>
+<div id="ics-splash-overlay" role="status" aria-live="polite">
+  <div class="stage" id="ics-splash-stage">
+    <div class="grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="top"><span><b>ICS</b> / Startup</span><span>Automation Platform</span></div>
+    <div class="content" id="ics-splash-content">
+      <div class="brand-row">
+        <div class="logo">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+            <polygon points="40,8 67.7,24 67.7,56 40,72 12.3,56 12.3,24"/>
+            <circle cx="40" cy="40" r="10"/>
+            <path d="M40 8v22M67.7 56 49 45M12.3 56 31 45" opacity=".4"/>
+            <g class="orbit"><circle cx="62" cy="40" r="3.6" class="dot" stroke="none"/></g>
+          </svg>
+        </div>
+        <div>
+          <h1>Integrated <b>Control</b> Software</h1>
+          <div class="tag">Automation. Monitoring. Command.</div>
+        </div>
+      </div>
+      <div class="loader">
+        <div class="bar"><i></i></div>
+        <div class="meta"><span id="ics-splash-status">Initializing…</span><span class="pct"><span id="ics-splash-pct">0</span><small>%</small></span></div>
+      </div>
+    </div>
+    <div class="bottom"><span>Version 1.0</span><span>&copy; Integrated Control Software</span></div>
+  </div>
+</div>
+<script>
+(function() {
+  const msgs = [[0,"Initializing"],[18,"Loading modules"],[38,"Connecting controllers"],[58,"Syncing devices"],[78,"Checking system health"],[94,"Starting dashboard"],[100,"Ready"]];
+  const overlay = document.getElementById('ics-splash-overlay');
+  const stage = document.getElementById('ics-splash-stage');
+  const st = document.getElementById('ics-splash-status');
+  const pc = document.getElementById('ics-splash-pct');
+  if (!overlay || !stage) return;
+
+  let backendReady = false;
+  let raf = 0;
+  const t0 = performance.now();
+  const minBootMs = 2200;
+
+  function markReady() { backendReady = true; }
+  window.addEventListener('load', () => {
+    if (window.electronAPI && typeof window.electronAPI.commListDrivers === 'function') {
+      Promise.race([
+        window.electronAPI.commListDrivers().catch(() => null),
+        new Promise(r => setTimeout(r, 800))
+      ]).then(markReady);
+    } else {
+      markReady();
+    }
+  });
+  setTimeout(markReady, 4500);
+
+  function tick(now) {
+    const elapsed = now - t0;
+    const raw = Math.min(elapsed / minBootMs, 1);
+    let e = raw < 0.5 ? 2 * raw * raw : 1 - Math.pow(-2 * raw + 2, 2) / 2;
+    if (!backendReady) e = Math.min(e, 0.94);
+    const p = Math.round(e * 100);
+    stage.style.setProperty('--p', e * 100);
+    pc.textContent = p;
+    for (let i = msgs.length - 1; i >= 0; i--) {
+      if (p >= msgs[i][0]) { st.textContent = msgs[i][1]; break; }
+    }
+    if (raw < 1 || !backendReady) {
+      raf = requestAnimationFrame(tick);
+    } else {
+      stage.classList.add('done');
+      setTimeout(() => {
+        overlay.classList.add('splash-hide');
+        setTimeout(() => { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 500);
+      }, 350);
+    }
+  }
+  raf = requestAnimationFrame(tick);
+})();
+</script>
 <input type="file" id="import-image-input" style="display:none" accept="image/*">
 <input type="file" id="project-location-picker" webkitdirectory directory style="display:none">
 <input type="file" id="open-hmiproj-input" accept=".hmiproj,.json" style="display:none">
