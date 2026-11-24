@@ -974,12 +974,16 @@ a { color: inherit; text-decoration: none; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
   text-align: center;
   background: #F8FAFC;
   border: 1px solid #E2E8F0;
   border-radius: 4px;
   padding: 7px 4px 5px 4px;
   cursor: grab;
+  appearance: none;
   user-select: none;
   transition: all 0.12s ease;
   min-height: 50px;
@@ -1033,6 +1037,19 @@ a { color: inherit; text-decoration: none; }
 .tool-card:hover .tool-card-label {
   color: #0F172A;
 }
+button.tool-card {
+  min-height: 46px;
+}
+button.tool-card:focus-visible {
+  outline: 2px solid #D9261C;
+  outline-offset: 1px;
+}
+button.tool-card .tool-card-label {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  overflow-wrap: anywhere;
+}
 
 /* Compact mode when user drags toolbox narrower than 90px */
 .icon-toolbox.compact .toolbox-header {
@@ -1062,6 +1079,154 @@ a { color: inherit; text-decoration: none; }
 }
 .icon-toolbox.compact .tool-card-icon {
   margin-bottom: 0;
+}
+
+.tool-cat-group {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.tool-cat-group > .tool-cat-items {
+  display: none;
+}
+
+button.tool-cat-header {
+  width: 100%;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border: 1px solid #E2E8F0;
+  border-radius: 4px;
+  background: #FFFFFF;
+  color: #1E293B;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+button.tool-cat-header:hover,
+.tool-cat-group.is-active > button.tool-cat-header {
+  border-color: #D9261C;
+  background: #FFF;
+}
+
+.tool-cat-symbol {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 18px;
+}
+
+.tool-cat-symbol svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.tool-cat-header .cat-name {
+  font-size: 11px;
+}
+
+.tool-cat-header .cat-badge {
+  margin-left: auto;
+}
+
+.tool-category-flyout {
+  position: fixed;
+  z-index: 99999;
+  display: none;
+  flex-direction: column;
+  width: 228px;
+  max-height: min(80vh, 560px);
+  overflow: hidden;
+  border: 1px solid #94A3B8;
+  border-radius: 4px;
+  background: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, .24);
+  box-sizing: border-box;
+}
+
+.tool-flyout-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 5px 8px;
+  border-bottom: 1px solid #CBD5E1;
+  background: #F1F5F9;
+  box-sizing: border-box;
+}
+
+.tool-flyout-title {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1E293B;
+}
+
+.tool-flyout-count {
+  font-size: 10px;
+  color: #64748B;
+}
+
+.tool-flyout-close {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid #CBD5E1;
+  border-radius: 3px;
+  background: #FFFFFF;
+  color: #475569;
+  font: inherit;
+  cursor: pointer;
+}
+
+.tool-flyout-close:hover {
+  border-color: #D9261C;
+  color: #D9261C;
+}
+
+.tool-category-flyout .tb-search-wrapper {
+  margin: 6px 6px 0;
+  flex-shrink: 0;
+}
+
+.tool-category-flyout .tool-cat-items {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: start;
+  gap: 2px;
+  padding: 5px;
+  overflow-y: auto;
+}
+
+.tool-category-flyout .tool-card {
+  min-height: 32px;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 4px 7px;
+  border-radius: 2px;
+  text-align: left;
+}
+
+.tool-category-flyout .tool-card-icon {
+  flex: 0 0 20px;
+  margin: 0;
+}
+
+.tool-category-flyout .tool-card-label {
+  font-size: 11px;
+  text-align: left;
+  white-space: nowrap;
 }
 
 /* --- Properties Sidebar --- */
@@ -1293,9 +1458,11 @@ a { color: inherit; text-decoration: none; }
   gap: 4px;
   border-bottom: 2px solid #000;
   margin-bottom: 12px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
 }
 .prop-tab-btn {
-  padding: 8px 16px;
+  padding: 8px 12px;
   font-size: 12px;
   font-weight: 700;
   border: 1px solid #DDD;
@@ -1305,6 +1472,8 @@ a { color: inherit; text-decoration: none; }
   border-radius: 4px 4px 0 0;
   color: #555;
   transition: all 0.1s ease;
+  white-space: nowrap;
+  flex: 0 0 auto;
 }
 .prop-tab-btn:hover {
   background: #E5E3DD;
@@ -1333,6 +1502,23 @@ a { color: inherit; text-decoration: none; }
   margin-top: 6px;
   border-bottom: 1px solid #EEE;
   padding-bottom: 3px;
+}
+.obj[data-font-size] span,
+.obj[data-font-size] text,
+.obj[data-font-size] label,
+.obj[data-font-size] p {
+  font-family: var(--object-font-family, Arial, sans-serif) !important;
+  font-size: var(--object-font-size, 13px) !important;
+  font-weight: var(--object-font-weight, 400) !important;
+  font-style: var(--object-font-style, normal) !important;
+  text-align: var(--object-text-align, center) !important;
+  text-align: var(--object-text-align, center) !important;
+}
+@keyframes hmi-object-flash {
+  50% { opacity: 0.25; }
+}
+.sim-interactive.hmi-object-flash {
+  animation: hmi-object-flash 700ms steps(2, end) infinite;
 }
 .prop-grid-2 {
   display: grid;
@@ -2950,6 +3136,16 @@ a { color: inherit; text-decoration: none; }
     .launcher-recent-row:hover {
       background: #ECEAE3;
     }
+    .launcher-recent-empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+      padding: 24px;
+      color: #666666;
+      font-size: 12px;
+      text-align: center;
+    }
     .launcher-recent-row .lr-num {
       width: 30px;
       font-size: 11.5px;
@@ -2984,6 +3180,39 @@ a { color: inherit; text-decoration: none; }
       color: #222222;
       margin-left: 12px;
       flex-shrink: 0;
+    }
+    .launcher-recent-row .lr-delete {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      margin-left: 8px;
+      padding: 0;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: #666666;
+      opacity: 0;
+      pointer-events: none;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: opacity 0.12s ease, color 0.12s ease, background 0.12s ease;
+    }
+    .launcher-recent-row:hover .lr-delete,
+    .launcher-recent-row:focus-within .lr-delete {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .launcher-recent-row .lr-delete:hover,
+    .launcher-recent-row .lr-delete:focus-visible {
+      background: #D9261C;
+      color: #FFFFFF;
+      outline: none;
+    }
+    .launcher-recent-row .lr-delete svg {
+      width: 15px;
+      height: 15px;
     }
     .launcher-recent-row.active .lr-title,
     .launcher-recent-row.active .lr-arrow,
@@ -3876,103 +4105,63 @@ a { color: inherit; text-decoration: none; }
           </div>
 
           <div class="toolbox-body" id="toolbox-body">
-            <!-- Category 1: Switches & Inputs -->
+            <!-- Category 1: Switches -->
             <div class="tool-cat-group" data-cat="switches">
-              <div class="tool-cat-header"><span class="cat-arrow" style="display:inline-flex;align-items:center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Switches &amp; Inputs</span><span class="cat-badge">6</span></div>
+              <div class="tool-cat-header"><span class="cat-arrow" style="display:inline-flex;align-items:center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Switch</span><span class="cat-badge">7</span></div>
               <div class="tool-cat-items">
-                <div class="tool-card" draggable="true" data-obj="Bit Switch" title="Bit Switch: Momentary or Alternate contact">
-                  <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg></span>
-                  <span class="tool-card-label">Bit Switch</span>
-                </div>
-                <div class="tool-card" draggable="true" data-obj="Push Button" title="Push Button: Tactile command button">
-                  <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" fill="#F1F5F9" stroke="#475569" stroke-width="2"/><circle cx="12" cy="12" r="6" fill="#D9261C" stroke="#991B1B" stroke-width="1.5"/></svg></span>
-                  <span class="tool-card-label">Push Button</span>
-                </div>
-                <div class="tool-card" draggable="true" data-obj="Selector Switch" title="Selector Switch: 2-pos / 3-pos rotary switch">
-                  <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/><line x1="6" y1="6" x2="8" y2="8" stroke="#94A3B8" stroke-width="1.5"/><line x1="12" y1="4" x2="12" y2="6.5" stroke="#94A3B8" stroke-width="1.5"/><line x1="18" y1="6" x2="16" y2="8" stroke="#94A3B8" stroke-width="1.5"/><rect x="10.5" y="6" width="3" height="9" rx="1.5" fill="#EF4444"/><circle cx="12" cy="12" r="3" fill="#334155"/></svg></span>
-                  <span class="tool-card-label">Selector</span>
-                </div>
-                <div class="tool-card" draggable="true" data-obj="Toggle Switch" title="Toggle Switch: Heavy-duty flip toggle lever">
-                  <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="3" fill="#334155" stroke="#64748B" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="#1E293B"/><line x1="12" y1="12" x2="12" y2="6" stroke="#E2E8F0" stroke-width="3" stroke-linecap="round"/><circle cx="12" cy="6" r="2" fill="#FFFFFF"/></svg></span>
-                  <span class="tool-card-label">Toggle</span>
-                </div>
-                <div class="tool-card" draggable="true" data-obj="Keypad" title="Keypad: Touch numeric entry keypad input">
-                  <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3" fill="#F8FAFC"/><rect x="5.5" y="5.5" width="3" height="3" rx="0.5" fill="#CBD5E1"/><rect x="10.5" y="5.5" width="3" height="3" rx="0.5" fill="#CBD5E1"/><rect x="15.5" y="5.5" width="3" height="3" rx="0.5" fill="#CBD5E1"/><rect x="5.5" y="10.5" width="3" height="3" rx="0.5" fill="#CBD5E1"/><rect x="10.5" y="10.5" width="3" height="3" rx="0.5" fill="#CBD5E1"/><rect x="15.5" y="10.5" width="3" height="3" rx="0.5" fill="#CBD5E1"/><rect x="5.5" y="15.5" width="3" height="3" rx="0.5" fill="#EF4444"/><rect x="10.5" y="15.5" width="3" height="3" rx="0.5" fill="#CBD5E1"/><rect x="15.5" y="15.5" width="3" height="3" rx="0.5" fill="#10B981"/></svg></span>
-                  <span class="tool-card-label">Keypad</span>
-                </div>
-                <div class="tool-card" draggable="true" data-obj="Screen Navigation" title="Screen Navigation: Page change button">
-                  <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><path d="M10 9l3 3-3 3" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="7" y1="12" x2="13" y2="12" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/></svg></span>
-                  <span class="tool-card-label">Screen Nav</span>
-                </div>
+                <button type="button" class="tool-card" draggable="true" data-obj="Bit Switch" title="Add Bit Switch"><span class="tool-card-label">Bit Switch</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Word Switch" title="Add Word Switch"><span class="tool-card-label">Word Switch</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Go To Screen Switch" title="Add Go To Screen Switch"><span class="tool-card-label">Go To Screen Switch</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Change Station No. Switch" title="Add Change Station No. Switch"><span class="tool-card-label">Change Station No. Switch</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Special Function Switch" title="Add Special Function Switch"><span class="tool-card-label">Special Function Switch</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Key Window Display Switch" title="Add Key Window Display Switch"><span class="tool-card-label">Key Window Display Switch</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Key Code Switch" title="Add Key Code Switch"><span class="tool-card-label">Key Code Switch</span></button>
               </div>
             </div>
 
-            <!-- Category 2: Lamps & Signaling -->
+            <!-- Category 2: Lamp Options -->
             <div class="tool-cat-group" data-cat="lamps">
-              <div class="tool-cat-header"><span class="cat-arrow" style="display:inline-flex;align-items:center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Lamps &amp; Signaling</span><span class="cat-badge">5</span></div>
+              <div class="tool-cat-header"><span class="cat-arrow" style="display:inline-flex;align-items:center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Lamp Option</span><span class="cat-badge">2</span></div>
               <div class="tool-cat-items">
-                <div class="tool-card" draggable="true" data-obj="Bit Lamp" title="Bit Lamp: Single bit ON/OFF pilot lamp">
+                <button type="button" class="tool-card" draggable="true" data-obj="Bit Lamp" title="Bit Lamp: Single bit ON/OFF pilot lamp">
                   <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/><circle cx="12" cy="12" r="6" fill="#22C55E"/><circle cx="10" cy="10" r="2" fill="#FFFFFF" opacity="0.6"/></svg></span>
                   <span class="tool-card-label">Bit Lamp</span>
-                </div>
-                <div class="tool-card" draggable="true" data-obj="Word Lamp" title="Word Lamp: Multi-state color indicator">
+                </button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Word Lamp" title="Word Lamp: Multi-state color indicator">
                   <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="3" fill="#1E293B" stroke="#475569" stroke-width="1.5"/><rect x="5.5" y="8.5" width="3.5" height="7" rx="1" fill="#10B981"/><rect x="10.25" y="8.5" width="3.5" height="7" rx="1" fill="#F59E0B"/><rect x="15" y="8.5" width="3.5" height="7" rx="1" fill="#EF4444"/></svg></span>
                   <span class="tool-card-label">Word Lamp</span>
-                </div>
-                <div class="tool-card" draggable="true" data-obj="Tower Light" title="Tower Light: 3-tier Red/Amber/Green stack light">
-                  <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="11" y="16" width="2" height="6" fill="#64748B"/><rect x="8" y="21" width="8" height="2" rx="0.5" fill="#334155"/><rect x="9" y="3" width="6" height="14" rx="2" fill="#1E293B" stroke="#475569" stroke-width="1"/><rect x="10" y="4" width="4" height="3.5" rx="0.5" fill="#EF4444"/><rect x="10" y="8.5" width="4" height="3.5" rx="0.5" fill="#F59E0B"/><rect x="10" y="13" width="4" height="3.5" rx="0.5" fill="#10B981"/></svg></span>
-                  <span class="tool-card-label">Tower Light</span>
-                </div>
-                <div class="tool-card" draggable="true" data-obj="Status Indicator" title="Pilot LED: Compact flush indicator">
-                  <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" fill="#F1F5F9" stroke="#94A3B8" stroke-width="2"/><circle cx="12" cy="12" r="4.5" fill="#3B82F6"/><circle cx="10.5" cy="10.5" r="1.5" fill="#FFFFFF" opacity="0.8"/></svg></span>
-                  <span class="tool-card-label">Pilot LED</span>
-                </div>
-                <div class="tool-card" draggable="true" data-obj="Alarm Beacon" title="Alarm Beacon: Warning strobe flasher">
-                  <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="7" y="16" width="10" height="5" rx="1" fill="#334155"/><path d="M7 16 C7 9 17 9 17 16 Z" fill="#F59E0B" stroke="#D97706" stroke-width="1.5"/><line x1="12" y1="3" x2="12" y2="6" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/><line x1="5" y1="6" x2="7" y2="8" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="6" x2="17" y2="8" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-                  <span class="tool-card-label">Alarm Beacon</span>
-                </div>
+                </button>
               </div>
             </div>
 
-            <!-- Category 3: Numerics & Data -->
+            <div class="tool-cat-group collapsed" data-cat="signals">
+              <div class="tool-cat-header"><span class="cat-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Signal Indicators</span><span class="cat-badge">3</span></div>
+              <div class="tool-cat-items">
+                <button type="button" class="tool-card" draggable="true" data-obj="Tower Light" title="Add Tower Light"><span class="tool-card-label">Tower Light</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Status Indicator" title="Add Pilot LED"><span class="tool-card-label">Pilot LED</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Alarm Beacon" title="Add Alarm Beacon"><span class="tool-card-label">Alarm Beacon</span></button>
+              </div>
+            </div>
+
+            <!-- Category 3: Numerical Display / Input -->
             <div class="tool-cat-group" data-cat="numerics">
-              <div class="tool-cat-header"><span class="cat-arrow" style="display:inline-flex;align-items:center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Numerics &amp; Data</span><span class="cat-badge">6</span></div>
+              <div class="tool-cat-header"><span class="cat-arrow" style="display:inline-flex;align-items:center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Numerical Display/Input</span><span class="cat-badge">2</span></div>
               <div class="tool-cat-items">
-                <div class="tool-card" draggable="true" data-obj="Numeric Display" title="Numeric Display">
+                <button type="button" class="tool-card" draggable="true" data-obj="Numeric Display" title="Numeric Display">
                   <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2" fill="#0F172A" stroke="#334155" stroke-width="1.5"/><text x="12" y="15" fill="#10B981" font-size="9" font-family="Consolas,monospace" font-weight="900" text-anchor="middle">123</text></svg></span>
-                  <span class="tool-card-label">Numeric Disp</span>
-                </div>
-                <div class="tool-card" draggable="true" data-obj="Numeric Input" title="Numeric Input">
+                  <span class="tool-card-label">Numerical Display</span>
+                </button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Numeric Input" title="Numeric Input">
                   <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2" fill="#FFFFFF" stroke="#0284C7" stroke-width="1.5"/><text x="9" y="15" fill="#0284C7" font-size="9" font-family="Consolas,monospace" font-weight="900">42</text><path d="M14 15l4-4m-1-1l1 1" stroke="#0284C7" stroke-width="1.2" stroke-linecap="round"/></svg></span>
-                  <span class="tool-card-label">Numeric In</span>
-                </div>
-                <div class="tool-card" draggable="true" data-obj="Analog Slider" title="Analog Slider">
-                  <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><line x1="12" y1="4" x2="12" y2="20" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round"/><line x1="12" y1="12" x2="12" y2="20" stroke="#0284C7" stroke-width="3" stroke-linecap="round"/><rect x="8" y="10" width="8" height="5" rx="1.5" fill="#FFFFFF" stroke="#334155" stroke-width="1.5"/></svg></span>
-                  <span class="tool-card-label">Slider</span>
-                </div>
-                <div class="tool-card" draggable="true" data-obj="Text" title="Static Text">
-                  <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><text x="12" y="17" fill="#334155" font-size="14" font-weight="bold" font-family="sans-serif" text-anchor="middle">Aa</text></svg></span>
-                  <span class="tool-card-label">Static Text</span>
-                </div>
-                <div class="tool-card" draggable="true" data-obj="String Display" title="String Display">
-                  <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2" fill="#F8FAFC" stroke="#64748B" stroke-width="1.5"/><line x1="6" y1="10" x2="18" y2="10" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/><line x1="6" y1="14" x2="14" y2="14" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-                  <span class="tool-card-label">String Disp</span>
-                </div>
-                <div class="tool-card" draggable="true" data-obj="Date/Time" title="Date/Time">
-                  <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="1" fill="#475569"/></svg></span>
-                  <span class="tool-card-label">Date/Time</span>
-                </div>
+                  <span class="tool-card-label">Numerical Input</span>
+                </button>
               </div>
             </div>
 
-            <!-- Category 4: Alarms & Events -->
+            <!-- Category 4: Other Alarms & Events -->
             <div class="tool-cat-group" data-cat="alarms">
-              <div class="tool-cat-header"><span class="cat-arrow" style="display:inline-flex;align-items:center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Alarms &amp; Events</span><span class="cat-badge">5</span></div>
+              <div class="tool-cat-header"><span class="cat-arrow" style="display:inline-flex;align-items:center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Other Alarms &amp; Events</span><span class="cat-badge">4</span></div>
               <div class="tool-cat-items">
-                <div class="tool-card" draggable="true" data-obj="Alarm Display" title="Alarm Display">
-                  <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/><path d="M12 8v4m0 3h.01" stroke="#DC2626" stroke-width="2" stroke-linecap="round"/><line x1="7" y1="18" x2="17" y2="18" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-                  <span class="tool-card-label">Alarm Display</span>
-                </div>
                 <div class="tool-card" draggable="true" data-obj="Alarm History" title="Alarm History">
                   <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><circle cx="9" cy="9" r="3" stroke="#64748B" stroke-width="1.2"/><polyline points="9,7.5 9,9 10,9" stroke="#64748B" stroke-width="1.2" stroke-linecap="round"/><line x1="14" y1="9" x2="18" y2="9" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/><line x1="6" y1="14" x2="18" y2="14" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/><line x1="6" y1="17" x2="15" y2="17" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
                   <span class="tool-card-label">Alarm History</span>
@@ -3989,6 +4178,55 @@ a { color: inherit; text-decoration: none; }
                   <span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/><circle cx="12" cy="12" r="6" fill="#EF4444"/><path d="M12 9v3m0 2h.01" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/></svg></span>
                   <span class="tool-card-label">Status Lamp</span>
                 </div>
+              </div>
+            </div>
+
+            <div class="tool-cat-group collapsed" data-cat="text-io">
+              <div class="tool-cat-header"><span class="cat-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Text Display/Input</span><span class="cat-badge">2</span></div>
+              <div class="tool-cat-items">
+                <button type="button" class="tool-card" draggable="true" data-obj="Text Display" title="Add Text Display"><span class="tool-card-label">Text Display</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Text Input" title="Add Text Input"><span class="tool-card-label">Text Input</span></button>
+              </div>
+            </div>
+
+            <div class="tool-cat-group collapsed" data-cat="date-time">
+              <div class="tool-cat-header"><span class="cat-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Date/Time Display</span><span class="cat-badge">2</span></div>
+              <div class="tool-cat-items">
+                <button type="button" class="tool-card" draggable="true" data-obj="Date Display" title="Add Date Display"><span class="tool-card-label">Date Display</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Time Display" title="Add Time Display"><span class="tool-card-label">Time Display</span></button>
+              </div>
+            </div>
+
+            <div class="tool-cat-group collapsed" data-cat="comments">
+              <div class="tool-cat-header"><span class="cat-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Comment Display</span><span class="cat-badge">3</span></div>
+              <div class="tool-cat-items">
+                <button type="button" class="tool-card" draggable="true" data-obj="Bit Comment" title="Add Bit Comment"><span class="tool-card-label">Bit Comment</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Word Comment" title="Add Word Comment"><span class="tool-card-label">Word Comment</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Simple Comment" title="Add Simple Comment"><span class="tool-card-label">Simple Comment</span></button>
+              </div>
+            </div>
+
+            <div class="tool-cat-group collapsed" data-cat="parts">
+              <div class="tool-cat-header"><span class="cat-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Part Display</span><span class="cat-badge">3</span></div>
+              <div class="tool-cat-items">
+                <button type="button" class="tool-card" draggable="true" data-obj="Bit Part" title="Add Bit Part"><span class="tool-card-label">Bit Part</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Word Part" title="Add Word Part"><span class="tool-card-label">Word Part</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Display Part" title="Add Display Part"><span class="tool-card-label">Display Part</span></button>
+              </div>
+            </div>
+
+            <div class="tool-cat-group collapsed" data-cat="alarm-display">
+              <div class="tool-cat-header"><span class="cat-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Alarm Display Option</span><span class="cat-badge">2</span></div>
+              <div class="tool-cat-items">
+                <button type="button" class="tool-card" draggable="true" data-obj="Alarm Display" title="Add User Alarm Display"><span class="tool-card-label">Alarm Display (User)</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Simple Alarm Display" title="Add Simple Alarm Display"><span class="tool-card-label">Simple Alarm Display</span></button>
+              </div>
+            </div>
+
+            <div class="tool-cat-group collapsed" data-cat="recipes">
+              <div class="tool-cat-header"><span class="cat-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Recipe Display</span><span class="cat-badge">1</span></div>
+              <div class="tool-cat-items">
+                <button type="button" class="tool-card" draggable="true" data-obj="Recipe Display" title="Add Recipe Display"><span class="tool-card-label">Recipe Display</span></button>
               </div>
             </div>
 
@@ -4014,6 +4252,23 @@ a { color: inherit; text-decoration: none; }
                 <div class="tool-card" draggable="true" data-obj="Historical Trend"><span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" fill="#0F172A"/><path d="M5 14l3-3 3 2 4-5 4 3" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/></svg></span><span class="tool-card-label">History Trend</span></div>
                 <div class="tool-card" draggable="true" data-obj="Gauge"><span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#0F172A" stroke="#475569" stroke-width="1.5"/><path d="M6 14 A 7 7 0 1 1 18 14" stroke="#22C55E" stroke-width="2"/><line x1="12" y1="12" x2="15" y2="8" stroke="#EF4444" stroke-width="1.5"/></svg></span><span class="tool-card-label">Gauge</span></div>
                 <div class="tool-card" draggable="true" data-obj="Bar Graph"><span class="tool-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" fill="#F8FAFC" stroke="#64748B" stroke-width="1.5"/><rect x="5.5" y="13" width="3" height="5" fill="#3B82F6"/><rect x="10.5" y="9" width="3" height="9" fill="#3B82F6"/><rect x="15.5" y="6" width="3" height="12" fill="#3B82F6"/></svg></span><span class="tool-card-label">Bar Graph</span></div>
+              </div>
+            </div>
+
+            <div class="tool-cat-group collapsed" data-cat="meters">
+              <div class="tool-cat-header"><span class="cat-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Meters</span><span class="cat-badge">4</span></div>
+              <div class="tool-cat-items">
+                <button type="button" class="tool-card" draggable="true" data-obj="Sector Meter" title="Add Sector Meter"><span class="tool-card-label">Sector Meter</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Semicircle Meter" title="Add Semicircle Meter"><span class="tool-card-label">Semicircle Meter</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Bar (Vertical) Meter" title="Add vertical bar meter"><span class="tool-card-label">Bar (Vertical) Meter</span></button>
+                <button type="button" class="tool-card" draggable="true" data-obj="Bar (Horizontal) Meter" title="Add horizontal bar meter"><span class="tool-card-label">Bar (Horizontal) Meter</span></button>
+              </div>
+            </div>
+
+            <div class="tool-cat-group collapsed" data-cat="analog-controls">
+              <div class="tool-cat-header"><span class="cat-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span><span class="cat-name">Analog Controls</span><span class="cat-badge">1</span></div>
+              <div class="tool-cat-items">
+                <button type="button" class="tool-card" draggable="true" data-obj="Analog Slider" title="Add Analog Slider"><span class="tool-card-label">Analog Slider</span></button>
               </div>
             </div>
 
@@ -5039,7 +5294,7 @@ if (typeof module !== 'undefined' && module.exports) {
  */
 
 const WidgetRegistry = (function() {
-  const SWITCHES = ['Bit Switch', 'Word Switch', 'Push Button', 'Button', 'Selector Switch', 'Toggle Switch', 'Keypad', 'Screen Navigation'];
+  const SWITCHES = ['Bit Switch', 'Word Switch', 'Push Button', 'Button', 'Selector Switch', 'Toggle Switch', 'Keypad', 'Screen Navigation', 'Go To Screen Switch'];
   const LAMPS = ['Bit Lamp', 'Word Lamp', 'Status Indicator', 'Pilot LED', 'Tower Light', 'Alarm Beacon'];
   const NUMERICS = ['Numeric Display', 'Numeric Input', 'Analog Slider', 'Static Text', 'Text', 'String Display', 'Date/Time'];
   const ALARMS = ['Alarm Display', 'Alarm History', 'Alarm Acknowledge', 'Alarm Reset', 'Alarm Status Lamp'];
@@ -5059,7 +5314,7 @@ const WidgetRegistry = (function() {
   }
 
   function getDefaultAction(type) {
-    if (type === 'Screen Navigation') return 'Navigate';
+    if (type === 'Screen Navigation' || type === 'Go To Screen Switch') return 'Navigate';
     if (type === 'Bit Switch' || type === 'Push Button' || type === 'Button') return 'Momentary';
     if (type === 'Selector Switch') return '3-Position';
     if (type === 'Toggle Switch') return 'Alternate';
@@ -5139,7 +5394,7 @@ const WidgetRegistry = (function() {
       width = 80; height = 80;
     } else if (type === 'Numeric Display' || type === 'Numeric Input') {
       width = 130; height = 44;
-    } else if (type === 'Screen Navigation') {
+    } else if (type === 'Screen Navigation' || type === 'Go To Screen Switch') {
       width = 130; height = 44;
     } else if (type === 'Alarm Display') {
       width = 340; height = 140;
@@ -5178,7 +5433,35 @@ const WidgetRegistry = (function() {
       navTarget: 'Base_Screen_1',
       fontSize: 13,
       borderWidth: 2,
-      borderColor: '#000000'
+      borderColor: '#000000',
+      lineStyle: 'solid',
+      cornerRadius: 4,
+      fontFamily: 'Arial',
+      bold: false,
+      italic: false,
+      textAlign: 'center',
+      rotation: 0,
+      dataFormat: 'BIN16',
+      integerDigits: 5,
+      zeroSuppress: true,
+      comma: false,
+      showSign: false,
+      scaling: 1,
+      offset: 0,
+      dateFormat: 'yyyy-MM-dd HH:mm:ss',
+      charCount: 16,
+      setValue: 0,
+      objectId: '',
+      comment: '',
+      layer: 0,
+      visibilityMode: 'always',
+      visibilityTag: '',
+      flash: false,
+      interlockMode: 'none',
+      interlockTag: '',
+      securityLevel: 0,
+      notificationDevice: '',
+      buzzer: false
     };
   }
 
@@ -5190,12 +5473,45 @@ const WidgetRegistry = (function() {
     el.setAttribute('data-action', cfg.action || '');
     el.setAttribute('data-style', cfg.style || '');
     el.setAttribute('data-tag', cfg.tag || cfg.device || '');
+    el.setAttribute('data-text', cfg.text || '');
     el.setAttribute('data-min', cfg.min || '0');
     el.setAttribute('data-max', cfg.max || '100');
     el.setAttribute('data-dec', cfg.dec || '0');
     el.setAttribute('data-on', cfg.colorOn || '#22A06B');
     el.setAttribute('data-off', cfg.colorOff || '#9AA0A6');
     el.setAttribute('data-nav', cfg.navTarget || '');
+    el.setAttribute('data-object-id', cfg.objectId || '');
+    el.setAttribute('data-comment', cfg.comment || '');
+    el.setAttribute('data-layer', cfg.layer === undefined ? '0' : String(cfg.layer));
+    el.setAttribute('data-font-size', cfg.fontSize || 13);
+    el.setAttribute('data-font-family', cfg.fontFamily || 'Arial');
+    el.setAttribute('data-bold', cfg.bold ? '1' : '0');
+    el.setAttribute('data-italic', cfg.italic ? '1' : '0');
+    el.setAttribute('data-text-align', cfg.textAlign || 'center');
+    el.setAttribute('data-rotation', cfg.rotation || 0);
+    el.setAttribute('data-line-style', cfg.lineStyle || 'solid');
+    el.setAttribute('data-border-width', cfg.borderWidth === undefined ? '2' : String(cfg.borderWidth));
+    el.setAttribute('data-border-color', cfg.borderColor || '#000000');
+    el.setAttribute('data-corner-radius', cfg.cornerRadius === undefined ? '4' : String(cfg.cornerRadius));
+    el.setAttribute('data-format', cfg.dataFormat || 'BIN16');
+    el.setAttribute('data-integer-digits', cfg.integerDigits || 5);
+    el.setAttribute('data-zero-suppress', cfg.zeroSuppress === undefined || cfg.zeroSuppress ? '1' : '0');
+    el.setAttribute('data-comma', cfg.comma ? '1' : '0');
+    el.setAttribute('data-show-sign', cfg.showSign ? '1' : '0');
+    el.setAttribute('data-scaling', cfg.scaling === undefined ? '1' : String(cfg.scaling));
+    el.setAttribute('data-offset', cfg.offset === undefined ? '0' : String(cfg.offset));
+    el.setAttribute('data-date-format', cfg.dateFormat || 'yyyy-MM-dd HH:mm:ss');
+    el.setAttribute('data-char-count', cfg.charCount || 16);
+    el.setAttribute('data-set-value', cfg.setValue === undefined ? '0' : String(cfg.setValue));
+    el.setAttribute('data-word-action', cfg.wordAction || 'Write');
+    el.setAttribute('data-vis-mode', cfg.visibilityMode || 'always');
+    el.setAttribute('data-vis-tag', cfg.visibilityTag || '');
+    el.setAttribute('data-flash', cfg.flash ? '1' : '0');
+    el.setAttribute('data-interlock-mode', cfg.interlockMode || 'none');
+    el.setAttribute('data-interlock-tag', cfg.interlockTag || '');
+    el.setAttribute('data-security-level', cfg.securityLevel || 0);
+    el.setAttribute('data-notification-device', cfg.notificationDevice || '');
+    el.setAttribute('data-buzzer', cfg.buzzer ? '1' : '0');
 
     el.style.left = cfg.left + 'px';
     el.style.top = cfg.top + 'px';
@@ -5203,9 +5519,17 @@ const WidgetRegistry = (function() {
     el.style.height = cfg.height + 'px';
     el.style.backgroundColor = cfg.bg || 'transparent';
     el.style.color = cfg.fg || '#000';
+    el.style.zIndex = String(Math.max(0, parseInt(cfg.layer, 10) || 0));
+    el.style.transform = `rotate(${Math.max(-180, Math.min(180, parseInt(cfg.rotation, 10) || 0))}deg)`;
+    el.style.textAlign = cfg.textAlign || 'center';
+    el.style.setProperty('--object-font-size', `${Math.max(6, Math.min(96, parseInt(cfg.fontSize, 10) || 13))}px`);
+    el.style.setProperty('--object-font-family', cfg.fontFamily || 'Arial, sans-serif');
+    el.style.setProperty('--object-text-align', cfg.textAlign || 'center');
+    el.style.setProperty('--object-font-weight', cfg.bold ? '700' : '400');
+    el.style.setProperty('--object-font-style', cfg.italic ? 'italic' : 'normal');
     el.style.border = (t === 'Process Tank' || t === 'Pipe' || t === 'Tower Light' || t === 'Analog Slider' || t === 'Divider Line' || cat === 'alarm')
       ? 'none'
-      : `${cfg.borderWidth || 2}px solid ${cfg.borderColor || '#000'}`;
+      : `${Math.max(0, Math.min(20, cfg.borderWidth === undefined ? 2 : (parseInt(cfg.borderWidth, 10) || 0)))}px ${cfg.lineStyle || 'solid'} ${cfg.borderColor || '#000'}`;
 
     if (cfg.style === 'Circle') {
       el.style.borderRadius = '50%';
@@ -5215,7 +5539,7 @@ const WidgetRegistry = (function() {
     } else if (cfg.style === 'Pill') {
       el.style.borderRadius = '999px';
     } else {
-      el.style.borderRadius = '4px';
+      el.style.borderRadius = `${Math.max(0, Math.min(100, parseInt(cfg.cornerRadius, 10) || 0))}px`;
     }
 
     // 1. Process Tank
@@ -5640,7 +5964,7 @@ const WidgetRegistry = (function() {
     }
 
     // 17. Navigation
-    if (t === 'Screen Navigation') {
+    if (t === 'Screen Navigation' || t === 'Go To Screen Switch') {
       el.innerHTML = `
         <div style="display:flex;align-items:center;justify-content:center;gap:6px;font-weight:700;width:100%;height:100%">
           <span>➔</span><span>${cfg.text || cfg.navTarget || 'Goto Screen'}</span>
@@ -5654,7 +5978,7 @@ const WidgetRegistry = (function() {
       el.innerHTML = `
         <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;width:100%;height:100%">
           <span style="font-size:12px;font-weight:700">${cfg.text || t}</span>
-          <span style="font-size:9px;opacity:0.8">[${cfg.action || 'Momentary'}: ${cfg.tag || 'M100'}]</span>
+          <span style="font-size:9px;opacity:0.8">[${t === 'Word Switch' ? `${cfg.wordAction || 'Write'} ${cfg.setValue || 0}` : (cfg.action || 'Momentary')}: ${cfg.tag || 'M100'}]</span>
         </div>
       `;
       return;
@@ -6252,7 +6576,7 @@ const ProjectValidator = (function() {
         }
 
         // Check screen navigation target
-        if (obj.type === 'Screen Navigation' || obj.action === 'Navigate') {
+        if (obj.type === 'Screen Navigation' || obj.type === 'Go To Screen Switch' || obj.action === 'Navigate') {
           const target = obj.navTarget || obj.text;
           if (target && !screenNames.includes(target) && target !== 'Return' && target !== 'Previous') {
             errors.push(`${objLabel}: Navigation target screen '${target}' does not exist.`);
@@ -6576,6 +6900,16 @@ const ModalManager = (function() {
   function showObjectPropertiesModal(obj, onApply) {
     if (!obj) return;
 
+    const escapeAttr = (value) => String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    const asColor = (value, fallback) => {
+      if (/^#[0-9a-f]{6}$/i.test(value || '')) return value;
+      const rgb = String(value || '').match(/^rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
+      return rgb ? '#' + rgb.slice(1).map(part => Number(part).toString(16).padStart(2, '0')).join('') : fallback;
+    };
     const type = obj.getAttribute('data-type') || 'Object';
     const tag = obj.getAttribute('data-tag') || '';
     const text = obj.getAttribute('data-text') || obj.textContent.trim() || '';
@@ -6586,6 +6920,32 @@ const ModalManager = (function() {
     const max = obj.getAttribute('data-max') || '100';
     const dec = obj.getAttribute('data-dec') || '0';
     const navTarget = obj.getAttribute('data-nav') || '';
+    const objectId = obj.getAttribute('data-object-id') || '';
+    const comment = obj.getAttribute('data-comment') || '';
+    const layer = obj.getAttribute('data-layer') || '0';
+    const fontSize = obj.getAttribute('data-font-size') || '13';
+    const fontFamily = obj.getAttribute('data-font-family') || 'Arial';
+    const isBold = obj.getAttribute('data-bold') === '1';
+    const isItalic = obj.getAttribute('data-italic') === '1';
+    const textAlign = obj.getAttribute('data-text-align') || 'center';
+    const rotation = obj.getAttribute('data-rotation') || '0';
+    const lineStyle = obj.getAttribute('data-line-style') || 'solid';
+    const borderWidth = obj.style.borderWidth ? parseInt(obj.style.borderWidth, 10) : 2;
+    const borderColor = asColor(obj.style.borderColor, '#000000');
+    const bgColor = asColor(obj.style.backgroundColor, '#FFFFFF');
+    const fgColor = asColor(obj.style.color, '#000000');
+    const cornerRadius = obj.getAttribute('data-corner-radius') || '4';
+    const dataFormat = obj.getAttribute('data-format') || 'BIN16';
+    const integerDigits = obj.getAttribute('data-integer-digits') || '5';
+    const zeroSuppress = obj.getAttribute('data-zero-suppress') === '1';
+    const comma = obj.getAttribute('data-comma') === '1';
+    const showSign = obj.getAttribute('data-show-sign') === '1';
+    const scaling = obj.getAttribute('data-scaling') || '1';
+    const offset = obj.getAttribute('data-offset') || '0';
+    const dateFormat = obj.getAttribute('data-date-format') || 'yyyy-MM-dd HH:mm:ss';
+    const charCount = obj.getAttribute('data-char-count') || '16';
+    const setValue = obj.getAttribute('data-set-value') || '0';
+    const wordAction = obj.getAttribute('data-word-action') || 'Write';
 
     const curX = Math.round(parseFloat(obj.style.left) || 0);
     const curY = Math.round(parseFloat(obj.style.top) || 0);
@@ -6597,7 +6957,12 @@ const ModalManager = (function() {
 
     const visMode = obj.getAttribute('data-vis-mode') || 'always';
     const visTag = obj.getAttribute('data-vis-tag') || '';
-    const isFlash = obj.getAttribute('data-flash') === 'true';
+    const isFlash = obj.getAttribute('data-flash') === 'true' || obj.getAttribute('data-flash') === '1';
+    const interlockMode = obj.getAttribute('data-interlock-mode') || 'none';
+    const interlockTag = obj.getAttribute('data-interlock-tag') || '';
+    const securityLevel = obj.getAttribute('data-security-level') || '0';
+    const notificationDevice = obj.getAttribute('data-notification-device') || '';
+    const hasBuzzer = obj.getAttribute('data-buzzer') === '1';
 
     let funcFieldsHtml = '';
 
@@ -6608,21 +6973,21 @@ const ModalManager = (function() {
         <div class="prop-grid-2">
           <div>
             <label>Current Fluid Fill Level (0 - 100%)</label>
-            <input type="number" id="dlg-min" min="0" max="100" value="${min || '65'}">
+            <input type="number" id="dlg-min" min="0" max="100" value="${escapeAttr(min || '65')}">
           </div>
           <div>
             <label>Total Tank Capacity (Engineering Units)</label>
-            <input type="number" id="dlg-max" value="${max || '1000'}">
+            <input type="number" id="dlg-max" value="${escapeAttr(max || '1000')}">
           </div>
         </div>
         <div class="prop-grid-2" style="margin-top:10px">
           <div>
             <label>Fluid Color (Fill Gradient)</label>
-            <input type="color" id="dlg-on" value="${onColor || '#0284C7'}" style="height:38px;padding:2px;cursor:pointer">
+            <input type="color" id="dlg-on" value="${escapeAttr(onColor || '#0284C7')}" style="height:38px;padding:2px;cursor:pointer">
           </div>
           <div>
             <label>Tank Vessel Name / Identifier</label>
-            <input type="text" id="dlg-text" value="${text || 'STORAGE TANK'}">
+            <input type="text" id="dlg-text" value="${escapeAttr(text || 'STORAGE TANK')}">
           </div>
         </div>
       `;
@@ -6640,7 +7005,7 @@ const ModalManager = (function() {
           </div>
           <div>
             <label>Switch Label Text</label>
-            <input type="text" id="dlg-text" value="${text || 'SELECTOR'}">
+            <input type="text" id="dlg-text" value="${escapeAttr(text || 'SELECTOR')}">
           </div>
         </div>
       `;
@@ -6650,16 +7015,16 @@ const ModalManager = (function() {
         <div class="prop-grid-2">
           <div>
             <label>Minimum Setpoint (0%)</label>
-            <input type="number" id="dlg-min" value="${min || '0'}">
+            <input type="number" id="dlg-min" value="${escapeAttr(min || '0')}">
           </div>
           <div>
             <label>Maximum Setpoint (100%)</label>
-            <input type="number" id="dlg-max" value="${max || '100'}">
+            <input type="number" id="dlg-max" value="${escapeAttr(max || '100')}">
           </div>
         </div>
         <div style="margin-top:10px">
           <label>Slider Tag / Caption</label>
-          <input type="text" id="dlg-text" value="${text || 'SLIDER'}">
+          <input type="text" id="dlg-text" value="${escapeAttr(text || 'SLIDER')}">
         </div>
       `;
     } else if (type === 'Word Lamp') {
@@ -6677,7 +7042,7 @@ const ModalManager = (function() {
           </div>
           <div>
             <label>Current State Text</label>
-            <input type="text" id="dlg-text" value="${text || 'STATE 1: RUN'}">
+            <input type="text" id="dlg-text" value="${escapeAttr(text || 'STATE 1: RUN')}">
           </div>
         </div>
       `;
@@ -6694,36 +7059,59 @@ const ModalManager = (function() {
           </div>
           <div>
             <label>Tower Name / Location</label>
-            <input type="text" id="dlg-text" value="${text || 'TOWER 1'}">
+            <input type="text" id="dlg-text" value="${escapeAttr(text || 'TOWER 1')}">
           </div>
         </div>
       `;
     } else if (cat === 'switch') {
       funcFieldsHtml += `
-        <div class="prop-sec-title">Switch Behavior & Action</div>
-        <div class="prop-grid-2">
-          <div>
-            <label>Switch Action</label>
-            <select id="dlg-action">
-              <option value="Momentary" ${action === 'Momentary' ? 'selected' : ''}>Momentary (ON while pressed)</option>
-              <option value="Alternate" ${action === 'Alternate' ? 'selected' : ''}>Alternate (Toggle ON / OFF)</option>
-              <option value="Set" ${action === 'Set' ? 'selected' : ''}>Set (Force Bit ON)</option>
-              <option value="Reset" ${action === 'Reset' ? 'selected' : ''}>Reset (Force Bit OFF)</option>
-            </select>
-          </div>
-          <div>
-            <label>Button Label Text</label>
-            <input type="text" id="dlg-text" value="${text}">
+        <div style="${type === 'Word Switch' || type === 'Go To Screen Switch' ? 'display:none' : ''}">
+          <div class="prop-sec-title">Switch Behavior & Action</div>
+          <div class="prop-grid-2">
+            <div>
+              <label>Switch Action</label>
+              <select id="dlg-action">
+                <option value="Momentary" ${action === 'Momentary' ? 'selected' : ''}>Momentary (ON while pressed)</option>
+                <option value="Alternate" ${action === 'Alternate' ? 'selected' : ''}>Alternate (Toggle ON / OFF)</option>
+                <option value="Set" ${action === 'Set' ? 'selected' : ''}>Set (Force Bit ON)</option>
+                <option value="Reset" ${action === 'Reset' ? 'selected' : ''}>Reset (Force Bit OFF)</option>
+              </select>
+            </div>
+            <div>
+              <label>Button Label Text</label>
+              <input type="text" id="dlg-text" value="${escapeAttr(text)}">
+            </div>
           </div>
         </div>
       `;
-      if (type === 'Screen Navigation') {
+      if (type === 'Screen Navigation' || type === 'Go To Screen Switch') {
         funcFieldsHtml += `
           <div style="margin-top:10px">
             <label>Target Screen to Open</label>
             <select id="dlg-nav">
               ${screens.map(s => `<option value="${s}" ${navTarget === s ? 'selected' : ''}>${s}</option>`).join('')}
             </select>
+          </div>
+        `;
+      }
+      if (type === 'Word Switch') {
+        funcFieldsHtml += `
+          <div class="prop-sec-title">Word Operation</div>
+          <div class="prop-grid-2">
+            <div>
+              <label>Operation</label>
+              <select id="dlg-word-action">
+                <option value="Write" ${wordAction === 'Write' ? 'selected' : ''}>Write value</option>
+                <option value="Add" ${wordAction === 'Add' ? 'selected' : ''}>Add value</option>
+                <option value="Subtract" ${wordAction === 'Subtract' ? 'selected' : ''}>Subtract value</option>
+                <option value="Bit ON" ${wordAction === 'Bit ON' ? 'selected' : ''}>Turn bit ON</option>
+                <option value="Bit OFF" ${wordAction === 'Bit OFF' ? 'selected' : ''}>Turn bit OFF</option>
+              </select>
+            </div>
+            <div>
+              <label>Value / Bit Number</label>
+              <input type="number" id="dlg-set-value" value="${escapeAttr(setValue)}">
+            </div>
           </div>
         `;
       }
@@ -6734,16 +7122,37 @@ const ModalManager = (function() {
         <div class="prop-grid-2">
           <div>
             <label>ON Color (Active Bit)</label>
-            <input type="color" id="dlg-on" value="${onColor}" style="height:38px;padding:2px;cursor:pointer">
+            <input type="color" id="dlg-on" value="${escapeAttr(onColor)}" style="height:38px;padding:2px;cursor:pointer">
           </div>
           <div>
             <label>OFF Color (Inactive Bit)</label>
-            <input type="color" id="dlg-off" value="${offColor}" style="height:38px;padding:2px;cursor:pointer">
+            <input type="color" id="dlg-off" value="${escapeAttr(offColor)}" style="height:38px;padding:2px;cursor:pointer">
           </div>
         </div>
         <div style="margin-top:10px">
           <label>Lamp Caption Text</label>
-          <input type="text" id="dlg-text" value="${text}">
+          <input type="text" id="dlg-text" value="${escapeAttr(text)}">
+        </div>
+      `;
+    } else if (cat === 'numeric' && ['Static Text', 'Text', 'String Display', 'Date/Time'].includes(type)) {
+      funcFieldsHtml += `
+        <div class="prop-sec-title">Text & String Display</div>
+        ${type === 'String Display' ? `
+          <div>
+            <label>Maximum characters</label>
+            <input type="number" id="dlg-char-count" min="1" max="256" value="${escapeAttr(charCount)}">
+          </div>
+        ` : ''}
+        ${type === 'Date/Time' ? `
+          <div>
+            <label>Date / time format</label>
+            <select id="dlg-date-format">
+              ${['yyyy-MM-dd HH:mm:ss', 'MM/dd/yyyy h:mm:ss tt', 'HH:mm:ss', 'yyyy-MM-dd', 'ddd, MMM d yyyy'].map(format => `<option value="${format}" ${dateFormat === format ? 'selected' : ''}>${format}</option>`).join('')}
+            </select>
+          </div>
+        ` : ''}
+        <div style="font-size:11px;color:#64748B">
+          Text content is editable in the Text tab. Data binding and device-specific format execution are not simulated for this object.
         </div>
       `;
     } else if (cat === 'numeric') {
@@ -6753,22 +7162,55 @@ const ModalManager = (function() {
         <div class="prop-grid-2">
           <div>
             <label>Minimum Value</label>
-            <input type="number" id="dlg-min" value="${min}">
+            <input type="number" id="dlg-min" value="${escapeAttr(min)}">
           </div>
           <div>
             <label>Maximum Value</label>
-            <input type="number" id="dlg-max" value="${max}">
+            <input type="number" id="dlg-max" value="${escapeAttr(max)}">
           </div>
         </div>
         <div class="prop-grid-2" style="margin-top:10px">
           <div>
             <label>Decimal Places (0 - 4)</label>
-            <input type="number" id="dlg-dec" min="0" max="4" value="${dec}">
+            <input type="number" id="dlg-dec" min="0" max="4" value="${escapeAttr(dec)}">
           </div>
           <div>
             <label>Unit / Engineering Suffix</label>
-            <input type="text" id="dlg-text" value="${text}" placeholder="e.g. RPM, °C, Bar, kg">
+            <input type="text" id="dlg-text" value="${escapeAttr(text)}" placeholder="e.g. RPM, °C, Bar, kg">
           </div>
+        </div>
+        <div class="prop-grid-2" style="margin-top:10px">
+          <div>
+            <label>Data Type</label>
+            <select id="dlg-data-format">
+              <option value="BIN16" ${dataFormat === 'BIN16' ? 'selected' : ''}>BIN 16-bit</option>
+              <option value="BIN32" ${dataFormat === 'BIN32' ? 'selected' : ''}>BIN 32-bit</option>
+              <option value="BCD" ${dataFormat === 'BCD' ? 'selected' : ''}>BCD</option>
+              <option value="FLOAT" ${dataFormat === 'FLOAT' ? 'selected' : ''}>Floating point</option>
+            </select>
+          </div>
+          <div>
+            <label>Integer Digits</label>
+            <input type="number" id="dlg-integer-digits" min="1" max="12" value="${escapeAttr(integerDigits)}">
+          </div>
+        </div>
+        <div class="prop-grid-2" style="margin-top:10px">
+          <label><input type="checkbox" id="dlg-zero-suppress" ${zeroSuppress ? 'checked' : ''}> Suppress leading zeroes</label>
+          <label><input type="checkbox" id="dlg-comma" ${comma ? 'checked' : ''}> Use thousands separator</label>
+          <label><input type="checkbox" id="dlg-show-sign" ${showSign ? 'checked' : ''}> Always show positive sign</label>
+        </div>
+        <div class="prop-grid-2" style="margin-top:10px">
+          <div>
+            <label>Scale Factor</label>
+            <input type="number" id="dlg-scaling" step="any" value="${escapeAttr(scaling)}">
+          </div>
+          <div>
+            <label>Offset</label>
+            <input type="number" id="dlg-offset" step="any" value="${escapeAttr(offset)}">
+          </div>
+        </div>
+        <div style="font-size:11px;color:#64748B">
+          The simulator formats virtual numeric values; PLC-specific BIN/BCD/float word conversion is not modeled.
         </div>
       `;
     } else if (cat === 'alarm') {
@@ -6785,7 +7227,7 @@ const ModalManager = (function() {
             </div>
             <div>
               <label>Button Label Text</label>
-              <input type="text" id="dlg-text" value="${text}">
+              <input type="text" id="dlg-text" value="${escapeAttr(text)}">
             </div>
           </div>
         `;
@@ -6795,16 +7237,16 @@ const ModalManager = (function() {
           <div class="prop-grid-2">
             <div>
               <label>Active Alarm Color</label>
-              <input type="color" id="dlg-on" value="${onColor || '#EF4444'}" style="height:38px;padding:2px;cursor:pointer">
+              <input type="color" id="dlg-on" value="${escapeAttr(onColor || '#EF4444')}" style="height:38px;padding:2px;cursor:pointer">
             </div>
             <div>
               <label>System Normal Color</label>
-              <input type="color" id="dlg-off" value="${offColor || '#10B981'}" style="height:38px;padding:2px;cursor:pointer">
+              <input type="color" id="dlg-off" value="${escapeAttr(offColor || '#10B981')}" style="height:38px;padding:2px;cursor:pointer">
             </div>
           </div>
           <div style="margin-top:10px">
             <label>Lamp Status Caption</label>
-            <input type="text" id="dlg-text" value="${text}">
+            <input type="text" id="dlg-text" value="${escapeAttr(text)}">
           </div>
         `;
       } else {
@@ -6821,7 +7263,7 @@ const ModalManager = (function() {
             </div>
             <div>
               <label>Display Title</label>
-              <input type="text" id="dlg-text" value="${text}">
+              <input type="text" id="dlg-text" value="${escapeAttr(text)}">
             </div>
           </div>
         `;
@@ -6833,16 +7275,16 @@ const ModalManager = (function() {
         <div class="prop-grid-2">
           <div>
             <label>Y-Axis Minimum (0% SP)</label>
-            <input type="number" id="dlg-min" value="${min}">
+            <input type="number" id="dlg-min" value="${escapeAttr(min)}">
           </div>
           <div>
             <label>Y-Axis Maximum (100% SP)</label>
-            <input type="number" id="dlg-max" value="${max}">
+            <input type="number" id="dlg-max" value="${escapeAttr(max)}">
           </div>
         </div>
         <div style="margin-top:10px">
           <label>Graph Caption</label>
-          <input type="text" id="dlg-text" value="${text}">
+          <input type="text" id="dlg-text" value="${escapeAttr(text)}">
         </div>
       `;
     } else {
@@ -6851,31 +7293,65 @@ const ModalManager = (function() {
         <div class="prop-sec-title">Symbol & Machine Identification</div>
         <div>
           <label>Caption / Machine Name</label>
-          <input type="text" id="dlg-text" value="${text}">
+          <input type="text" id="dlg-text" value="${escapeAttr(text)}">
         </div>
       `;
     }
 
-    // Dynamic Visibility & Alarm Flashing for all components
-    funcFieldsHtml += `
-      <div class="prop-sec-title" style="margin-top:14px">Dynamic Visibility & Alarm Flashing</div>
+    const advancedFieldsHtml = `
+      <div class="prop-sec-title">Display Conditions</div>
       <div class="prop-grid-2">
         <div>
           <label>Conditional Visibility</label>
           <select id="dlg-vis-mode">
-            <option value="always" ${visMode === 'always' ? 'selected' : ''}>Always Visible (Default)</option>
-            <option value="on" ${visMode === 'on' ? 'selected' : ''}>Visible only when bit is ON (1)</option>
-            <option value="off" ${visMode === 'off' ? 'selected' : ''}>Visible only when bit is OFF (0)</option>
+            <option value="always" ${visMode === 'always' ? 'selected' : ''}>Always visible</option>
+            <option value="on" ${visMode === 'on' ? 'selected' : ''}>Visible when bit is ON</option>
+            <option value="off" ${visMode === 'off' ? 'selected' : ''}>Visible when bit is OFF</option>
           </select>
         </div>
         <div>
-          <label>Visibility Bit Trigger</label>
-          <input type="text" id="dlg-vis-tag" value="${visTag}" placeholder="e.g. M120, M500, X0" style="font-family:Consolas,monospace">
+          <label>Visibility Bit Device</label>
+          <input type="text" id="dlg-vis-tag" value="${escapeAttr(visTag)}" placeholder="e.g. M120" style="font-family:Consolas,monospace">
         </div>
       </div>
-      <div style="margin-top:8px;display:flex;align-items:center;gap:8px">
+      <label style="display:flex;align-items:center;gap:8px">
         <input type="checkbox" id="dlg-flash" ${isFlash ? 'checked' : ''} style="width:16px;height:16px">
-        <label for="dlg-flash" style="font-size:11px;font-weight:700;color:#334155;cursor:pointer">Enable Dynamic Flashing (Pulsing Alarm State)</label>
+        Enable flashing in the simulator
+      </label>
+
+      <div class="prop-sec-title">Touch, Interlock & Security</div>
+      <div class="prop-grid-2">
+        <div>
+          <label>Interlock condition</label>
+          <select id="dlg-interlock-mode">
+            <option value="none" ${interlockMode === 'none' ? 'selected' : ''}>No interlock</option>
+            <option value="on" ${interlockMode === 'on' ? 'selected' : ''}>Allow touch when bit is ON</option>
+            <option value="off" ${interlockMode === 'off' ? 'selected' : ''}>Allow touch when bit is OFF</option>
+          </select>
+        </div>
+        <div>
+          <label>Interlock Bit Device</label>
+          <input type="text" id="dlg-interlock-tag" value="${escapeAttr(interlockTag)}" placeholder="e.g. M120" style="font-family:Consolas,monospace">
+        </div>
+      </div>
+      <div class="prop-grid-2">
+        <div>
+          <label>Security level</label>
+          <select id="dlg-security-level">
+            ${[0, 1, 2, 3, 4, 5].map(level => `<option value="${level}" ${String(level) === securityLevel ? 'selected' : ''}>${level === 0 ? 'None' : 'Level ' + level}</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <label>Notification device</label>
+          <input type="text" id="dlg-notification-device" value="${escapeAttr(notificationDevice)}" placeholder="Optional device address" style="font-family:Consolas,monospace">
+        </div>
+      </div>
+      <label style="display:flex;align-items:center;gap:8px">
+        <input type="checkbox" id="dlg-buzzer" ${hasBuzzer ? 'checked' : ''} style="width:16px;height:16px">
+        Request buzzer notification
+      </label>
+      <div style="font-size:11px;color:#64748B">
+        Security, interlock and notification settings are saved as design properties; enforcement depends on runtime support.
       </div>
     `;
 
@@ -6883,9 +7359,12 @@ const ModalManager = (function() {
       <div style="display:flex;flex-direction:column;gap:12px">
         <!-- Tabs Header -->
         <div class="prop-tabs">
-          <button class="prop-tab-btn active" data-tab="dlg-tab-dev">1. Device & Address</button>
-          <button class="prop-tab-btn" data-tab="dlg-tab-func">2. Function & Settings</button>
-          <button class="prop-tab-btn" data-tab="dlg-tab-geom">3. Position & Size</button>
+          <button class="prop-tab-btn active" data-tab="dlg-tab-dev">Basic</button>
+          <button class="prop-tab-btn" data-tab="dlg-tab-func">Function</button>
+          <button class="prop-tab-btn" data-tab="dlg-tab-style">Style</button>
+          <button class="prop-tab-btn" data-tab="dlg-tab-text">Text</button>
+          <button class="prop-tab-btn" data-tab="dlg-tab-advanced">Advanced</button>
+          <button class="prop-tab-btn" data-tab="dlg-tab-geom">Position</button>
         </div>
 
         <!-- Tab 1: Device Address & Tag Binding -->
@@ -6894,11 +7373,22 @@ const ModalManager = (function() {
           <div style="display:flex;flex-direction:column;gap:6px">
             <label>Assigned Device Address / Tag</label>
             <div style="display:flex;gap:6px">
-              <input type="text" id="dlg-tag" value="${tag}" placeholder="e.g. M100, D200, X0, Y0" style="flex:1;font-family:Consolas,monospace;font-weight:700">
+              <input type="text" id="dlg-tag" value="${escapeAttr(tag)}" placeholder="e.g. M100, D200, X0, Y0" style="flex:1;font-family:Consolas,monospace;font-weight:700">
               <button class="btn" id="dlg-btn-pick" style="padding:0 14px">... Pick Address</button>
             </div>
             <div id="dlg-tag-feedback" style="font-size:11px;color:#767676;margin-top:4px">
               Supported protocols: Mitsubishi MELSEC (X, Y, M, D, W, ZR), Siemens S7 (DB/I/Q), Modbus TCP (0x, 4x).
+            </div>
+          </div>
+          <div class="prop-sec-title">Object Identification</div>
+          <div class="prop-grid-2">
+            <div>
+              <label>Object ID / Name</label>
+              <input type="text" id="dlg-object-id" value="${escapeAttr(objectId)}" placeholder="Optional unique name">
+            </div>
+            <div>
+              <label>Comment</label>
+              <input type="text" id="dlg-comment" value="${escapeAttr(comment)}" placeholder="Engineering note">
             </div>
           </div>
         </div>
@@ -6908,17 +7398,99 @@ const ModalManager = (function() {
           ${funcFieldsHtml}
         </div>
 
-        <!-- Tab 3: Coordinates & Dimensions -->
+        <div class="prop-tab-page" id="dlg-tab-style">
+          <div class="prop-sec-title">Shape & Colors</div>
+          <div class="prop-grid-2">
+            <div>
+              <label>Shape style</label>
+              <select id="dlg-style">
+                <option value="Flat" ${obj.getAttribute('data-style') === 'Flat' ? 'selected' : ''}>Flat</option>
+                <option value="Raised" ${obj.getAttribute('data-style') === 'Raised' ? 'selected' : ''}>Raised</option>
+                <option value="Pill" ${obj.getAttribute('data-style') === 'Pill' ? 'selected' : ''}>Pill</option>
+                <option value="Circle" ${obj.getAttribute('data-style') === 'Circle' ? 'selected' : ''}>Circle</option>
+              </select>
+            </div>
+            <div>
+              <label>Corner radius (px)</label>
+              <input type="number" id="dlg-corner-radius" min="0" max="100" value="${escapeAttr(cornerRadius)}">
+            </div>
+          </div>
+          <div class="prop-grid-2">
+            <div><label>Background / Fill</label><input type="color" id="dlg-bg" value="${bgColor}"></div>
+            <div><label>Text / Foreground</label><input type="color" id="dlg-fg" value="${fgColor}"></div>
+          </div>
+          <div class="prop-grid-2">
+            <div><label>Border color</label><input type="color" id="dlg-border-color" value="${borderColor}"></div>
+            <div>
+              <label>Border width (px)</label>
+              <input type="number" id="dlg-border-width" min="0" max="20" value="${Number.isFinite(borderWidth) ? borderWidth : 2}">
+            </div>
+          </div>
+          <div class="prop-grid-2">
+            <div>
+              <label>Line type</label>
+              <select id="dlg-line-style">
+                <option value="solid" ${lineStyle === 'solid' ? 'selected' : ''}>Solid</option>
+                <option value="dashed" ${lineStyle === 'dashed' ? 'selected' : ''}>Dashed</option>
+                <option value="dotted" ${lineStyle === 'dotted' ? 'selected' : ''}>Dotted</option>
+                <option value="double" ${lineStyle === 'double' ? 'selected' : ''}>Double</option>
+              </select>
+            </div>
+            <div class="prop-grid-2" style="align-items:center">
+              <div><label>ON color</label><input type="color" id="dlg-style-on" value="${escapeAttr(onColor)}"></div>
+              <div><label>OFF color</label><input type="color" id="dlg-style-off" value="${escapeAttr(offColor)}"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prop-tab-page" id="dlg-tab-text">
+          <div class="prop-sec-title">Text Appearance</div>
+          <div class="prop-grid-2">
+            <div>
+              <label>Font family</label>
+              <select id="dlg-font-family">
+                ${['Arial', 'Segoe UI', 'Tahoma', 'Verdana', 'Consolas'].map(font => `<option value="${font}" ${font === fontFamily ? 'selected' : ''}>${font}</option>`).join('')}
+              </select>
+            </div>
+            <div><label>Font size (px)</label><input type="number" id="dlg-font-size" min="6" max="96" value="${escapeAttr(fontSize)}"></div>
+          </div>
+          <div class="prop-grid-2">
+            <div>
+              <label>Alignment</label>
+              <select id="dlg-text-align">
+                <option value="left" ${textAlign === 'left' ? 'selected' : ''}>Left</option>
+                <option value="center" ${textAlign === 'center' ? 'selected' : ''}>Center</option>
+                <option value="right" ${textAlign === 'right' ? 'selected' : ''}>Right</option>
+              </select>
+            </div>
+            <div><label>Rotation (degrees)</label><input type="number" id="dlg-rotation" min="-180" max="180" value="${escapeAttr(rotation)}"></div>
+          </div>
+          <div class="prop-grid-2">
+            <label><input type="checkbox" id="dlg-bold" ${isBold ? 'checked' : ''}> Bold</label>
+            <label><input type="checkbox" id="dlg-italic" ${isItalic ? 'checked' : ''}> Italic</label>
+          </div>
+          <div class="prop-sec-title">Object Text</div>
+          <div>
+            <label>Text / caption</label>
+            <input type="text" id="dlg-text-content" value="${escapeAttr(text)}" placeholder="Object label or caption">
+          </div>
+        </div>
+
+        <div class="prop-tab-page" id="dlg-tab-advanced">
+          ${advancedFieldsHtml}
+        </div>
+
+        <!-- Position & dimensions -->
         <div class="prop-tab-page" id="dlg-tab-geom">
-          <div class="prop-sec-title">Layout Coordinates (10px Snap Grid)</div>
+          <div class="prop-sec-title">Layout Coordinates</div>
           <div class="prop-grid-2">
             <div>
               <label>X Position (Left)</label>
-              <input type="number" id="dlg-x" value="${curX}">
+              <input type="number" id="dlg-x" value="${curX}" min="0">
             </div>
             <div>
               <label>Y Position (Top)</label>
-              <input type="number" id="dlg-y" value="${curY}">
+              <input type="number" id="dlg-y" value="${curY}" min="0">
             </div>
           </div>
           <div class="prop-grid-2" style="margin-top:10px">
@@ -6930,6 +7502,10 @@ const ModalManager = (function() {
               <label>Height (px)</label>
               <input type="number" id="dlg-h" value="${curH}">
             </div>
+          </div>
+          <div>
+            <label>Layer / drawing order</label>
+            <input type="number" id="dlg-layer" min="0" max="999" value="${escapeAttr(layer)}">
           </div>
         </div>
 
@@ -6960,6 +7536,13 @@ const ModalManager = (function() {
       };
     });
 
+    const functionTextInput = document.getElementById('dlg-text');
+    const textTabInput = document.getElementById('dlg-text-content');
+    if (functionTextInput && textTabInput) {
+      functionTextInput.addEventListener('input', () => { textTabInput.value = functionTextInput.value; });
+      textTabInput.addEventListener('input', () => { functionTextInput.value = textTabInput.value; });
+    }
+
     // Device Address Selector Integration
     const pickBtn = document.getElementById('dlg-btn-pick');
     const tagInp = document.getElementById('dlg-tag');
@@ -6983,18 +7566,55 @@ const ModalManager = (function() {
     const applyBtn = document.getElementById('dlg-btn-apply');
     function applyChanges() {
       const newTag = tagInp ? tagInp.value.trim().toUpperCase() : tag;
-      const textEl = document.getElementById('dlg-text');
+      const textEl = document.getElementById('dlg-text-content') || document.getElementById('dlg-text');
       const actEl = document.getElementById('dlg-action');
-      const onEl = document.getElementById('dlg-on');
-      const offEl = document.getElementById('dlg-off');
+      const onEl = document.getElementById('dlg-style-on') || document.getElementById('dlg-on');
+      const offEl = document.getElementById('dlg-style-off') || document.getElementById('dlg-off');
       const minEl = document.getElementById('dlg-min');
       const maxEl = document.getElementById('dlg-max');
       const decEl = document.getElementById('dlg-dec');
       const navEl = document.getElementById('dlg-nav');
+      const wordActionEl = document.getElementById('dlg-word-action');
+      const setValueEl = document.getElementById('dlg-set-value');
+      const visModeEl = document.getElementById('dlg-vis-mode');
+      const visTagEl = document.getElementById('dlg-vis-tag');
+      const interlockModeEl = document.getElementById('dlg-interlock-mode');
+      const interlockTagEl = document.getElementById('dlg-interlock-tag');
       const xEl = document.getElementById('dlg-x');
       const yEl = document.getElementById('dlg-y');
       const wEl = document.getElementById('dlg-w');
       const hEl = document.getElementById('dlg-h');
+      const minValue = minEl ? Number(minEl.value) : NaN;
+      const maxValue = maxEl ? Number(maxEl.value) : NaN;
+      const decimalPlaces = decEl ? Number(decEl.value) : 0;
+      const numericScaleField = document.getElementById('dlg-scaling');
+      if (Number.isFinite(minValue) && Number.isFinite(maxValue) && minValue > maxValue) {
+        alert('Minimum value must be less than or equal to maximum value.');
+        return;
+      }
+      if (decEl && (!Number.isInteger(decimalPlaces) || decimalPlaces < 0 || decimalPlaces > 4)) {
+        alert('Decimal places must be a whole number from 0 to 4.');
+        return;
+      }
+      if (numericScaleField && (!Number.isFinite(Number(numericScaleField.value)) || Number(numericScaleField.value) === 0)) {
+        alert('Scale factor must be a valid non-zero number.');
+        return;
+      }
+      if (visModeEl && visModeEl.value !== 'always' && !visTagEl.value.trim()) {
+        alert('Enter a bit device address for conditional visibility.');
+        return;
+      }
+      if (interlockModeEl && interlockModeEl.value !== 'none' && !interlockTagEl.value.trim()) {
+        alert('Enter a bit device address for the touch interlock.');
+        return;
+      }
+      if (wordActionEl && (wordActionEl.value === 'Bit ON' || wordActionEl.value === 'Bit OFF')) {
+        const bitNumber = Number(setValueEl.value);
+        if (!Number.isInteger(bitNumber) || bitNumber < 0 || bitNumber > 15) {
+          alert('Word bit number must be a whole number from 0 to 15.');
+          return;
+        }
+      }
 
       if (newTag) obj.setAttribute('data-tag', newTag);
       if (textEl) obj.setAttribute('data-text', textEl.value);
@@ -7005,18 +7625,78 @@ const ModalManager = (function() {
       if (maxEl) obj.setAttribute('data-max', maxEl.value);
       if (decEl) obj.setAttribute('data-dec', decEl.value);
       if (navEl) obj.setAttribute('data-nav', navEl.value);
+      if (wordActionEl) obj.setAttribute('data-word-action', wordActionEl.value);
+      if (setValueEl) obj.setAttribute('data-set-value', String(Number(setValueEl.value) || 0));
 
-      const visModeEl = document.getElementById('dlg-vis-mode');
-      const visTagEl = document.getElementById('dlg-vis-tag');
+      const objectIdEl = document.getElementById('dlg-object-id');
+      const commentEl = document.getElementById('dlg-comment');
+      const styleEl = document.getElementById('dlg-style');
+      const bgEl = document.getElementById('dlg-bg');
+      const fgEl = document.getElementById('dlg-fg');
+      const borderColorEl = document.getElementById('dlg-border-color');
+      const borderWidthEl = document.getElementById('dlg-border-width');
+      const lineStyleEl = document.getElementById('dlg-line-style');
+      const cornerRadiusEl = document.getElementById('dlg-corner-radius');
+      const fontSizeEl = document.getElementById('dlg-font-size');
+      const fontFamilyEl = document.getElementById('dlg-font-family');
+      const textAlignEl = document.getElementById('dlg-text-align');
+      const rotationEl = document.getElementById('dlg-rotation');
+      const boldEl = document.getElementById('dlg-bold');
+      const italicEl = document.getElementById('dlg-italic');
+      if (objectIdEl) obj.setAttribute('data-object-id', objectIdEl.value.trim());
+      if (commentEl) obj.setAttribute('data-comment', commentEl.value.trim());
+      if (styleEl) obj.setAttribute('data-style', styleEl.value);
+      if (bgEl) obj.style.backgroundColor = bgEl.value;
+      if (fgEl) obj.style.color = fgEl.value;
+      if (borderColorEl) obj.setAttribute('data-border-color', borderColorEl.value);
+      if (borderWidthEl) obj.setAttribute('data-border-width', String(Math.max(0, Math.min(20, Number(borderWidthEl.value) || 0))));
+      if (lineStyleEl) obj.setAttribute('data-line-style', lineStyleEl.value);
+      if (cornerRadiusEl) obj.setAttribute('data-corner-radius', String(Math.max(0, Math.min(100, Number(cornerRadiusEl.value) || 0))));
+      if (fontSizeEl) obj.setAttribute('data-font-size', String(Math.max(6, Math.min(96, Number(fontSizeEl.value) || 13))));
+      if (fontFamilyEl) obj.setAttribute('data-font-family', fontFamilyEl.value);
+      if (textAlignEl) obj.setAttribute('data-text-align', textAlignEl.value);
+      if (rotationEl) obj.setAttribute('data-rotation', String(Math.max(-180, Math.min(180, Number(rotationEl.value) || 0))));
+      if (boldEl) obj.setAttribute('data-bold', boldEl.checked ? '1' : '0');
+      if (italicEl) obj.setAttribute('data-italic', italicEl.checked ? '1' : '0');
+
+      const dataFormatEl = document.getElementById('dlg-data-format');
+      const integerDigitsEl = document.getElementById('dlg-integer-digits');
+      const zeroSuppressEl = document.getElementById('dlg-zero-suppress');
+      const commaEl = document.getElementById('dlg-comma');
+      const showSignEl = document.getElementById('dlg-show-sign');
+      const scalingEl = document.getElementById('dlg-scaling');
+      const offsetEl = document.getElementById('dlg-offset');
+      const dateFormatEl = document.getElementById('dlg-date-format');
+      const charCountEl = document.getElementById('dlg-char-count');
+      if (dataFormatEl) obj.setAttribute('data-format', dataFormatEl.value);
+      if (integerDigitsEl) obj.setAttribute('data-integer-digits', String(Math.max(1, Math.min(12, Number(integerDigitsEl.value) || 1))));
+      if (zeroSuppressEl) obj.setAttribute('data-zero-suppress', zeroSuppressEl.checked ? '1' : '0');
+      if (commaEl) obj.setAttribute('data-comma', commaEl.checked ? '1' : '0');
+      if (showSignEl) obj.setAttribute('data-show-sign', showSignEl.checked ? '1' : '0');
+      if (scalingEl) obj.setAttribute('data-scaling', String(Number(scalingEl.value) || 0));
+      if (offsetEl) obj.setAttribute('data-offset', String(Number(offsetEl.value) || 0));
+      if (dateFormatEl) obj.setAttribute('data-date-format', dateFormatEl.value);
+      if (charCountEl) obj.setAttribute('data-char-count', String(Math.max(1, Math.min(256, Number(charCountEl.value) || 1))));
+
       const flashEl = document.getElementById('dlg-flash');
+      const securityLevelEl = document.getElementById('dlg-security-level');
+      const notificationDeviceEl = document.getElementById('dlg-notification-device');
+      const buzzerEl = document.getElementById('dlg-buzzer');
       if (visModeEl) obj.setAttribute('data-vis-mode', visModeEl.value);
       if (visTagEl) obj.setAttribute('data-vis-tag', visTagEl.value.trim().toUpperCase());
       if (flashEl) obj.setAttribute('data-flash', flashEl.checked ? '1' : '0');
+      if (interlockModeEl) obj.setAttribute('data-interlock-mode', interlockModeEl.value);
+      if (interlockTagEl) obj.setAttribute('data-interlock-tag', interlockTagEl.value.trim().toUpperCase());
+      if (securityLevelEl) obj.setAttribute('data-security-level', securityLevelEl.value);
+      if (notificationDeviceEl) obj.setAttribute('data-notification-device', notificationDeviceEl.value.trim().toUpperCase());
+      if (buzzerEl) obj.setAttribute('data-buzzer', buzzerEl.checked ? '1' : '0');
 
       if (xEl) obj.style.left = Math.max(0, parseInt(xEl.value, 10) || 0) + 'px';
       if (yEl) obj.style.top = Math.max(0, parseInt(yEl.value, 10) || 0) + 'px';
       if (wEl) obj.style.width = Math.max(20, parseInt(wEl.value, 10) || 20) + 'px';
       if (hEl) obj.style.height = Math.max(10, parseInt(hEl.value, 10) || 10) + 'px';
+      const layerEl = document.getElementById('dlg-layer');
+      if (layerEl) obj.setAttribute('data-layer', String(Math.max(0, Math.min(999, parseInt(layerEl.value, 10) || 0))));
 
       hideModal();
 
@@ -7748,30 +8428,58 @@ const HmiSimulator = (function() {
     const cat = cfg.category || WidgetRegistry.getCategory(t);
     const tag = (cfg.tag || cfg.device || '').toUpperCase().trim();
     const act = cfg.action || '';
+    const canTouch = () => {
+      const mode = cfg.interlockMode || el.getAttribute('data-interlock-mode') || 'none';
+      const interlockTag = (cfg.interlockTag || el.getAttribute('data-interlock-tag') || '').toUpperCase().trim();
+      if (mode === 'none') return true;
+      if (!interlockTag) return false;
+      const isOn = VirtualPLC.getBit(interlockTag) === 1;
+      return mode === 'on' ? isOn : !isOn;
+    };
 
+    // Word switches operate on virtual word registers rather than bit coils.
+    if (t === 'Word Switch') {
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!canTouch()) return;
+        const current = VirtualPLC.getWord(tag);
+        const operand = Number(cfg.setValue) || 0;
+        let next = current;
+        if (cfg.wordAction === 'Add') next = current + operand;
+        else if (cfg.wordAction === 'Subtract') next = current - operand;
+        else if (cfg.wordAction === 'Bit ON') next = current | (1 << operand);
+        else if (cfg.wordAction === 'Bit OFF') next = current & ~(1 << operand);
+        else next = operand;
+        VirtualPLC.setWord(tag, next);
+      });
     // 1. Bit Switch / Push Button
-    if (cat === 'switch' && t !== 'Screen Navigation') {
+    } else if (cat === 'switch' && t !== 'Screen Navigation' && t !== 'Go To Screen Switch') {
       el.style.cursor = 'pointer';
 
       if (act === 'Alternate' || t === 'Toggle Switch') {
         el.addEventListener('click', (e) => {
           e.preventDefault();
+          if (!canTouch()) return;
           VirtualPLC.toggleBit(tag);
         });
       } else if (act === 'Set') {
         el.addEventListener('click', (e) => {
           e.preventDefault();
+          if (!canTouch()) return;
           VirtualPLC.setBit(tag, 1);
         });
       } else if (act === 'Reset') {
         el.addEventListener('click', (e) => {
           e.preventDefault();
+          if (!canTouch()) return;
           VirtualPLC.setBit(tag, 0);
         });
       } else {
         // Momentary
         el.addEventListener('pointerdown', (e) => {
           e.preventDefault();
+          if (!canTouch()) return;
           VirtualPLC.setBit(tag, 1);
           el.classList.add('sim-pressed');
         });
@@ -7785,10 +8493,11 @@ const HmiSimulator = (function() {
     }
 
     // 2. Screen Navigation
-    if (t === 'Screen Navigation') {
+    if (t === 'Screen Navigation' || t === 'Go To Screen Switch') {
       el.style.cursor = 'pointer';
       el.addEventListener('click', (e) => {
         e.preventDefault();
+        if (!canTouch()) return;
         const target = cfg.navTarget || el.getAttribute('data-nav') || 'Base_Screen_1';
         switchScreen(target);
       });
@@ -7799,6 +8508,7 @@ const HmiSimulator = (function() {
       el.style.cursor = 'pointer';
       el.addEventListener('click', (e) => {
         e.preventDefault();
+        if (!canTouch()) return;
         VirtualPLC.setBit(tag || 'M501', 1);
         // Acknowledge alarm
         VirtualPLC.setBit('M500', 0);
@@ -7811,6 +8521,7 @@ const HmiSimulator = (function() {
       el.style.cursor = 'pointer';
       el.addEventListener('click', (e) => {
         e.preventDefault();
+        if (!canTouch()) return;
         VirtualPLC.setBit(tag || 'M502', 1);
         VirtualPLC.setBit('M500', 0);
         setTimeout(() => VirtualPLC.setBit(tag || 'M502', 0), 200);
@@ -7826,6 +8537,7 @@ const HmiSimulator = (function() {
 
       el.addEventListener('pointerdown', (e) => {
         e.preventDefault();
+        if (!canTouch()) return;
         isDragging = true;
         el.setPointerCapture(e.pointerId);
 
@@ -7855,10 +8567,24 @@ const HmiSimulator = (function() {
       el.style.cursor = 'pointer';
       el.addEventListener('click', (e) => {
         e.preventDefault();
-        const curVal = VirtualPLC.getWord(tag || 'D200');
+        if (!canTouch()) return;
+        const scale = Number(cfg.scaling) || 1;
+        const offset = Number(cfg.offset) || 0;
+        const curVal = VirtualPLC.getWord(tag || 'D200') * scale + offset;
         const input = prompt(`Enter Setpoint value for [${tag || 'D200'}]:`, curVal);
         if (input !== null) {
-          VirtualPLC.setWord(tag || 'D200', parseFloat(input) || 0);
+          const value = Number(input);
+          const min = Number(cfg.min);
+          const max = Number(cfg.max);
+          if (!Number.isFinite(value)) {
+            alert('Enter a valid numeric value.');
+            return;
+          }
+          if (Number.isFinite(min) && value < min || Number.isFinite(max) && value > max) {
+            alert(`Value must be between ${Number.isFinite(min) ? min : '-∞'} and ${Number.isFinite(max) ? max : '∞'}.`);
+            return;
+          }
+          VirtualPLC.setWord(tag || 'D200', (value - offset) / scale);
         }
       });
     }
@@ -7871,6 +8597,14 @@ const HmiSimulator = (function() {
       const type = el.getAttribute('data-type') || '';
       const tag = (el.getAttribute('data-tag') || '').toUpperCase().trim();
       const cat = WidgetRegistry.getCategory(type);
+      const visibilityMode = el.getAttribute('data-vis-mode') || 'always';
+      const visibilityTag = (el.getAttribute('data-vis-tag') || '').toUpperCase().trim();
+      const visibilityBit = visibilityTag ? VirtualPLC.getBit(visibilityTag) === 1 : false;
+      el.style.visibility = visibilityMode === 'on' && !visibilityBit || visibilityMode === 'off' && visibilityBit
+        ? 'hidden'
+        : 'visible';
+      const flash = el.getAttribute('data-flash') === '1' || el.getAttribute('data-flash') === 'true';
+      el.classList.toggle('hmi-object-flash', flash);
 
       // Process Tank dynamic fluid level
       if (type === 'Process Tank') {
@@ -7946,7 +8680,20 @@ const HmiSimulator = (function() {
         const dec = parseInt(el.getAttribute('data-dec') || '0', 10);
         const spans = el.querySelectorAll('span');
         if (spans.length >= 2) {
-          spans[1].textContent = Number(val).toFixed(dec);
+          const scale = Number(el.getAttribute('data-scaling') || '1');
+          const offset = Number(el.getAttribute('data-offset') || '0');
+          const formattedValue = Number(val) * scale + offset;
+          const useGrouping = el.getAttribute('data-comma') === '1';
+          const suppressZeros = el.getAttribute('data-zero-suppress') === '1';
+          const digits = Math.max(1, Math.min(12, parseInt(el.getAttribute('data-integer-digits') || '5', 10) || 5));
+          let output = new Intl.NumberFormat(undefined, {
+            minimumIntegerDigits: suppressZeros ? 1 : digits,
+            minimumFractionDigits: dec,
+            maximumFractionDigits: dec,
+            useGrouping
+          }).format(formattedValue);
+          if (el.getAttribute('data-show-sign') === '1' && formattedValue >= 0) output = '+' + output;
+          spans[1].textContent = output;
         }
       }
 
@@ -8897,6 +9644,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const curScreen = ProjectModel.getCurrentScreen();
       if (curScreen) {
         ProjectModel.saveScreenObjects(curScreen, captureCurrentScreenObjects());
+        triggerAutoSave();
       }
     });
   }
@@ -8941,7 +9689,39 @@ document.addEventListener('DOMContentLoaded', () => {
       colorOff: el.getAttribute('data-off') || '#9AA0A6',
       bg: el.style.backgroundColor || '#FFF',
       fg: el.style.color || '#000',
-      navTarget: el.getAttribute('data-nav') || ''
+      navTarget: el.getAttribute('data-nav') || '',
+      objectId: el.getAttribute('data-object-id') || '',
+      comment: el.getAttribute('data-comment') || '',
+      layer: parseInt(el.getAttribute('data-layer') || '0', 10) || 0,
+      fontSize: parseInt(el.getAttribute('data-font-size') || '13', 10) || 13,
+      fontFamily: el.getAttribute('data-font-family') || 'Arial',
+      bold: el.getAttribute('data-bold') === '1',
+      italic: el.getAttribute('data-italic') === '1',
+      textAlign: el.getAttribute('data-text-align') || 'center',
+      rotation: parseInt(el.getAttribute('data-rotation') || '0', 10) || 0,
+      borderWidth: parseInt(el.getAttribute('data-border-width') || '2', 10),
+      borderColor: el.getAttribute('data-border-color') || '#000000',
+      lineStyle: el.getAttribute('data-line-style') || 'solid',
+      cornerRadius: parseInt(el.getAttribute('data-corner-radius') || '4', 10) || 0,
+      dataFormat: el.getAttribute('data-format') || 'BIN16',
+      integerDigits: parseInt(el.getAttribute('data-integer-digits') || '5', 10) || 5,
+      zeroSuppress: el.getAttribute('data-zero-suppress') === '1',
+      comma: el.getAttribute('data-comma') === '1',
+      showSign: el.getAttribute('data-show-sign') === '1',
+      scaling: Number(el.getAttribute('data-scaling') || '1'),
+      offset: Number(el.getAttribute('data-offset') || '0'),
+      dateFormat: el.getAttribute('data-date-format') || 'yyyy-MM-dd HH:mm:ss',
+      charCount: parseInt(el.getAttribute('data-char-count') || '16', 10) || 16,
+      setValue: Number(el.getAttribute('data-set-value') || '0'),
+      wordAction: el.getAttribute('data-word-action') || 'Write',
+      visibilityMode: el.getAttribute('data-vis-mode') || 'always',
+      visibilityTag: el.getAttribute('data-vis-tag') || '',
+      flash: el.getAttribute('data-flash') === '1' || el.getAttribute('data-flash') === 'true',
+      interlockMode: el.getAttribute('data-interlock-mode') || 'none',
+      interlockTag: el.getAttribute('data-interlock-tag') || '',
+      securityLevel: parseInt(el.getAttribute('data-security-level') || '0', 10) || 0,
+      notificationDevice: el.getAttribute('data-notification-device') || '',
+      buzzer: el.getAttribute('data-buzzer') === '1'
     };
   }
 
@@ -9655,6 +10435,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function hideLauncher() {
     if (launcherOverlay) launcherOverlay.style.display = 'none';
+    const appEl = document.querySelector('.app');
+    if (appEl) appEl.classList.remove('no-project');
     if (designerPage) designerPage.style.display = 'flex';
   }
 
@@ -9888,6 +10670,195 @@ document.addEventListener('DOMContentLoaded', () => {
     return newEl;
   }
 
+  const toolIconShapes = {
+    'Bit Switch': '<rect x="3" y="6" width="18" height="12" rx="6" fill="#E2E8F0" stroke="#64748B" stroke-width="1.5"/><circle cx="9" cy="12" r="4" fill="#22C55E"/>',
+    'Word Switch': '<rect x="3" y="6" width="18" height="12" rx="2" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/><text x="12" y="15" fill="#1D4ED8" font-size="8" font-family="Arial,sans-serif" font-weight="700" text-anchor="middle">123</text>',
+    'Go To Screen Switch': '<rect x="3" y="5" width="13" height="14" rx="2" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/><path d="M10 12h10m-4-4 4 4-4 4" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+    'Change Station No. Switch': '<circle cx="10" cy="12" r="7" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.5"/><path d="M7 9h6M7 12h6M7 15h6M16 8v8" stroke="#7C3AED" stroke-width="1.3" stroke-linecap="round"/>',
+    'Special Function Switch': '<path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1" stroke="#D97706" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="5" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>',
+    'Key Window Display Switch': '<rect x="3" y="5" width="18" height="14" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><path d="M6 9h2m2 0h2m2 0h2m-10 4h2m2 0h2m2 0h2" stroke="#475569" stroke-width="1.5" stroke-linecap="round"/><rect x="15" y="12" width="3" height="3" rx=".5" fill="#60A5FA"/>',
+    'Key Code Switch': '<rect x="3" y="5" width="18" height="14" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><circle cx="8" cy="10" r="1" fill="#475569"/><circle cx="12" cy="10" r="1" fill="#475569"/><circle cx="16" cy="10" r="1" fill="#475569"/><circle cx="8" cy="14" r="1" fill="#475569"/><circle cx="12" cy="14" r="1" fill="#475569"/><path d="M15 14h3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round"/>',
+    'Tower Light': '<rect x="8" y="4" width="8" height="16" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.3"/><circle cx="12" cy="7.5" r="2" fill="#EF4444"/><circle cx="12" cy="12" r="2" fill="#F59E0B"/><circle cx="12" cy="16.5" r="2" fill="#22C55E"/>',
+    'Status Indicator': '<circle cx="12" cy="12" r="9" fill="#E2E8F0" stroke="#475569" stroke-width="1.5"/><circle cx="12" cy="12" r="6" fill="#22C55E"/><circle cx="10" cy="10" r="2" fill="#FFFFFF" opacity=".65"/>',
+    'Alarm Beacon': '<path d="M6 16h12l-1.5-2V10a4.5 4.5 0 0 0-9 0v4z" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 19h4M12 2v2M4.5 5l1.5 1.5m12-1.5-1.5 1.5" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="10" r="2" fill="#EF4444"/>',
+    'Text Display': '<rect x="3" y="5" width="18" height="14" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><path d="M7 9h10M12 9v6m-2 0h4" stroke="#2563EB" stroke-width="1.7" stroke-linecap="round"/>',
+    'Text Input': '<rect x="3" y="5" width="18" height="14" rx="2" fill="#EFF6FF" stroke="#0284C7" stroke-width="1.5"/><path d="M6 9h8m-8 4h6m4 2 4-4 2 2-4 4-3 1z" fill="#FFFFFF" stroke="#0284C7" stroke-width="1.2" stroke-linejoin="round"/>',
+    'Date Display': '<rect x="4" y="5" width="16" height="15" rx="2" fill="#F8FAFC" stroke="#2563EB" stroke-width="1.5"/><path d="M8 3v4m8-4v4M4 9h16" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round"/><path d="M8 12h2m4 0h2M8 16h2" stroke="#64748B" stroke-width="1.5" stroke-linecap="round"/>',
+    'Time Display': '<circle cx="12" cy="12" r="9" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+    'Bit Comment': '<path d="M4 5h16v12H9l-5 4z" fill="#F0FDF4" stroke="#16A34A" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="11" r="2.5" fill="#22C55E"/>',
+    'Word Comment': '<path d="M4 5h16v12H9l-5 4z" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 9h10m-10 3h7" stroke="#2563EB" stroke-width="1.4" stroke-linecap="round"/>',
+    'Simple Comment': '<path d="M4 5h16v12H9l-5 4z" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 10h8m-8 3h5" stroke="#D97706" stroke-width="1.4" stroke-linecap="round"/>',
+    'Bit Part': '<rect x="4" y="5" width="16" height="14" rx="2" fill="#F0FDF4" stroke="#16A34A" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="#22C55E"/>',
+    'Word Part': '<rect x="4" y="5" width="16" height="14" rx="2" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/><path d="M7 9h10M7 12h10M7 15h10" stroke="#2563EB" stroke-width="1.3"/>',
+    'Display Part': '<rect x="3" y="5" width="18" height="14" rx="2" fill="#F8FAFC" stroke="#64748B" stroke-width="1.5"/><rect x="6" y="8" width="5" height="8" rx="1" fill="#93C5FD"/><path d="M13 9h5m-5 3h5m-5 3h3" stroke="#64748B" stroke-width="1.3" stroke-linecap="round"/>',
+    'Alarm Display': '<rect x="3" y="4" width="18" height="16" rx="2" fill="#FFF7ED" stroke="#EA580C" stroke-width="1.5"/><path d="M6 9h12M6 12h12M6 15h8" stroke="#C2410C" stroke-width="1.3" stroke-linecap="round"/><circle cx="17.5" cy="15" r="1.5" fill="#EF4444"/>',
+    'Simple Alarm Display': '<path d="M12 3 2.8 19h18.4z" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 9v4m0 3h.01" stroke="#B45309" stroke-width="2" stroke-linecap="round"/>',
+    'Recipe Display': '<path d="M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2z" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><path d="M8 8h8m-8 4h8m-8 4h5" stroke="#2563EB" stroke-width="1.4" stroke-linecap="round"/><path d="M5 18a2 2 0 0 1 2-2" stroke="#475569" stroke-width="1.5"/>',
+    'Sector Meter': '<path d="M4 17a8 8 0 1 1 16 0" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/><path d="M12 15l4-5" stroke="#DC2626" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="15" r="1.5" fill="#475569"/>',
+    'Semicircle Meter': '<path d="M3 17a9 9 0 0 1 18 0" fill="none" stroke="#2563EB" stroke-width="2"/><path d="M12 16l-3-6" stroke="#DC2626" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="1.5" fill="#475569"/>',
+    'Bar (Vertical) Meter': '<rect x="5" y="4" width="14" height="16" rx="2" fill="#F8FAFC" stroke="#64748B" stroke-width="1.3"/><path d="M7 17h10m-10-4h10m-10-4h10" stroke="#CBD5E1" stroke-width="1"/><rect x="7" y="11" width="10" height="7" rx="1" fill="#22C55E"/>',
+    'Bar (Horizontal) Meter': '<rect x="3" y="6" width="18" height="12" rx="2" fill="#F8FAFC" stroke="#64748B" stroke-width="1.3"/><path d="M7 8v8m4-8v8m4-8v8" stroke="#CBD5E1" stroke-width="1"/><rect x="5" y="8" width="9" height="8" rx="1" fill="#22C55E"/>',
+    'Analog Slider': '<rect x="3" y="9" width="18" height="6" rx="3" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.3"/><path d="M7 12h10" stroke="#2563EB" stroke-width="1.2"/><circle cx="14" cy="12" r="4" fill="#FFFFFF" stroke="#1D4ED8" stroke-width="1.5"/>'
+  };
+
+  document.querySelectorAll('#toolbox-body .tool-card').forEach(card => {
+    let button = card;
+    if (card.tagName !== 'BUTTON') {
+      button = document.createElement('button');
+      Array.from(card.attributes).forEach(attribute => button.setAttribute(attribute.name, attribute.value));
+      button.type = 'button';
+      while (card.firstChild) button.appendChild(card.firstChild);
+      card.replaceWith(button);
+    }
+
+    const label = button.querySelector('.tool-card-label');
+    const name = label ? label.textContent.trim() : button.getAttribute('data-obj');
+    button.setAttribute('aria-label', name);
+    if (!button.title) button.title = name;
+
+    if (!button.querySelector('.tool-card-icon')) {
+      const icon = document.createElement('span');
+      icon.className = 'tool-card-icon';
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('width', '20');
+      svg.setAttribute('height', '20');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'none');
+      svg.innerHTML = toolIconShapes[button.getAttribute('data-obj')] || '<rect x="4" y="4" width="16" height="16" rx="3" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/><path d="M8 12h8" stroke="#2563EB" stroke-width="1.7" stroke-linecap="round"/>';
+      icon.appendChild(svg);
+      button.insertBefore(icon, label || button.firstChild);
+    }
+  });
+
+  const categorySymbolShapes = {
+    switches: '<rect x="3" y="6" width="18" height="12" rx="6" fill="#E2E8F0" stroke="#475569" stroke-width="1.5"/><circle cx="9" cy="12" r="4" fill="#22C55E"/>',
+    lamps: '<circle cx="12" cy="12" r="9" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/><circle cx="12" cy="12" r="6" fill="#22C55E"/>',
+    signals: '<rect x="8" y="3" width="8" height="18" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.3"/><circle cx="12" cy="7" r="2" fill="#EF4444"/><circle cx="12" cy="12" r="2" fill="#F59E0B"/><circle cx="12" cy="17" r="2" fill="#22C55E"/>',
+    numerics: '<rect x="3" y="5" width="18" height="14" rx="2" fill="#0F172A" stroke="#334155" stroke-width="1.5"/><text x="12" y="15" fill="#10B981" font-size="8" font-family="Consolas,monospace" font-weight="700" text-anchor="middle">123</text>',
+    alarms: '<path d="M6 16h12l-1.5-2V10a4.5 4.5 0 0 0-9 0v4z" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 19h4" stroke="#D97706" stroke-width="1.5" stroke-linecap="round"/>',
+    'text-io': '<rect x="3" y="5" width="18" height="14" rx="2" fill="#F8FAFC" stroke="#2563EB" stroke-width="1.5"/><text x="12" y="15" fill="#2563EB" font-size="7" font-family="Arial,sans-serif" font-weight="700" text-anchor="middle">ABC</text>',
+    'date-time': '<circle cx="12" cy="12" r="9" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>',
+    comments: '<path d="M4 5h16v12H9l-5 4z" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 10h8m-8 3h5" stroke="#D97706" stroke-width="1.4" stroke-linecap="round"/>',
+    parts: '<rect x="3" y="3" width="8" height="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.3"/><rect x="13" y="3" width="8" height="8" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.3"/><rect x="3" y="13" width="8" height="8" fill="#FEF3C7" stroke="#D97706" stroke-width="1.3"/><rect x="13" y="13" width="8" height="8" fill="#F1F5F9" stroke="#64748B" stroke-width="1.3"/>',
+    'alarm-display': '<path d="M12 3 2.8 19h18.4z" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 9v4m0 3h.01" stroke="#B45309" stroke-width="2" stroke-linecap="round"/>',
+    recipes: '<rect x="4" y="4" width="16" height="16" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#2563EB" stroke-width="1.4" stroke-linecap="round"/>',
+    process: '<circle cx="12" cy="12" r="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/><circle cx="12" cy="12" r="3" fill="#2563EB"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3" stroke="#475569" stroke-width="1.5"/>',
+    graphs: '<rect x="3" y="4" width="18" height="16" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.4"/><path d="m6 15 4-5 3 3 5-6" fill="none" stroke="#16A34A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+    meters: '<path d="M4 17a8 8 0 1 1 16 0" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/><path d="M12 15l4-5" stroke="#DC2626" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="15" r="1.5" fill="#475569"/>',
+    'analog-controls': '<rect x="3" y="9" width="18" height="6" rx="3" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.3"/><circle cx="14" cy="12" r="4" fill="#FFFFFF" stroke="#1D4ED8" stroke-width="1.5"/>',
+    shapes: '<rect x="4" y="5" width="16" height="14" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.6"/>'
+  };
+
+  const toolboxBody = document.getElementById('toolbox-body');
+  const categoryFlyout = document.createElement('div');
+  categoryFlyout.className = 'tool-category-flyout';
+  categoryFlyout.setAttribute('role', 'dialog');
+  categoryFlyout.setAttribute('aria-label', 'Tool category options');
+
+  const flyoutHeader = document.createElement('div');
+  flyoutHeader.className = 'tool-flyout-header';
+  const flyoutTitle = document.createElement('span');
+  flyoutTitle.className = 'tool-flyout-title';
+  const flyoutCount = document.createElement('span');
+  flyoutCount.className = 'tool-flyout-count';
+  const flyoutClose = document.createElement('button');
+  flyoutClose.type = 'button';
+  flyoutClose.className = 'tool-flyout-close';
+  flyoutClose.setAttribute('aria-label', 'Close options');
+  flyoutClose.textContent = '\u00d7';
+  flyoutHeader.append(flyoutTitle, flyoutCount, flyoutClose);
+  categoryFlyout.appendChild(flyoutHeader);
+
+  const toolboxSearchWrapper = document.querySelector('#icon-toolbox .tb-search-wrapper');
+  if (toolboxSearchWrapper) categoryFlyout.appendChild(toolboxSearchWrapper);
+  document.body.appendChild(categoryFlyout);
+
+  let activeToolCategory = null;
+  const toolCategories = Array.from(toolboxBody.querySelectorAll('.tool-cat-group')).map(group => {
+    const header = group.querySelector('.tool-cat-header');
+    const nameElement = header.querySelector('.cat-name');
+    const badge = header.querySelector('.cat-badge');
+    const name = nameElement.textContent.trim();
+    const items = group.querySelector('.tool-cat-items');
+    const count = items.querySelectorAll('.tool-card').length;
+    const categoryButton = document.createElement('button');
+    categoryButton.type = 'button';
+    categoryButton.className = 'tool-cat-header';
+    categoryButton.setAttribute('aria-haspopup', 'dialog');
+    categoryButton.setAttribute('aria-expanded', 'false');
+    categoryButton.setAttribute('aria-label', `${name}, ${count} ${count === 1 ? 'option' : 'options'}`);
+    categoryButton.title = name;
+
+    const symbol = document.createElement('span');
+    symbol.className = 'tool-cat-symbol';
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.innerHTML = categorySymbolShapes[group.getAttribute('data-cat')] || categorySymbolShapes.shapes;
+    symbol.appendChild(svg);
+    categoryButton.append(symbol, nameElement);
+    if (badge) {
+      badge.textContent = String(count);
+      categoryButton.appendChild(badge);
+    }
+
+    header.replaceWith(categoryButton);
+    group.classList.remove('collapsed');
+    categoryButton.addEventListener('click', () => {
+      if (activeToolCategory === category) {
+        closeToolCategoryFlyout();
+      } else {
+        openToolCategoryFlyout(category);
+      }
+    });
+
+    const category = { group, button: categoryButton, name, count, items };
+    return category;
+  });
+
+  function closeToolCategoryFlyout() {
+    if (activeToolCategory) {
+      activeToolCategory.group.appendChild(activeToolCategory.items);
+      activeToolCategory.group.classList.remove('is-active');
+      activeToolCategory.button.setAttribute('aria-expanded', 'false');
+      activeToolCategory = null;
+    }
+    categoryFlyout.style.display = 'none';
+  }
+
+  function openToolCategoryFlyout(category) {
+    closeToolCategoryFlyout();
+    activeToolCategory = category;
+    category.group.classList.add('is-active');
+    category.button.setAttribute('aria-expanded', 'true');
+    flyoutTitle.textContent = category.name;
+    flyoutCount.textContent = `${category.count} ${category.count === 1 ? 'option' : 'options'}`;
+    categoryFlyout.appendChild(category.items);
+    categoryFlyout.style.display = 'flex';
+
+    const triggerRect = category.button.getBoundingClientRect();
+    const flyoutRect = categoryFlyout.getBoundingClientRect();
+    const openToRight = window.innerWidth - triggerRect.right > triggerRect.left;
+    const preferredLeft = openToRight
+      ? triggerRect.right + 4
+      : triggerRect.left - flyoutRect.width - 4;
+    const left = Math.max(8, Math.min(preferredLeft, window.innerWidth - flyoutRect.width - 8));
+    const top = Math.max(8, Math.min(triggerRect.top, window.innerHeight - flyoutRect.height - 8));
+    categoryFlyout.style.left = `${left}px`;
+    categoryFlyout.style.top = `${top}px`;
+  }
+
+  flyoutClose.addEventListener('click', closeToolCategoryFlyout);
+  document.addEventListener('pointerdown', event => {
+    if (activeToolCategory && !categoryFlyout.contains(event.target) && !toolboxBody.contains(event.target)) {
+      closeToolCategoryFlyout();
+    }
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && activeToolCategory) closeToolCategoryFlyout();
+  });
+  window.addEventListener('resize', closeToolCategoryFlyout);
+
   // Vertical Tool Palette click-to-place & drag-to-place
   document.querySelectorAll('.tool-card, .tb-item').forEach(card => {
     // Click to spawn in viewport center
@@ -9895,6 +10866,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const objType = card.getAttribute('data-obj');
       spawnWidget(objType);
+      closeToolCategoryFlyout();
     });
 
     // Drag start
@@ -9933,15 +10905,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Tool Palette Accordion Collapse / Expand
-  document.querySelectorAll('.tool-cat-header').forEach(hdr => {
-    hdr.addEventListener('click', () => {
-      const parentGroup = hdr.closest('.tool-cat-group');
-      if (parentGroup) {
-        parentGroup.classList.toggle('collapsed');
-      }
-    });
-  });
+  const toolCards = toolCategories.reduce((total, category) => total + category.count, 0);
+  const toolCount = document.getElementById('tool-count');
+  if (toolCount) toolCount.textContent = `${toolCards} Tools`;
 
   // Tool Palette Real-Time Search Filter
   const toolSearch = document.getElementById('tool-search');
@@ -9953,10 +10919,10 @@ document.addEventListener('DOMContentLoaded', () => {
         toolSearchClear.style.display = q ? 'block' : 'none';
       }
 
-      const groups = document.querySelectorAll('.tool-cat-group');
-      groups.forEach(grp => {
+      let firstMatch = null;
+      toolCategories.forEach(category => {
         let visibleInGroup = 0;
-        const cards = grp.querySelectorAll('.tool-card, .tb-item');
+        const cards = category.items.querySelectorAll('.tool-card, .tb-item');
         cards.forEach(card => {
           const name = (card.getAttribute('data-obj') || '').toLowerCase();
           const label = card.textContent.toLowerCase();
@@ -9965,13 +10931,21 @@ document.addEventListener('DOMContentLoaded', () => {
           if (match) visibleInGroup++;
         });
 
-        if (!q) {
-          grp.style.display = '';
-        } else {
-          grp.style.display = visibleInGroup > 0 ? 'block' : 'none';
-          if (visibleInGroup > 0) grp.classList.remove('collapsed');
+        const hasMatches = visibleInGroup > 0;
+        category.group.style.display = hasMatches ? '' : 'none';
+        category.button.style.display = hasMatches ? 'flex' : 'none';
+        if (q && hasMatches && !firstMatch) {
+          firstMatch = category;
         }
       });
+
+      if (q) {
+        if (firstMatch && activeToolCategory !== firstMatch) {
+          openToolCategoryFlyout(firstMatch);
+        } else if (!firstMatch) {
+          closeToolCategoryFlyout();
+        }
+      }
     });
 
     if (toolSearchClear) {
@@ -12421,41 +13395,28 @@ END_CASE;`
     let saved = [];
     try {
       saved = JSON.parse(localStorage.getItem('hmi_recent_projects_v2') || '[]');
-      if (!Array.isArray(saved)) saved = [];
+      if (!Array.isArray(saved)) return [];
     } catch (_) {
-      saved = [];
+      return [];
     }
 
-    const totalSlots = 30;
     const list = [];
-
-    for (let i = 0; i < totalSlots; i++) {
-      const numStr = String(i + 1).padStart(2, '0');
-      const plat = LAUNCHER_PLATFORMS[i % LAUNCHER_PLATFORMS.length];
-      if (i < saved.length && saved[i] && saved[i].name) {
-        const s = saved[i];
-        const rawName = s.name.endsWith('.hmiproj') ? s.name : (s.name + '.hmiproj');
-        list.push({
-          num: numStr,
-          fileName: rawName,
-          projName: s.name.replace(/\.hmiproj$/i, ''),
-          platformCode: s.platformCode || plat.code,
-          platformLabel: getPlatformDisplayLabel(s.platformCode || s.platformLabel || plat.label),
-          lastOpened: s.lastOpened || '[Last opened]',
-          path: s.path || ''
-        });
-      } else {
-        list.push({
-          num: numStr,
-          fileName: `[Project name ${numStr}].hmiproj`,
-          projName: `Project_Name_${numStr}`,
-          platformCode: plat.code,
-          platformLabel: plat.label,
-          lastOpened: '[Last opened]',
-          path: ''
-        });
-      }
-    }
+    saved.forEach((s, storageIndex) => {
+      if (!s || typeof s.name !== 'string' || !s.name.trim()) return;
+      const plat = LAUNCHER_PLATFORMS[list.length % LAUNCHER_PLATFORMS.length];
+      const projName = s.name.replace(/\.hmiproj$/i, '');
+      list.push({
+        storageIndex,
+        num: String(list.length + 1).padStart(2, '0'),
+        fileName: /\.hmiproj$/i.test(s.name) ? s.name : `${s.name}.hmiproj`,
+        projName,
+        platformCode: s.platformCode || plat.code,
+        platformLabel: getPlatformDisplayLabel(s.platformCode || s.platformLabel || plat.label),
+        lastOpened: s.lastOpened || '[Last opened]',
+        path: s.path || '',
+        architecture: s.architecture || 'IPC'
+      });
+    });
     return list;
   }
 
@@ -12495,24 +13456,74 @@ END_CASE;`
   }
   window.openRecentLauncherProject = openRecentLauncherProject;
 
+  function removeRecentLauncherProject(idx) {
+    const item = getLauncherRecentList()[idx];
+    if (!item) return;
+
+    try {
+      const saved = JSON.parse(localStorage.getItem('hmi_recent_projects_v2') || '[]');
+      if (!Array.isArray(saved) || !saved[item.storageIndex]) return;
+      saved.splice(item.storageIndex, 1);
+      localStorage.setItem('hmi_recent_projects_v2', JSON.stringify(saved));
+      renderLauncherRecentProjects();
+    } catch (error) {
+      console.error('Unable to remove project from Recent Projects.', error);
+    }
+  }
+
   function renderLauncherRecentProjects() {
     const cardEl = document.getElementById('launcher-recent-card');
     const countEl = document.getElementById('launcher-recent-count');
     if (!cardEl) return;
 
     const list = getLauncherRecentList();
-    if (countEl) countEl.textContent = `${list.length} projects`;
+    if (countEl) countEl.textContent = `${list.length} project${list.length === 1 ? '' : 's'}`;
+    cardEl.innerHTML = '';
+    if (list.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'launcher-recent-empty';
+      empty.textContent = 'No recent projects yet.';
+      cardEl.appendChild(empty);
+      return;
+    }
 
-    cardEl.innerHTML = list.map((item, idx) => `
-      <div class="launcher-recent-row ${idx === 0 ? 'active' : ''}" onclick="openRecentLauncherProject(${idx})">
-        <span class="lr-num">${item.num}</span>
-        <div class="lr-body">
-          <div class="lr-title">${item.fileName}</div>
-          <div class="lr-sub">${item.platformLabel} &#183; ${item.lastOpened}</div>
-        </div>
-        <span class="lr-arrow">&#8594;</span>
-      </div>
-    `).join('');
+    list.forEach((item, idx) => {
+      const row = document.createElement('div');
+      row.className = `launcher-recent-row ${idx === 0 ? 'active' : ''}`;
+      row.addEventListener('click', () => openRecentLauncherProject(idx));
+
+      const number = document.createElement('span');
+      number.className = 'lr-num';
+      number.textContent = item.num;
+
+      const body = document.createElement('div');
+      body.className = 'lr-body';
+      const title = document.createElement('div');
+      title.className = 'lr-title';
+      title.textContent = item.fileName;
+      const subtitle = document.createElement('div');
+      subtitle.className = 'lr-sub';
+      subtitle.textContent = `${item.platformLabel} \u00B7 ${item.lastOpened}`;
+      body.append(title, subtitle);
+
+      const arrow = document.createElement('span');
+      arrow.className = 'lr-arrow';
+      arrow.textContent = '\u2192';
+
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.className = 'lr-delete';
+      removeButton.title = 'Remove from recent projects';
+      removeButton.setAttribute('aria-label', `Remove ${item.fileName} from recent projects`);
+      removeButton.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2m1 0-.8 14H7.8L7 6m4 4v7m4-7v7"/></svg>';
+      removeButton.addEventListener('click', event => {
+        event.stopPropagation();
+        removeRecentLauncherProject(idx);
+      });
+
+      row.append(number, body, arrow, removeButton);
+      cardEl.appendChild(row);
+    });
   }
   window.renderLauncherRecentProjects = renderLauncherRecentProjects;
 

@@ -903,6 +903,16 @@
     .launcher-recent-row:hover {
       background: #ECEAE3;
     }
+    .launcher-recent-empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+      padding: 24px;
+      color: #666666;
+      font-size: 12px;
+      text-align: center;
+    }
     .launcher-recent-row .lr-num {
       width: 30px;
       font-size: 11.5px;
@@ -937,6 +947,39 @@
       color: #222222;
       margin-left: 12px;
       flex-shrink: 0;
+    }
+    .launcher-recent-row .lr-delete {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      margin-left: 8px;
+      padding: 0;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: #666666;
+      opacity: 0;
+      pointer-events: none;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: opacity 0.12s ease, color 0.12s ease, background 0.12s ease;
+    }
+    .launcher-recent-row:hover .lr-delete,
+    .launcher-recent-row:focus-within .lr-delete {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .launcher-recent-row .lr-delete:hover,
+    .launcher-recent-row .lr-delete:focus-visible {
+      background: #D9261C;
+      color: #FFFFFF;
+      outline: none;
+    }
+    .launcher-recent-row .lr-delete svg {
+      width: 15px;
+      height: 15px;
     }
     .launcher-recent-row.active .lr-title,
     .launcher-recent-row.active .lr-arrow,
@@ -4108,41 +4151,28 @@ END_CASE;`
     let saved = [];
     try {
       saved = JSON.parse(localStorage.getItem('hmi_recent_projects_v2') || '[]');
-      if (!Array.isArray(saved)) saved = [];
+      if (!Array.isArray(saved)) return [];
     } catch (_) {
-      saved = [];
+      return [];
     }
 
-    const totalSlots = 30;
     const list = [];
-
-    for (let i = 0; i < totalSlots; i++) {
-      const numStr = String(i + 1).padStart(2, '0');
-      const plat = LAUNCHER_PLATFORMS[i % LAUNCHER_PLATFORMS.length];
-      if (i < saved.length && saved[i] && saved[i].name) {
-        const s = saved[i];
-        const rawName = s.name.endsWith('.hmiproj') ? s.name : (s.name + '.hmiproj');
-        list.push({
-          num: numStr,
-          fileName: rawName,
-          projName: s.name.replace(/\.hmiproj$/i, ''),
-          platformCode: s.platformCode || plat.code,
-          platformLabel: getPlatformDisplayLabel(s.platformCode || s.platformLabel || plat.label),
-          lastOpened: s.lastOpened || '[Last opened]',
-          path: s.path || ''
-        });
-      } else {
-        list.push({
-          num: numStr,
-          fileName: `[Project name ${numStr}].hmiproj`,
-          projName: `Project_Name_${numStr}`,
-          platformCode: plat.code,
-          platformLabel: plat.label,
-          lastOpened: '[Last opened]',
-          path: ''
-        });
-      }
-    }
+    saved.forEach((s, storageIndex) => {
+      if (!s || typeof s.name !== 'string' || !s.name.trim()) return;
+      const plat = LAUNCHER_PLATFORMS[list.length % LAUNCHER_PLATFORMS.length];
+      const projName = s.name.replace(/\.hmiproj$/i, '');
+      list.push({
+        storageIndex,
+        num: String(list.length + 1).padStart(2, '0'),
+        fileName: /\.hmiproj$/i.test(s.name) ? s.name : `${s.name}.hmiproj`,
+        projName,
+        platformCode: s.platformCode || plat.code,
+        platformLabel: getPlatformDisplayLabel(s.platformCode || s.platformLabel || plat.label),
+        lastOpened: s.lastOpened || '[Last opened]',
+        path: s.path || '',
+        architecture: s.architecture || 'IPC'
+      });
+    });
     return list;
   }
 
@@ -4182,24 +4212,74 @@ END_CASE;`
   }
   window.openRecentLauncherProject = openRecentLauncherProject;
 
+  function removeRecentLauncherProject(idx) {
+    const item = getLauncherRecentList()[idx];
+    if (!item) return;
+
+    try {
+      const saved = JSON.parse(localStorage.getItem('hmi_recent_projects_v2') || '[]');
+      if (!Array.isArray(saved) || !saved[item.storageIndex]) return;
+      saved.splice(item.storageIndex, 1);
+      localStorage.setItem('hmi_recent_projects_v2', JSON.stringify(saved));
+      renderLauncherRecentProjects();
+    } catch (error) {
+      console.error('Unable to remove project from Recent Projects.', error);
+    }
+  }
+
   function renderLauncherRecentProjects() {
     const cardEl = document.getElementById('launcher-recent-card');
     const countEl = document.getElementById('launcher-recent-count');
     if (!cardEl) return;
 
     const list = getLauncherRecentList();
-    if (countEl) countEl.textContent = `${list.length} projects`;
+    if (countEl) countEl.textContent = `${list.length} project${list.length === 1 ? '' : 's'}`;
+    cardEl.innerHTML = '';
+    if (list.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'launcher-recent-empty';
+      empty.textContent = 'No recent projects yet.';
+      cardEl.appendChild(empty);
+      return;
+    }
 
-    cardEl.innerHTML = list.map((item, idx) => `
-      <div class="launcher-recent-row ${idx === 0 ? 'active' : ''}" onclick="openRecentLauncherProject(${idx})">
-        <span class="lr-num">${item.num}</span>
-        <div class="lr-body">
-          <div class="lr-title">${item.fileName}</div>
-          <div class="lr-sub">${item.platformLabel} &#183; ${item.lastOpened}</div>
-        </div>
-        <span class="lr-arrow">&#8594;</span>
-      </div>
-    `).join('');
+    list.forEach((item, idx) => {
+      const row = document.createElement('div');
+      row.className = `launcher-recent-row ${idx === 0 ? 'active' : ''}`;
+      row.addEventListener('click', () => openRecentLauncherProject(idx));
+
+      const number = document.createElement('span');
+      number.className = 'lr-num';
+      number.textContent = item.num;
+
+      const body = document.createElement('div');
+      body.className = 'lr-body';
+      const title = document.createElement('div');
+      title.className = 'lr-title';
+      title.textContent = item.fileName;
+      const subtitle = document.createElement('div');
+      subtitle.className = 'lr-sub';
+      subtitle.textContent = `${item.platformLabel} \u00B7 ${item.lastOpened}`;
+      body.append(title, subtitle);
+
+      const arrow = document.createElement('span');
+      arrow.className = 'lr-arrow';
+      arrow.textContent = '\u2192';
+
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.className = 'lr-delete';
+      removeButton.title = 'Remove from recent projects';
+      removeButton.setAttribute('aria-label', `Remove ${item.fileName} from recent projects`);
+      removeButton.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2m1 0-.8 14H7.8L7 6m4 4v7m4-7v7"/></svg>';
+      removeButton.addEventListener('click', event => {
+        event.stopPropagation();
+        removeRecentLauncherProject(idx);
+      });
+
+      row.append(number, body, arrow, removeButton);
+      cardEl.appendChild(row);
+    });
   }
   window.renderLauncherRecentProjects = renderLauncherRecentProjects;
 

@@ -837,6 +837,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function hideLauncher() {
     if (launcherOverlay) launcherOverlay.style.display = 'none';
+    const appEl = document.querySelector('.app');
+    if (appEl) appEl.classList.remove('no-project');
     if (designerPage) designerPage.style.display = 'flex';
   }
 
@@ -1077,6 +1079,254 @@ document.addEventListener('DOMContentLoaded', () => {
     return newEl;
   }
 
+  const toolboxBody = document.getElementById('toolbox-body');
+  const toolCategorySymbols = {
+    switches: '<rect x="3" y="6" width="18" height="12" rx="6" fill="#E2E8F0" stroke="#475569" stroke-width="1.5"/><circle cx="9" cy="12" r="4" fill="#22C55E"/>',
+    lamps: '<circle cx="12" cy="12" r="9" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/><circle cx="12" cy="12" r="6" fill="#22C55E"/>',
+    signals: '<circle cx="12" cy="12" r="9" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/><circle cx="12" cy="8" r="2" fill="#EF4444"/><circle cx="12" cy="12" r="2" fill="#F59E0B"/><circle cx="12" cy="16" r="2" fill="#22C55E"/>',
+    numerics: '<rect x="3" y="5" width="18" height="14" rx="2" fill="#0F172A" stroke="#334155" stroke-width="1.5"/><text x="12" y="15" fill="#10B981" font-size="8" font-family="Consolas,monospace" font-weight="700" text-anchor="middle">123</text>',
+    alarms: '<path d="M6 16h12l-1.5-2V10a4.5 4.5 0 0 0-9 0v4z" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 19h4" stroke="#D97706" stroke-width="1.5" stroke-linecap="round"/>',
+    'text-io': '<rect x="3" y="5" width="18" height="14" rx="2" fill="#F8FAFC" stroke="#64748B" stroke-width="1.5"/><text x="12" y="15" fill="#334155" font-size="9" font-family="sans-serif" font-weight="700" text-anchor="middle">Aa</text>',
+    'date-time': '<rect x="3" y="4" width="18" height="16" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><path d="M7 2v4m10-4v4M3 9h18" stroke="#475569" stroke-width="1.5"/><path d="M8 13h2m4 0h2m-8 3h2m4 0h2" stroke="#2563EB" stroke-width="1.5"/>',
+    comments: '<path d="M4 5h16v12H9l-5 4z" fill="#F8FAFC" stroke="#475569" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 9h8m-8 4h6" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round"/>',
+    parts: '<path d="m12 3 8 4v10l-8 4-8-4V7z" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/><path d="m4 7 8 4 8-4m-8 4v10" fill="none" stroke="#2563EB" stroke-width="1.5"/>',
+    'alarm-display': '<rect x="3" y="4" width="18" height="16" rx="2" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/><path d="M12 8v4m0 3h.01" stroke="#DC2626" stroke-width="2" stroke-linecap="round"/>',
+    recipes: '<rect x="5" y="3" width="14" height="18" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><path d="M8 8h8m-8 4h8m-8 4h5" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round"/>',
+    process: '<circle cx="12" cy="12" r="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/><circle cx="12" cy="12" r="3" fill="#2563EB"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3" stroke="#475569" stroke-width="1.5"/>',
+    graphs: '<rect x="3" y="4" width="18" height="16" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.4"/><path d="m6 15 4-5 3 3 5-6" fill="none" stroke="#16A34A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+    meters: '<path d="M4 17a8 8 0 1 1 16 0" fill="none" stroke="#475569" stroke-width="2"/><path d="m12 15 4-5" stroke="#EF4444" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="15" r="2" fill="#2563EB"/>',
+    'analog-controls': '<path d="M12 3v18" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round"/><path d="M12 12v9" stroke="#0284C7" stroke-width="3" stroke-linecap="round"/><rect x="8" y="9" width="8" height="5" rx="1.5" fill="#FFF" stroke="#334155" stroke-width="1.5"/>',
+    shapes: '<rect x="4" y="5" width="16" height="14" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.6"/>'
+  };
+  const toolCategoryDefinitions = [
+    {
+      key: 'switches',
+      name: 'Switch',
+      tools: [
+        ['Bit Switch'], ['Word Switch'], ['Go To Screen Switch'],
+        ['Change Station No. Switch'], ['Special Function Switch'],
+        ['Key Window Display Switch'], ['Key Code Switch'],
+        ['Push Button'], ['Selector Switch', 'Selector'], ['Toggle Switch', 'Toggle'],
+        ['Keypad'], ['Screen Navigation', 'Screen Nav']
+      ]
+    },
+    { key: 'lamps', name: 'Lamp Option', tools: [['Bit Lamp'], ['Word Lamp']] },
+    { key: 'signals', name: 'Signal Indicators', tools: [['Tower Light'], ['Status Indicator', 'Pilot LED'], ['Alarm Beacon']] },
+    { key: 'numerics', name: 'Numerical Display/Input', tools: [['Numeric Display', 'Numerical Display'], ['Numeric Input', 'Numerical Input']] },
+    {
+      key: 'alarms',
+      name: 'Other Alarms & Events',
+      tools: [['Alarm History'], ['Alarm Acknowledge', 'Alarm ACK'], ['Alarm Reset'], ['Alarm Status Lamp', 'Status Lamp']]
+    },
+    {
+      key: 'text-io',
+      name: 'Text Display/Input',
+      tools: [['Text Display'], ['Text Input'], ['Text', 'Static Text'], ['String Display', 'String Disp']]
+    },
+    { key: 'date-time', name: 'Date/Time Display', tools: [['Date Display'], ['Time Display'], ['Date/Time']] },
+    { key: 'comments', name: 'Comment Display', tools: [['Bit Comment'], ['Word Comment'], ['Simple Comment']] },
+    { key: 'parts', name: 'Part Display', tools: [['Bit Part'], ['Word Part'], ['Display Part']] },
+    { key: 'alarm-display', name: 'Alarm Display Option', tools: [['Alarm Display', 'Alarm Display (User)'], ['Simple Alarm Display']] },
+    { key: 'recipes', name: 'Recipe Display', tools: [['Recipe Display']] },
+    {
+      key: 'process',
+      name: 'Process & Actuators',
+      tools: [
+        ['Process Tank', 'Tank'], ['Motor', 'Motor Drive'], ['Centrifugal Pump', 'Pump'],
+        ['Valve'], ['Pneumatic Cylinder', 'Cylinder'], ['Pipe', 'Pipe Conduit'], ['Conveyor']
+      ]
+    },
+    { key: 'graphs', name: 'Charts & Gauges', tools: [['Trend Graph'], ['Historical Trend', 'History Trend'], ['Gauge'], ['Bar Graph']] },
+    { key: 'meters', name: 'Meters', tools: [['Sector Meter'], ['Semicircle Meter'], ['Bar (Vertical) Meter'], ['Bar (Horizontal) Meter']] },
+    { key: 'analog-controls', name: 'Analog Controls', tools: [['Analog Slider', 'Slider']] },
+    { key: 'shapes', name: 'Shapes & Layout', tools: [['Rectangle'], ['Circle'], ['Line'], ['Divider Line']] }
+  ];
+
+  const existingToolCards = new Map();
+  toolboxBody.querySelectorAll('.tool-card[data-obj]').forEach(card => {
+    existingToolCards.set(card.getAttribute('data-obj'), card);
+  });
+  toolboxBody.replaceChildren();
+
+  toolCategoryDefinitions.forEach(category => {
+    const group = document.createElement('div');
+    group.className = 'tool-cat-group';
+    group.setAttribute('data-cat', category.key);
+
+    const header = document.createElement('div');
+    header.className = 'tool-cat-header';
+    const arrow = document.createElement('span');
+    arrow.className = 'cat-arrow';
+    arrow.style.cssText = 'display:inline-flex;align-items:center';
+    arrow.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+    const name = document.createElement('span');
+    name.className = 'cat-name';
+    name.textContent = category.name;
+    const badge = document.createElement('span');
+    badge.className = 'cat-badge';
+    badge.textContent = String(category.tools.length);
+    header.append(arrow, name, badge);
+
+    const items = document.createElement('div');
+    items.className = 'tool-cat-items';
+    category.tools.forEach(([type, label]) => {
+      let card = existingToolCards.get(type);
+      if (card) {
+        existingToolCards.delete(type);
+      } else {
+        card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'tool-card';
+        card.draggable = true;
+        card.setAttribute('data-obj', type);
+        card.title = type;
+      }
+
+      let cardLabel = card.querySelector('.tool-card-label');
+      if (!cardLabel) {
+        const icon = document.createElement('span');
+        icon.className = 'tool-card-icon';
+        icon.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none">${toolCategorySymbols[category.key] || toolCategorySymbols.shapes}</svg>`;
+        cardLabel = document.createElement('span');
+        cardLabel.className = 'tool-card-label';
+        card.append(icon, cardLabel);
+      }
+      cardLabel.textContent = label || type;
+      items.appendChild(card);
+    });
+
+    group.append(header, items);
+    toolboxBody.appendChild(group);
+  });
+
+  existingToolCards.forEach(card => {
+    console.error(`HMI tool "${card.getAttribute('data-obj')}" is not assigned to a palette category.`);
+  });
+
+  document.querySelectorAll('#toolbox-body .tool-card').forEach(card => {
+    let button = card;
+    if (card.tagName !== 'BUTTON') {
+      button = document.createElement('button');
+      Array.from(card.attributes).forEach(attribute => button.setAttribute(attribute.name, attribute.value));
+      button.type = 'button';
+      while (card.firstChild) button.appendChild(card.firstChild);
+      card.replaceWith(button);
+    }
+
+    const label = button.querySelector('.tool-card-label');
+    const name = button.getAttribute('data-obj') || (label ? label.textContent.trim() : '');
+    button.setAttribute('aria-label', name);
+    if (!button.title) button.title = name;
+  });
+
+  const categoryFlyout = document.createElement('div');
+  categoryFlyout.className = 'tool-category-flyout';
+  categoryFlyout.setAttribute('role', 'dialog');
+  categoryFlyout.setAttribute('aria-label', 'Tool category options');
+
+  const flyoutHeader = document.createElement('div');
+  flyoutHeader.className = 'tool-flyout-header';
+  const flyoutTitle = document.createElement('span');
+  flyoutTitle.className = 'tool-flyout-title';
+  const flyoutCount = document.createElement('span');
+  flyoutCount.className = 'tool-flyout-count';
+  const flyoutClose = document.createElement('button');
+  flyoutClose.type = 'button';
+  flyoutClose.className = 'tool-flyout-close';
+  flyoutClose.setAttribute('aria-label', 'Close options');
+  flyoutClose.textContent = '\u00d7';
+  flyoutHeader.append(flyoutTitle, flyoutCount, flyoutClose);
+  categoryFlyout.appendChild(flyoutHeader);
+
+  const toolboxSearchWrapper = document.querySelector('#icon-toolbox .tb-search-wrapper');
+  if (toolboxSearchWrapper) categoryFlyout.appendChild(toolboxSearchWrapper);
+  document.body.appendChild(categoryFlyout);
+
+  let activeToolCategory = null;
+  const toolCategories = Array.from(toolboxBody.querySelectorAll('.tool-cat-group')).map(group => {
+    const header = group.querySelector('.tool-cat-header');
+    const nameElement = header.querySelector('.cat-name');
+    const badge = header.querySelector('.cat-badge');
+    const name = nameElement.textContent.trim();
+    const items = group.querySelector('.tool-cat-items');
+    const count = items.querySelectorAll('.tool-card').length;
+    const categoryButton = document.createElement('button');
+    categoryButton.type = 'button';
+    categoryButton.className = 'tool-cat-header';
+    categoryButton.setAttribute('aria-haspopup', 'dialog');
+    categoryButton.setAttribute('aria-expanded', 'false');
+    categoryButton.setAttribute('aria-label', `${name}, ${count} ${count === 1 ? 'option' : 'options'}`);
+    categoryButton.title = name;
+
+    const symbol = document.createElement('span');
+    symbol.className = 'tool-cat-symbol';
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.innerHTML = toolCategorySymbols[group.getAttribute('data-cat')] || toolCategorySymbols.shapes;
+    symbol.appendChild(svg);
+    categoryButton.append(symbol, nameElement);
+    if (badge) {
+      badge.textContent = String(count);
+      categoryButton.appendChild(badge);
+    }
+
+    header.replaceWith(categoryButton);
+    group.classList.remove('collapsed');
+    const category = { group, button: categoryButton, name, count, items };
+    categoryButton.addEventListener('click', () => {
+      if (activeToolCategory === category) {
+        closeToolCategoryFlyout();
+      } else {
+        openToolCategoryFlyout(category);
+      }
+    });
+    return category;
+  });
+
+  function closeToolCategoryFlyout() {
+    if (activeToolCategory) {
+      activeToolCategory.group.appendChild(activeToolCategory.items);
+      activeToolCategory.group.classList.remove('is-active');
+      activeToolCategory.button.setAttribute('aria-expanded', 'false');
+      activeToolCategory = null;
+    }
+    categoryFlyout.style.display = 'none';
+  }
+
+  function openToolCategoryFlyout(category) {
+    closeToolCategoryFlyout();
+    activeToolCategory = category;
+    category.group.classList.add('is-active');
+    category.button.setAttribute('aria-expanded', 'true');
+    flyoutTitle.textContent = category.name;
+    flyoutCount.textContent = `${category.count} ${category.count === 1 ? 'option' : 'options'}`;
+    categoryFlyout.appendChild(category.items);
+    categoryFlyout.style.display = 'flex';
+
+    const triggerRect = category.button.getBoundingClientRect();
+    const flyoutRect = categoryFlyout.getBoundingClientRect();
+    const openToRight = window.innerWidth - triggerRect.right > triggerRect.left;
+    const preferredLeft = openToRight
+      ? triggerRect.right + 4
+      : triggerRect.left - flyoutRect.width - 4;
+    const left = Math.max(8, Math.min(preferredLeft, window.innerWidth - flyoutRect.width - 8));
+    const top = Math.max(8, Math.min(triggerRect.top, window.innerHeight - flyoutRect.height - 8));
+    categoryFlyout.style.left = `${left}px`;
+    categoryFlyout.style.top = `${top}px`;
+  }
+
+  flyoutClose.addEventListener('click', closeToolCategoryFlyout);
+  document.addEventListener('pointerdown', event => {
+    if (activeToolCategory && !categoryFlyout.contains(event.target) && !toolboxBody.contains(event.target)) {
+      closeToolCategoryFlyout();
+    }
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && activeToolCategory) closeToolCategoryFlyout();
+  });
+  window.addEventListener('resize', closeToolCategoryFlyout);
+
   // Vertical Tool Palette click-to-place & drag-to-place
   document.querySelectorAll('.tool-card, .tb-item').forEach(card => {
     // Click to spawn in viewport center
@@ -1084,6 +1334,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const objType = card.getAttribute('data-obj');
       spawnWidget(objType);
+      closeToolCategoryFlyout();
     });
 
     // Drag start
@@ -1122,15 +1373,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Tool Palette Accordion Collapse / Expand
-  document.querySelectorAll('.tool-cat-header').forEach(hdr => {
-    hdr.addEventListener('click', () => {
-      const parentGroup = hdr.closest('.tool-cat-group');
-      if (parentGroup) {
-        parentGroup.classList.toggle('collapsed');
-      }
-    });
-  });
+  const toolCount = document.getElementById('tool-count');
+  if (toolCount) {
+    toolCount.textContent = `${toolCategories.reduce((total, category) => total + category.count, 0)} Tools`;
+  }
 
   // Tool Palette Real-Time Search Filter
   const toolSearch = document.getElementById('tool-search');
@@ -1142,10 +1388,10 @@ document.addEventListener('DOMContentLoaded', () => {
         toolSearchClear.style.display = q ? 'block' : 'none';
       }
 
-      const groups = document.querySelectorAll('.tool-cat-group');
-      groups.forEach(grp => {
+      let firstMatch = null;
+      toolCategories.forEach(category => {
         let visibleInGroup = 0;
-        const cards = grp.querySelectorAll('.tool-card, .tb-item');
+        const cards = category.items.querySelectorAll('.tool-card, .tb-item');
         cards.forEach(card => {
           const name = (card.getAttribute('data-obj') || '').toLowerCase();
           const label = card.textContent.toLowerCase();
@@ -1154,13 +1400,21 @@ document.addEventListener('DOMContentLoaded', () => {
           if (match) visibleInGroup++;
         });
 
-        if (!q) {
-          grp.style.display = '';
-        } else {
-          grp.style.display = visibleInGroup > 0 ? 'block' : 'none';
-          if (visibleInGroup > 0) grp.classList.remove('collapsed');
+        const hasMatches = visibleInGroup > 0;
+        category.group.style.display = hasMatches ? '' : 'none';
+        category.button.style.display = hasMatches ? 'flex' : 'none';
+        if (q && hasMatches && !firstMatch) {
+          firstMatch = category;
         }
       });
+
+      if (q) {
+        if (firstMatch && activeToolCategory !== firstMatch) {
+          openToolCategoryFlyout(firstMatch);
+        } else if (!firstMatch) {
+          closeToolCategoryFlyout();
+        }
+      }
     });
 
     if (toolSearchClear) {
