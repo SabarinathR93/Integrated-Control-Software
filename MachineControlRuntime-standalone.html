@@ -1,0 +1,3821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Integrated Control Software - Runtime</title>
+  <style>
+/* HMI Designer Studio - Industrial Dark & Light Theme */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font: 13px/1.45 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  color: #111;
+  background: #EDEBE6;
+  overflow: hidden;
+  user-select: none;
+}
+a { color: inherit; text-decoration: none; }
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #FFF;
+}
+
+/* --- Menubar & Toolbars --- */
+.menubar {
+  display: flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: #F7F6F2;
+  border-bottom: 1px solid #DDD;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+}
+.brand .dot {
+  width: 10px;
+  height: 10px;
+  background: #D9261C;
+  display: inline-block;
+  border-radius: 2px;
+}
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 12px;
+  background: #FFF;
+  border-bottom: 1px solid #DDD;
+  flex-wrap: wrap;
+}
+.tb-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #767676;
+  margin-right: 8px;
+}
+.tb-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid #DDD;
+  border-radius: 4px;
+  background: #FAF9F5;
+  cursor: pointer;
+}
+.tb-action-btn:hover {
+  background: #D9261C;
+  border-color: #D9261C;
+  color: #FFF;
+}
+.tb-action-btn.active {
+  background: #D9261C;
+  border-color: #D9261C;
+  color: #FFF;
+}
+
+/* --- Menu & Dropdowns --- */
+.menu { position: relative; }
+.menu > span {
+  display: block;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.menu:hover > span {
+  background: #D9261C;
+  color: #FFF;
+}
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 230px;
+  background: #FFF;
+  border: 1px solid #CCC;
+  border-radius: 6px;
+  box-shadow: 0 10px 28px rgba(0,0,0,.15);
+  padding: 4px;
+  z-index: 1000;
+}
+.menu:hover > .dropdown { display: block; }
+.dropdown a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.dropdown a span.shortcut {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-left: 12px;
+}
+.dropdown a:hover {
+  background: #D9261C;
+  color: #FFF;
+}
+.dropdown a:hover span.shortcut {
+  color: #FFF;
+  opacity: 0.9;
+}
+.dropdown hr {
+  margin: 4px 0;
+  border: 0;
+  border-top: 1px solid #EEE;
+}
+
+.submenu-wrap { position: relative; }
+.submenu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: -4px;
+  min-width: 200px;
+}
+.submenu-wrap.open .submenu { display: block; }
+.dock-state {
+  display: inline-block;
+  width: 18px;
+  color: #D9261C;
+  font-weight: 700;
+}
+
+/* --- Workspace & Docking Windows --- */
+.workspace {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  background: #EDEBE6;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 65px);
+}
+
+/* Dock Zones & Center Designing Area */
+.dock-zone {
+  display: flex;
+  position: relative;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+.dock-zone-left, .dock-zone-right {
+  flex-direction: row;
+  height: 100%;
+}
+.dock-zone-top, .dock-zone-bottom {
+  flex-direction: row;
+  width: 100%;
+  z-index: 15;
+}
+.dock-center-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 300px;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Docked Layout Panels */
+.dock-panel {
+  display: flex;
+  flex-direction: column;
+  background: #FFF;
+  position: relative;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.dock-panel.docked-vertical {
+  height: 100%;
+}
+
+.dock-panel.docked-horizontal {
+  width: 100% !important;
+  min-height: 100px;
+  max-height: 480px;
+  overflow: hidden;
+}
+
+.dock-panel.docked-horizontal .win-body {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 6px 10px;
+  height: calc(100% - 32px);
+}
+
+.dock-panel.docked-horizontal .screen-tree {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  min-width: 100%;
+}
+
+.dock-panel.docked-horizontal .tree-group {
+  min-width: 200px;
+  border-right: 1px solid #E2E8F0;
+  padding-right: 12px;
+}
+
+.dock-panel.docked-horizontal .tree-items {
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.dock-panel.docked-horizontal.icon-toolbox .toolbox-body {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 6px 12px;
+  height: calc(100% - 36px);
+}
+
+.dock-panel.docked-horizontal .tool-cat-group {
+  min-width: 180px;
+  flex-shrink: 0;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 4px;
+  background: #F8FAFC;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.dock-panel.docked-horizontal .tool-cat-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+}
+
+/* Quick Dock Buttons in Panel Headers */
+.dock-quick-btns {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: #E2E8F0;
+  border-radius: 4px;
+  padding: 2px;
+}
+.dock-qb {
+  background: transparent;
+  border: none;
+  border-radius: 3px;
+  font-size: 11px;
+  padding: 2px 5px;
+  cursor: pointer;
+  color: #475569;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+.dock-qb:hover {
+  background: #CBD5E1;
+  color: #0F172A;
+}
+.dock-qb.active {
+  background: #D9261C;
+  color: #FFF;
+  font-weight: 700;
+}
+
+#win-screens {
+  min-width: 150px;
+  max-width: 500px;
+  z-index: 20;
+}
+
+.dock-canvas {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  background: #E5E3DD;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  z-index: 10;
+}
+
+/* Draggable Splitter Handles for 4-Way Docking */
+.dock-splitter {
+  position: absolute;
+  z-index: 100;
+  background: transparent;
+  transition: background 0.15s ease;
+}
+.dock-splitter:hover, .dock-splitter.dragging {
+  background: #D9261C;
+}
+.dock-splitter-r {
+  top: 0;
+  bottom: 0;
+  right: -3px;
+  width: 7px;
+  cursor: ew-resize;
+}
+.dock-splitter-l {
+  top: 0;
+  bottom: 0;
+  left: -3px;
+  width: 7px;
+  cursor: ew-resize;
+}
+.dock-splitter-b {
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 7px;
+  cursor: ns-resize;
+}
+.dock-splitter-t {
+  left: 0;
+  right: 0;
+  top: -3px;
+  height: 7px;
+  cursor: ns-resize;
+}
+
+.win-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: #F7F6F2;
+  border-bottom: 1px solid #DDD;
+  font-size: 12px;
+  font-weight: 700;
+  user-select: none;
+  height: 32px;
+  box-sizing: border-box;
+}
+
+/* --- Chrome-Style Screen Tabs --- */
+.screen-tab-bar {
+  display: flex;
+  align-items: flex-end;
+  background: #EBE9E4;
+  border-bottom: 1px solid #CBD5E1;
+  height: 34px;
+  padding: 0 8px;
+  box-sizing: border-box;
+  user-select: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.screen-tab-bar::-webkit-scrollbar {
+  height: 3px;
+}
+.screen-tab-bar::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 2px;
+}
+.screen-tabs-list {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 100%;
+}
+.screen-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 29px;
+  padding: 0 8px 0 12px;
+  background: #E2E0DB;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 600;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border: 1px solid transparent;
+  border-bottom: none;
+  cursor: pointer;
+  position: relative;
+  max-width: 190px;
+  min-width: 110px;
+  box-sizing: border-box;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.screen-tab:not(.active)::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 7px;
+  bottom: 7px;
+  width: 1px;
+  background: #CBD5E1;
+}
+.screen-tab:hover {
+  background: #EDEBE6;
+  color: #0F172A;
+}
+.screen-tab.active {
+  background: #FFFFFF;
+  color: #0F172A;
+  font-weight: 700;
+  border-color: #CBD5E1;
+  border-top: 2px solid #D9261C;
+  margin-bottom: -1px;
+  height: 30px;
+  z-index: 2;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.04);
+}
+.screen-tab.active::after {
+  display: none;
+}
+.screen-tab .tab-icon {
+  display: inline-flex;
+  align-items: center;
+  color: #64748B;
+  flex-shrink: 0;
+}
+.screen-tab.active .tab-icon {
+  color: #D9261C;
+}
+.screen-tab .tab-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+.screen-tab .tab-close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #64748B;
+  font-size: 10px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-left: 2px;
+  transition: background 0.12s, color 0.12s;
+}
+.screen-tab .tab-close-btn:hover {
+  background: #E2E8F0;
+  color: #DC2626;
+}
+.screen-tab-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #64748B;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 6px;
+  margin-bottom: 3px;
+  flex-shrink: 0;
+  transition: all 0.12s ease;
+}
+.screen-tab-add:hover {
+  background: #FFFFFF;
+  color: #0F172A;
+  border-color: #CBD5E1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.win-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* --- Screen Tree --- */
+.screen-tree { flex: 1; overflow: auto; padding: 6px; }
+.tree-group { margin-bottom: 4px; }
+.tree-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+.tree-head:hover { background: #EDEBE6; }
+.tree-head .tw { width: 12px; font-size: 10px; color: #767676; }
+.tree-head .tadd {
+  margin-left: auto;
+  color: #D9261C;
+  font-weight: 700;
+  padding: 0 4px;
+}
+.tree-items { padding-left: 12px; }
+.tree-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.tree-item:hover { background: #EDEBE6; }
+.tree-item.active { background: #D9261C; color: #FFF; }
+.tree-item.active .tdel { color: #FFF; opacity: 0.8; }
+.tree-item .tdel {
+  margin-left: auto;
+  font-size: 11px;
+  opacity: .5;
+}
+.tree-item .tdel:hover { opacity: 1; }
+
+/* --- Canvas Area & Stage --- */
+.canvas-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #4D4D4D;
+  background: #FAF9F5;
+  user-select: none;
+}
+.canvas-zoom-bar {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: #FFF;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+.zoom-btn {
+  width: 24px;
+  height: 22px;
+  border: 1px solid #DDD;
+  background: #F7F6F2;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  transition: all 0.1s ease;
+}
+.zoom-btn:hover {
+  background: #000;
+  color: #FFF;
+  border-color: #000;
+}
+.zoom-level-badge {
+  min-width: 48px;
+  height: 22px;
+  padding: 0 4px;
+  border: none;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: Consolas, monospace;
+  color: #000;
+  cursor: pointer;
+  border-radius: 3px;
+  text-align: center;
+}
+.zoom-level-badge:hover {
+  background: #EEE;
+}
+.zoom-fit-btn {
+  height: 22px;
+  padding: 0 8px;
+  border: 1px solid #DDD;
+  background: #F7F6F2;
+  font-size: 10.5px;
+  font-weight: 700;
+  border-radius: 3px;
+  cursor: pointer;
+  color: #000;
+  transition: all 0.1s ease;
+}
+.zoom-fit-btn:hover {
+  background: #000;
+  color: #FFF;
+  border-color: #000;
+}
+.canvas {
+  flex: 1;
+  margin: 6px;
+  background: #E5E3DD;
+  border: 1px solid #CCC;
+  overflow: auto;
+  position: relative;
+  user-select: none;
+}
+.canvas.drawing { cursor: crosshair; }
+.canvas.panning { cursor: grab !important; }
+.canvas.panning-active { cursor: grabbing !important; }
+
+.canvas-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100%;
+  min-height: 100%;
+  width: max-content;
+  height: max-content;
+  padding: 80px;
+  box-sizing: border-box;
+}
+.canvas-inner {
+  width: 1280px;
+  height: 800px;
+  flex-shrink: 0;
+  transform-origin: center center;
+  position: relative;
+  background: #FFF;
+  box-shadow: 0 8px 32px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,0.12);
+  transition: transform 0.05s ease-out;
+}
+.canvas.grid-on .canvas-inner {
+  background-image: linear-gradient(#E8E8E8 1px, transparent 1px), linear-gradient(90deg, #E8E8E8 1px, transparent 1px);
+  background-size: 10px 10px;
+}
+.canvas-empty {
+  font-size: 13px;
+  color: #767676;
+  text-align: center;
+  padding-top: 100px;
+}
+
+/* Authentic CAD Empty Workspace State (Shown when all tabs/screens are closed) */
+.canvas-empty-workspace {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  text-align: center;
+  user-select: none;
+  background: #E5E3DD;
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+.empty-ws-icon {
+  margin-bottom: 12px;
+  opacity: 0.75;
+}
+.empty-ws-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 6px;
+}
+.empty-ws-sub {
+  font-size: 12px;
+  color: #64748B;
+  max-width: 360px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+/* --- HMI Objects --- */
+.obj {
+  position: absolute;
+  border: 2px solid #000;
+  background: #FFF;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: move;
+  user-select: none;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.obj.sel {
+  border-color: #D9261C;
+  box-shadow: 0 0 0 2px rgba(217,38,28,.35);
+}
+.obj .rz {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  width: 10px;
+  height: 10px;
+  background: #D9261C;
+  border: 2px solid #FFF;
+  cursor: nwse-resize;
+  display: none;
+  z-index: 10;
+}
+.obj.sel .rz { display: block; }
+.obj.style-flat { border-radius: 4px; }
+.obj.style-raised { border-radius: 6px; box-shadow: inset 0 -3px 0 rgba(0,0,0,.25); }
+.obj.style-outline { background: transparent !important; color: #000 !important; border-width: 2px; }
+.obj.style-pill { border-radius: 999px; }
+.obj.lamp-circle { border-radius: 50%; }
+.obj.lamp-square { border-radius: 4px; }
+.obj.lamp-pilot { border-radius: 50%; box-shadow: inset 0 0 0 4px rgba(0,0,0,.15); }
+.obj.num-boxed { border: 2px solid #000; background: #FFF; }
+.obj.num-underline { border: 0; border-bottom: 2px solid #000; background: transparent; }
+.obj.num-plain { border: 0; background: transparent; }
+.preview {
+  position: absolute;
+  border: 2px dashed #D9261C;
+  background: rgba(217,38,28,.08);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* --- Right Vertical Tool Palette (Objects Tab) --- */
+/* --- Right Vertical Tool Palette (Objects Tab - Extracted Direct Subfunctions) --- */
+.icon-toolbox {
+  position: relative;
+  background: #F8FAFC;
+  border-left: 1px solid #CBD5E1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  z-index: 20;
+  overflow: hidden;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.toolbox-header {
+  padding: 10px 10px 8px 10px;
+  background: #F1F5F9;
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.tb-head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.itb-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #0F172A;
+}
+
+.itb-count {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748B;
+  background: #E2E8F0;
+  padding: 1px 7px;
+  border-radius: 10px;
+}
+
+.tb-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 4px;
+  padding: 4px 8px;
+  transition: all 0.15s ease;
+}
+
+.tb-search-wrapper:focus-within {
+  border-color: #D9261C;
+  box-shadow: 0 0 0 2px rgba(217, 38, 28, 0.12);
+}
+
+.tb-search-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 6px;
+  color: #64748B;
+  flex-shrink: 0;
+}
+
+.tool-search-input {
+  border: none;
+  outline: none;
+  font-size: 11px;
+  flex: 1;
+  background: transparent;
+  color: #0F172A;
+}
+
+.tool-search-input::placeholder {
+  color: #94A3B8;
+}
+
+.tb-search-clear {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: #94A3B8;
+  cursor: pointer;
+  display: none;
+  padding: 0 2px;
+  line-height: 1;
+}
+
+.tb-search-clear:hover {
+  color: #D9261C;
+}
+
+/* Scrollable Container for Accordion Groups */
+.toolbox-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #F1F5F9;
+}
+
+.toolbox-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.toolbox-body::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+.toolbox-body::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
+}
+
+.toolbox-body::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+.tool-cat-group {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0 !important; /* CRITICAL: Prevents flex from squishing and slicing groups */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.15s ease;
+}
+
+.tool-cat-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  background: #F8FAFC;
+  cursor: pointer;
+  border-bottom: 1px solid #E2E8F0;
+  user-select: none;
+  transition: background 0.12s ease;
+}
+
+.tool-cat-header:hover {
+  background: #F1F5F9;
+}
+
+.cat-arrow {
+  font-size: 9px;
+  color: #64748B;
+  transition: transform 0.15s ease;
+  display: inline-block;
+  line-height: 1;
+}
+
+.tool-cat-group.collapsed .cat-arrow {
+  transform: rotate(-90deg);
+}
+
+.tool-cat-group.collapsed .tool-cat-items {
+  display: none;
+}
+
+.tool-cat-group.collapsed {
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.cat-name {
+  flex: 1;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1E293B;
+  letter-spacing: 0.02em;
+}
+
+.cat-badge {
+  font-size: 9px;
+  font-weight: 700;
+  color: #64748B;
+  background: #E2E8F0;
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+.tool-cat-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  padding: 6px;
+  background: #FFFFFF;
+  box-sizing: border-box;
+}
+
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  text-align: center;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 4px;
+  padding: 7px 4px 5px 4px;
+  cursor: grab;
+  appearance: none;
+  user-select: none;
+  transition: all 0.12s ease;
+  min-height: 50px;
+  box-sizing: border-box;
+}
+
+.tool-card:hover {
+  background: #FFFFFF;
+  border-color: #D9261C;
+  box-shadow: 0 2px 5px rgba(217, 38, 28, 0.16);
+  transform: translateY(-1px);
+}
+
+.tool-card:active {
+  cursor: grabbing;
+  background: #FEF2F2;
+  border-color: #D9261C;
+  transform: translateY(0);
+}
+
+.tool-card.dragging {
+  opacity: 0.35;
+  border: 1px dashed #D9261C;
+}
+
+.tool-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-bottom: 4px;
+}
+
+.tool-card-icon svg {
+  display: block;
+}
+
+.tool-card-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #334155;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  padding: 0 2px;
+}
+
+.tool-card:hover .tool-card-label {
+  color: #0F172A;
+}
+button.tool-card {
+  min-height: 46px;
+}
+button.tool-card:focus-visible {
+  outline: 2px solid #D9261C;
+  outline-offset: 1px;
+}
+button.tool-card .tool-card-label {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  overflow-wrap: anywhere;
+}
+
+/* Compact mode when user drags toolbox narrower than 90px */
+.icon-toolbox.compact .toolbox-header {
+  padding: 6px 3px;
+}
+.icon-toolbox.compact .tb-head-row .itb-title,
+.icon-toolbox.compact .tb-head-row .itb-count,
+.icon-toolbox.compact .tb-search-wrapper,
+.icon-toolbox.compact .cat-name,
+.icon-toolbox.compact .cat-badge,
+.icon-toolbox.compact .cat-arrow,
+.icon-toolbox.compact .tool-card-label {
+  display: none !important;
+}
+.icon-toolbox.compact .tool-cat-header {
+  padding: 4px 2px;
+  justify-content: center;
+}
+.icon-toolbox.compact .tool-cat-items {
+  grid-template-columns: 1fr;
+  padding: 2px;
+  gap: 2px;
+}
+.icon-toolbox.compact .tool-card {
+  min-height: 34px;
+  padding: 4px 0;
+}
+.icon-toolbox.compact .tool-card-icon {
+  margin-bottom: 0;
+}
+
+.tool-cat-group {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.tool-cat-group > .tool-cat-items {
+  display: none;
+}
+
+button.tool-cat-header {
+  width: 100%;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border: 1px solid #E2E8F0;
+  border-radius: 4px;
+  background: #FFFFFF;
+  color: #1E293B;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+button.tool-cat-header:hover,
+.tool-cat-group.is-active > button.tool-cat-header {
+  border-color: #D9261C;
+  background: #FFF;
+}
+
+.tool-cat-symbol {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 18px;
+}
+
+.tool-cat-symbol svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.tool-cat-header .cat-name {
+  font-size: 11px;
+}
+
+.tool-cat-header .cat-badge {
+  margin-left: auto;
+}
+
+.tool-category-flyout {
+  position: fixed;
+  z-index: 99999;
+  display: none;
+  flex-direction: column;
+  width: 228px;
+  max-height: min(80vh, 560px);
+  overflow: hidden;
+  border: 1px solid #94A3B8;
+  border-radius: 4px;
+  background: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, .24);
+  box-sizing: border-box;
+}
+
+.tool-flyout-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 5px 8px;
+  border-bottom: 1px solid #CBD5E1;
+  background: #F1F5F9;
+  box-sizing: border-box;
+}
+
+.tool-flyout-title {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1E293B;
+}
+
+.tool-flyout-count {
+  font-size: 10px;
+  color: #64748B;
+}
+
+.tool-flyout-close {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid #CBD5E1;
+  border-radius: 3px;
+  background: #FFFFFF;
+  color: #475569;
+  font: inherit;
+  cursor: pointer;
+}
+
+.tool-flyout-close:hover {
+  border-color: #D9261C;
+  color: #D9261C;
+}
+
+.tool-category-flyout .tb-search-wrapper {
+  margin: 6px 6px 0;
+  flex-shrink: 0;
+}
+
+.tool-category-flyout .tool-cat-items {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: start;
+  gap: 2px;
+  padding: 5px;
+  overflow-y: auto;
+}
+
+.tool-category-flyout .tool-card {
+  min-height: 32px;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 4px 7px;
+  border-radius: 2px;
+  text-align: left;
+}
+
+.tool-category-flyout .tool-card-icon {
+  flex: 0 0 20px;
+  margin: 0;
+}
+
+.tool-category-flyout .tool-card-label {
+  font-size: 11px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* --- Properties Sidebar --- */
+.props-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: auto;
+}
+.props-empty { font-size: 12px; color: #767676; }
+.props-body label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #4D4D4D;
+}
+.props-body input, .props-body select {
+  height: 30px;
+  border: 0;
+  border-bottom: 2px solid #000;
+  background: transparent;
+  font-size: 13px;
+  padding: 0 4px;
+  width: 100%;
+}
+.props-body .two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.props-sec {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #D9261C;
+  border-bottom: 1px solid #EEE;
+  padding-bottom: 4px;
+  margin-top: 6px;
+}
+
+/* --- Status Bar --- */
+.statusbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 4px 14px;
+  border-top: 1px solid #CCC;
+  background: #F7F6F2;
+  font-size: 11.5px;
+  color: #4D4D4D;
+  height: 26px;
+  flex-shrink: 0;
+  user-select: none;
+}
+.sb-sep { color: #CCC; user-select: none; }
+.sb-item { display: inline-flex; align-items: center; gap: 6px; }
+.statusbar a { color: #D9261C; font-weight: 700; margin-left: 8px; }
+
+/* --- Launcher Popup --- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20,20,20,.45);
+}
+.popup {
+  width: min(980px, 94vw);
+  height: min(640px, 88vh);
+  background: #FFF;
+  border: 1px solid #DDD;
+  border-radius: 10px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: #F7F6F2;
+  border-bottom: 1px solid #DDD;
+}
+.titlebar .t { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #000; }
+.titlebar .dot { width: 9px; height: 9px; background: #D9261C; display: inline-block; }
+.close-x {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #DDD;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #FFF;
+}
+.close-x:hover { background: #D9261C; border-color: #D9261C; color: #FFF; }
+.view { display: none; overflow: hidden; height: 100%; color: #000; }
+.view:target { display: block; }
+#main { display: block; overflow: hidden; }
+.src:hover { background: #D9261C; color: #FFF; }
+.src:hover span { color: #FFF !important; }
+
+/* --- Universal PLC & Template Launcher Styles --- */
+.plc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #FFF;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #222;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.tmpl-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  border-bottom: 1px solid #EEE;
+  cursor: pointer;
+  background: #FFF;
+  transition: background 0.12s ease;
+}
+.tmpl-item-row:hover, .tmpl-item-row.active {
+  background: #D9261C !important;
+  color: #FFF !important;
+}
+.tmpl-item-row:hover *, .tmpl-item-row.active * {
+  color: #FFF !important;
+}
+.tmpl-cat-btn {
+  padding: 6px 12px;
+  border: 1px solid #DDD;
+  background: #FFF;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.12s ease;
+}
+.tmpl-cat-btn:hover {
+  background: #000;
+  color: #FFF;
+  border-color: #000;
+}
+.tmpl-cat-btn.active {
+  background: #D9261C;
+  color: #FFF;
+  border-color: #D9261C;
+}
+
+/* --- Modals & Diagnostics --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20,20,20,.45);
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  width: min(760px, 94vw);
+  background: #FFF;
+  border: 1px solid #DDD;
+  border-radius: 10px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.35);
+  overflow: hidden;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #F7F6F2;
+  border-bottom: 1px solid #DDD;
+  font-size: 13px;
+  font-weight: 700;
+}
+.modal-head a { cursor: pointer; font-weight: 600; }
+.modal-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 13px;
+  overflow: auto;
+}
+.modal-body select, .modal-body input {
+  height: 36px;
+  border: 0;
+  border-bottom: 2px solid #000;
+  background: transparent;
+  font-size: 13px;
+  padding: 0 4px;
+}
+.modal-body .row { display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px; }
+.modal-body .btn {
+  padding: 7px 16px;
+  border: 2px solid #000;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  background: #FFF;
+  border-radius: 4px;
+}
+.modal-body .btn.primary { background: #D9261C; border-color: #D9261C; color: #FFF; }
+
+/* --- Object Properties Popup Dialog Tabs & Layout --- */
+.prop-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 2px solid #000;
+  margin-bottom: 12px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+}
+.prop-tab-btn {
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid #DDD;
+  border-bottom: none;
+  background: #F7F6F2;
+  cursor: pointer;
+  border-radius: 4px 4px 0 0;
+  color: #555;
+  transition: all 0.1s ease;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+.prop-tab-btn:hover {
+  background: #E5E3DD;
+  color: #000;
+}
+.prop-tab-btn.active {
+  background: #000;
+  color: #FFF;
+  border-color: #000;
+}
+.prop-tab-page {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px 0;
+}
+.prop-tab-page.active {
+  display: flex;
+}
+.prop-sec-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: #D9261C;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 6px;
+  border-bottom: 1px solid #EEE;
+  padding-bottom: 3px;
+}
+.obj[data-font-size] span,
+.obj[data-font-size] text,
+.obj[data-font-size] label,
+.obj[data-font-size] p {
+  font-family: var(--object-font-family, Arial, sans-serif) !important;
+  font-size: var(--object-font-size, 13px) !important;
+  font-weight: var(--object-font-weight, 400) !important;
+  font-style: var(--object-font-style, normal) !important;
+  text-align: var(--object-text-align, center) !important;
+}
+@keyframes hmi-object-flash {
+  50% { opacity: 0.25; }
+}
+.sim-interactive.hmi-object-flash {
+  animation: hmi-object-flash 700ms steps(2, end) infinite;
+}
+.prop-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.tag-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #EEE;
+  font-size: 12px;
+}
+
+/* --- Build & Validation Output Log --- */
+.build-log {
+  background: #1E1E1E;
+  color: #D4D4D4;
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  padding: 12px;
+  border-radius: 6px;
+  max-height: 280px;
+  overflow: auto;
+  line-height: 1.5;
+}
+.build-log .log-success { color: #4EC9B0; font-weight: bold; }
+.build-log .log-warn { color: #CE9178; }
+.build-log .log-err { color: #F44747; font-weight: bold; }
+.build-log .log-info { color: #9CDCFE; }
+
+/* --- Virtual On-Screen Keypad Popup --- */
+.v-keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+.v-key {
+  height: 48px;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #FFF;
+}
+.v-key:hover { background: #D9261C; color: #FFF; border-color: #D9261C; }
+.v-key.enter { background: #22A06B; border-color: #22A06B; color: #FFF; }
+.v-key.clr { background: #F5A623; border-color: #F5A623; color: #FFF; }
+
+/* ==========================================================================
+   CAD Multi-Object Alignment & Distribution Ribbon
+   ========================================================================== */
+.canvas-align-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+.align-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: transparent;
+  color: #334155;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s ease;
+}
+.align-btn:hover {
+  background: #E2E8F0;
+  color: #0F172A;
+  border-color: #94A3B8;
+}
+.align-btn:active {
+  background: #CBD5E1;
+}
+.align-sep {
+  width: 1px;
+  height: 16px;
+  background: #CBD5E1;
+  margin: 0 3px;
+}
+
+/* ==========================================================================
+   Dynamic Flashing Animation
+   ========================================================================== */
+@keyframes hmi-flash {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.8));
+  }
+  50% {
+    opacity: 0.2;
+    filter: none;
+  }
+}
+.hmi-flashing {
+  animation: hmi-flash 0.8s ease-in-out infinite !important;
+}
+
+/* ==========================================================================
+   Tag Database Manager Styles
+   ========================================================================== */
+.tag-mgr-table th {
+  border-bottom: 2px solid #CBD5E1;
+}
+.tag-mgr-table tbody tr:hover {
+  background: #F8FAFC;
+}
+.tag-type-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.tag-type-badge.bit {
+  background: #DCFCE7;
+  color: #166534;
+}
+.tag-type-badge.word {
+  background: #E0F2FE;
+  color: #0369A1;
+}
+.tag-type-badge.dword {
+  background: #F3E8FF;
+  color: #6B21A8;
+}
+.tag-type-badge.float {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+/* ==========================================================================
+   HMI Offline Simulator Overlay & Layout
+   ========================================================================== */
+.sim-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.85);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.sim-window {
+  width: 96vw;
+  height: 94vh;
+  max-width: 1680px;
+  background: #0F172A;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.sim-header {
+  height: 48px;
+  background: #1E293B;
+  border-bottom: 1px solid #334155;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+.sim-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sim-status-dot {
+  color: #10B981;
+  font-size: 16px;
+  animation: sim-pulse 1.5s infinite;
+}
+@keyframes sim-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.9); }
+}
+.sim-title {
+  color: #F8FAFC;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+.sim-badge {
+  background: #064E3B;
+  color: #34D399;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  letter-spacing: 0.5px;
+}
+.sim-header-center {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sim-screen-dropdown {
+  background: #0F172A;
+  color: #F8FAFC;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  outline: none;
+}
+.sim-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sim-btn {
+  background: #334155;
+  color: #F1F5F9;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sim-btn:hover {
+  background: #475569;
+  color: #FFF;
+}
+.sim-btn.close {
+  background: #DC2626;
+  border-color: #DC2626;
+  color: #FFF;
+}
+.sim-btn.close:hover {
+  background: #B91C1C;
+}
+
+/* Simulator Body & Dock */
+.sim-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  background: #020617;
+}
+.sim-screen-viewport {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: radial-gradient(circle at center, #1E293B 0%, #020617 100%);
+}
+.sim-screen-stage {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px #334155;
+  border-radius: 4px;
+  transform-origin: center center;
+}
+
+/* Virtual PLC Inspector Dock */
+.sim-inspector-dock {
+  width: 380px;
+  background: #0F172A;
+  border-left: 1px solid #334155;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.sim-insp-head {
+  padding: 12px 14px;
+  background: #1E293B;
+  border-bottom: 1px solid #334155;
+}
+.sim-insp-title {
+  display: block;
+  color: #F8FAFC;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+}
+.sim-insp-sub {
+  display: block;
+  color: #94A3B8;
+  font-size: 11px;
+}
+.sim-insp-sec {
+  padding: 12px 14px;
+  border-bottom: 1px solid #1E293B;
+}
+.sim-sec-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #38BDF8;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 8px;
+}
+.sim-scenarios-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.sim-scen-btn {
+  background: #1E293B;
+  border: 1px solid #334155;
+  border-radius: 4px;
+  color: #E2E8F0;
+  padding: 6px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+.sim-scen-btn:hover {
+  background: #334155;
+}
+.sim-scen-btn.fault {
+  border-color: #EF4444;
+  color: #FCA5A5;
+}
+.sim-scen-btn.fault:hover {
+  background: #7F1D1D;
+}
+.sim-scen-btn.motor {
+  border-color: #3B82F6;
+  color: #93C5FD;
+}
+.sim-scen-btn.motor:hover {
+  background: #1E3A8A;
+}
+.sim-scen-btn.tank {
+  border-color: #06B6D4;
+  color: #67E8F9;
+}
+.sim-scen-btn.tank:hover {
+  background: #164E63;
+}
+.sim-scen-btn.ok {
+  border-color: #10B981;
+  color: #6EE7B7;
+  grid-column: span 2;
+}
+.sim-scen-btn.ok:hover {
+  background: #064E3B;
+}
+
+/* Memory Lists & Rows */
+.sim-plc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sim-plc-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #1E293B;
+  border: 1px solid #334155;
+  border-radius: 4px;
+  padding: 6px 10px;
+}
+.sim-plc-tag {
+  font-family: Consolas, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #F8FAFC;
+  width: 50px;
+}
+.sim-plc-led {
+  font-size: 12px;
+}
+.sim-plc-led.on {
+  color: #10B981;
+  text-shadow: 0 0 6px #10B981;
+}
+.sim-plc-led.off {
+  color: #475569;
+}
+.sim-plc-val {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94A3B8;
+  flex: 1;
+}
+.sim-toggle-btn {
+  background: #334155;
+  color: #E2E8F0;
+  border: 1px solid #475569;
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.sim-toggle-btn.active {
+  background: #DC2626;
+  border-color: #EF4444;
+  color: #FFF;
+}
+.sim-toggle-btn:hover {
+  filter: brightness(1.15);
+}
+.sim-plc-row.word {
+  display: grid;
+  grid-template-columns: 50px 70px 1fr;
+  align-items: center;
+  gap: 8px;
+}
+.sim-word-input {
+  background: #0F172A;
+  color: #F8FAFC;
+  border: 1px solid #475569;
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: right;
+  width: 100%;
+  box-sizing: border-box;
+}
+.sim-word-range {
+  width: 100%;
+  accent-color: #0284C7;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Screen Tree Desktop Context Menu & Indicators
+   ========================================================================== */
+.screen-ctx-menu {
+  position: fixed;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  padding: 4px 0;
+  min-width: 220px;
+  z-index: 99999;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+}
+.ctx-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #1E293B;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+.ctx-item:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+}
+.ctx-item.disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+.ctx-item.delete:hover {
+  background: #FEE2E2;
+  color: #DC2626;
+}
+.ctx-shortcut {
+  font-family: Consolas, monospace;
+  font-size: 11px;
+  color: #94A3B8;
+  margin-left: 16px;
+}
+.ctx-sep {
+  height: 1px;
+  background: #E2E8F0;
+  margin: 4px 0;
+}
+.tree-item.cut-state {
+  opacity: 0.5;
+  border: 1px dashed #94A3B8 !important;
+}
+.tree-item .badge-startup {
+  margin-left: auto;
+  font-size: 11px;
+  opacity: 0.85;
+}
+.tree-item .screen-inline-input {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 1px 4px;
+  border: 1px solid #3B82F6;
+  border-radius: 3px;
+  outline: none;
+  background: #FFF;
+  color: #0F172A;
+  width: 130px;
+}
+
+/* ==========================================================================
+   CAD Adaptive Window Docking & Snap Guides
+   ========================================================================== */
+.panel-drag-handle {
+  cursor: grab;
+  user-select: none;
+}
+.panel-drag-handle:active {
+  cursor: grabbing;
+}
+.dock-grip {
+  color: #94A3B8;
+  font-size: 13px;
+  letter-spacing: -2px;
+  cursor: grab;
+  padding-right: 2px;
+  display: inline-block;
+  line-height: 1;
+}
+.panel-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.panel-dock-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: #64748B;
+  font-size: 13px;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.12s ease;
+}
+.panel-dock-btn:hover {
+  background: #E2E8F0;
+  color: #0F172A;
+  border-color: #CBD5E1;
+}
+
+/* Docking Guides & Preview Overlay */
+.dock-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+.dock-guide {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  transition: all 0.15s ease;
+  z-index: 10001;
+}
+.dock-guide-left {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 150px;
+  background: linear-gradient(to right, rgba(2, 132, 199, 0.22), transparent);
+}
+.dock-guide-right {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 150px;
+  background: linear-gradient(to left, rgba(2, 132, 199, 0.22), transparent);
+}
+.dock-guide-top {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 110px;
+  background: linear-gradient(to bottom, rgba(2, 132, 199, 0.22), transparent);
+}
+.dock-guide-bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 110px;
+  background: linear-gradient(to top, rgba(2, 132, 199, 0.22), transparent);
+}
+.dock-guide-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background: rgba(15, 23, 42, 0.92);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  color: #F8FAFC;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #38BDF8;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease, background 0.15s ease;
+  pointer-events: none;
+}
+.dock-guide.hover .dock-guide-badge {
+  background: #0284C7;
+  transform: scale(1.1);
+  box-shadow: 0 12px 30px rgba(2, 132, 199, 0.6);
+}
+.dock-guide-arrow {
+  font-size: 20px;
+}
+.dock-guide-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Authentic CAD 4-Way Compass Indicator */
+.dock-compass {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: auto;
+  z-index: 10002;
+}
+.dock-compass-middle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dock-compass-center {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.95);
+  color: #94A3B8;
+  border: 1px solid #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  user-select: none;
+}
+.dock-compass-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.92);
+  color: #38BDF8;
+  border: 2px solid #0284C7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dock-compass-btn:hover, .dock-compass-btn.hover {
+  background: #0284C7;
+  color: #FFF;
+  transform: scale(1.18);
+  box-shadow: 0 0 20px rgba(2, 132, 199, 0.7);
+}
+
+/* Blue Translucent Snap Preview */
+.dock-snap-preview {
+  position: absolute;
+  background: rgba(2, 132, 199, 0.28);
+  border: 2px dashed #0284C7;
+  border-radius: 4px;
+  z-index: 10000;
+  pointer-events: none;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 0 28px rgba(2, 132, 199, 0.25);
+}
+
+/* Docking Panel Dragging State */
+.dock-panel.dock-dragging {
+  opacity: 0.35;
+  filter: grayscale(0.5);
+  transition: opacity 0.1s;
+}
+
+
+
+    /* ========================================================================
+       MachineControlRuntime Standalone Overrides
+       ======================================================================== */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #0F172A;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .rt-shell {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+    }
+
+    .rt-topbar {
+      height: 34px;
+      flex-shrink: 0;
+      background: #F7F6F2;
+      border-bottom: 1px solid #DDD;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 12px;
+      font-size: 12px;
+      color: #111;
+      user-select: none;
+    }
+
+    .rt-brand {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .rt-accent {
+      width: 4px;
+      height: 16px;
+      background: #D9261C;
+      border-radius: 1px;
+    }
+
+    .rt-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #E2E8F0;
+      color: #334155;
+      font-family: Consolas, monospace;
+    }
+
+    .rt-pill.online {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .rt-btn {
+      height: 24px;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid #CCC;
+      border-radius: 4px;
+      background: #FFF;
+      color: #111;
+      cursor: pointer;
+    }
+
+    .rt-btn:hover { background: #EDEBE6; }
+    .rt-btn.primary { background: #D9261C; border-color: #D9261C; color: #FFF; }
+    .rt-btn.primary:hover { background: #B91C1C; }
+
+    .rt-select {
+      height: 24px;
+      padding: 0 8px;
+      font-size: 11px;
+      border: 1px solid #CCC;
+      border-radius: 4px;
+      background: #FFF;
+      color: #111;
+    }
+
+    .rt-actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .rt-viewport {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #0F172A;
+    }
+
+    .rt-stage {
+      position: relative;
+      transform-origin: center center;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Startup File Drop / Open Card */
+    .rt-loader-card {
+      width: min(500px, 90vw);
+      background: #FAFAFA;
+      border: 1px solid #DDD;
+      border-left: 8px solid #D9261C;
+      border-radius: 6px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 28px 30px;
+      color: #111;
+    }
+
+    .rt-loader-card h2 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .rt-loader-card h2 b { color: #D9261C; }
+
+    .rt-loader-card p {
+      margin: 0 0 18px;
+      font-size: 12.5px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .rt-dropzone {
+      border: 2px dashed #CBD5E1;
+      border-radius: 6px;
+      padding: 24px 16px;
+      text-align: center;
+      background: #FFF;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .rt-dropzone.dragover {
+      border-color: #D9261C;
+      background: #FEF2F2;
+    }
+
+    .rt-dropzone strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .rt-dropzone span {
+      font-size: 11px;
+      color: #64748B;
+    }
+
+    .rt-err {
+      margin-top: 12px;
+      padding: 8px 10px;
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      border-radius: 4px;
+      color: #991B1B;
+      font-size: 11.5px;
+      display: none;
+    }
+
+    /* On-Screen Touch Keypad Modal */
+    .rt-keypad-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rt-keypad-box {
+      width: 280px;
+      background: #FFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+      padding: 14px;
+    }
+
+    .rt-keypad-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .rt-keypad-display {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 8px 10px;
+      font-family: Consolas, monospace;
+      font-size: 20px;
+      font-weight: 700;
+      text-align: right;
+      border: 1px solid #94A3B8;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      background: #F8FAFC;
+    }
+
+    .rt-keypad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .rt-keypad-grid button {
+      height: 38px;
+      font-size: 15px;
+      font-weight: 700;
+      border: 1px solid #CBD5E1;
+      border-radius: 4px;
+      background: #F8FAFC;
+      cursor: pointer;
+    }
+
+    .rt-keypad-grid button:hover { background: #E2E8F0; }
+    .rt-keypad-grid button.ent { background: #D9261C; border-color: #D9261C; color: #FFF; }
+  </style>
+</head>
+<body>
+  <input type="file" id="rt-file-input" accept=".hmiproj,.json,.prjr" style="display:none">
+
+  <div class="rt-shell">
+    <div class="rt-topbar" id="rt-topbar">
+      <div class="rt-brand"><span class="rt-accent"></span><span>Integrated Control Software — Runtime</span></div>
+      <span class="rt-pill" id="rt-proj-pill">No Project Loaded</span>
+      <span class="rt-pill" id="rt-res-pill">—</span>
+      <select id="rt-screen-select" class="rt-select" style="display:none"></select>
+      <span class="rt-pill" id="rt-comm-pill">Virtual PLC</span>
+      <div class="rt-actions">
+        <button type="button" class="rt-btn primary" id="rt-open-btn">Load Project File</button>
+        <button type="button" class="rt-btn" id="rt-fs-btn" title="Toggle Fullscreen (F11)">Fullscreen</button>
+      </div>
+    </div>
+
+    <div class="rt-viewport" id="rt-viewport">
+      <div class="rt-loader-card" id="rt-loader-card">
+        <h2>Integrated <b>Control</b> Runtime</h2>
+        <p>Load a project file (<code>.hmiproj</code>, <code>.json</code>, or compiled <code>.prjr</code>) created by Machine Control Studio to launch the operator HMI screen.</p>
+        <div class="rt-dropzone" id="rt-dropzone">
+          <strong>Click to browse or drag &amp; drop a project file here</strong>
+          <span>Supports .hmiproj / .json (browser) and .prjr (native Runtime host)</span>
+        </div>
+        <div class="rt-err" id="rt-err"></div>
+      </div>
+
+      <div class="rt-stage" id="rt-stage" style="display:none"></div>
+    </div>
+  </div>
+
+  <!-- Touch Numeric Keypad -->
+  <div class="rt-keypad-overlay" id="rt-keypad-overlay">
+    <div class="rt-keypad-box">
+      <div class="rt-keypad-title" id="rt-keypad-title">ENTER VALUE</div>
+      <input type="text" class="rt-keypad-display" id="rt-keypad-display" readonly>
+      <div class="rt-keypad-grid" id="rt-keypad-grid">
+        <button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button>
+        <button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button>
+        <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button>
+        <button type="button" data-k="-">+/-</button><button type="button" data-k="0">0</button><button type="button" data-k=".">.</button>
+        <button type="button" data-k="CLR">CLR</button><button type="button" data-k="ESC">ESC</button><button type="button" data-k="ENT" class="ent">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- js/components/widgets.js (reused read-only from main software) -->
+  <script>
+    /**
+     * HMI Designer Studio - Industrial Widget Component Library
+     * Industrial Hardware Components & Widgets
+     */
+
+    const WidgetRegistry = (function () {
+      const SWITCHES = ['Bit Switch', 'Word Switch', 'Push Button', 'Button', 'Selector Switch', 'Toggle Switch', 'Keypad', 'Screen Navigation', 'Go To Screen Switch'];
+      const LAMPS = ['Bit Lamp', 'Word Lamp', 'Status Indicator', 'Pilot LED', 'Tower Light', 'Alarm Beacon'];
+      const NUMERICS = ['Numeric Display', 'Numeric Input', 'Analog Slider', 'Static Text', 'Text', 'String Display', 'Date/Time'];
+      const ALARMS = ['Alarm Display', 'Alarm History', 'Alarm Acknowledge', 'Alarm Reset', 'Alarm Status Lamp'];
+      const PROCESS = ['Process Tank', 'Motor', 'Motor Drive', 'Centrifugal Pump', 'Valve', 'Solenoid Valve', 'Pneumatic Cylinder', 'Cylinder', 'Pipe', 'Conveyor'];
+      const GRAPHS = ['Trend Graph', 'Historical Trend', 'Bar Graph', 'Gauge', 'Analog Gauge'];
+      const SHAPES = ['Rectangle', 'Circle', 'Line', 'Divider Line'];
+
+      function getCategory(type) {
+        if (SWITCHES.includes(type)) return 'switch';
+        if (LAMPS.includes(type)) return 'lamp';
+        if (NUMERICS.includes(type)) return 'numeric';
+        if (ALARMS.includes(type)) return 'alarm';
+        if (PROCESS.includes(type)) return 'process';
+        if (GRAPHS.includes(type)) return 'graph';
+        if (SHAPES.includes(type)) return 'shape';
+        return 'shape';
+      }
+
+      function getDefaultAction(type) {
+        if (type === 'Screen Navigation' || type === 'Go To Screen Switch') return 'Navigate';
+        if (type === 'Bit Switch' || type === 'Push Button' || type === 'Button') return 'Momentary';
+        if (type === 'Selector Switch') return '3-Position';
+        if (type === 'Toggle Switch') return 'Alternate';
+        if (type === 'Word Switch') return 'Write Value';
+        if (type === 'Bit Switch' && el.getAttribute('data-switch-preset')) {
+          const on = RuntimeStore.getBit(tag || 'M100') === 1;
+          el.innerHTML = WidgetRegistry.renderBitSwitchSvg({
+            switchPreset: el.getAttribute('data-switch-preset'),
+            switchShape: el.getAttribute('data-switch-shape'),
+            switchFinish: el.getAttribute('data-switch-finish'),
+            switchIndicator: el.getAttribute('data-switch-ind'),
+            colorOn: el.getAttribute('data-on'),
+            colorOff: el.getAttribute('data-off'),
+            fg: el.style.color || '#FFFFFF',
+            text: el.getAttribute('data-text') || 'SW'
+          }, on);
+        } else if (type === 'Bit Lamp' || type === 'Pilot LED' || type === 'Status Indicator') return 'ON when bit ON';
+        if (type === 'Word Lamp') return 'Multi-State';
+        if (type === 'Tower Light') return '3-Tier Andon';
+        if (type === 'Alarm Beacon') return 'Strobe Flash';
+        if (type === 'Alarm Display') return 'Active Alarms (FIFO)';
+        if (type === 'Alarm History') return 'Historical Log';
+        if (type === 'Alarm Acknowledge') return 'Momentary';
+        if (type === 'Alarm Reset') return 'Momentary';
+        if (type === 'Alarm Status Lamp') return 'Tri-State Severity';
+        if (type === 'Numeric Display' || type === 'Numeric Input' || type === 'Analog Slider') return 'Signed 16-Bit';
+        if (type === 'Process Tank') return 'Level Fill (0-100%)';
+        if (type === 'Centrifugal Pump' || type === 'Motor' || type === 'Motor Drive') return 'Start / Stop';
+        if (type === 'Pneumatic Cylinder' || type === 'Cylinder') return 'Extend / Retract';
+        return '';
+      }
+
+      function getDefaultStyle(type) {
+        if (type === 'Circle' || type === 'Gauge' || type === 'Analog Gauge' || type === 'Status Indicator' || type === 'Pilot LED' || type === 'Selector Switch') return 'Circle';
+        if (type === 'Bit Lamp') return 'Circle';
+        if (type === 'Trend Graph' || type === 'Historical Trend') return 'Line';
+        return 'Flat';
+      }
+
+      function createWidgetConfig(type, x = 100, y = 100) {
+        const cat = getCategory(type);
+        let width = 120, height = 48;
+
+        if (cat === 'graph') {
+          width = 300; height = 180;
+        } else if (type === 'Gauge' || type === 'Analog Gauge') {
+          width = 140; height = 140;
+        } else if (type === 'Bit Lamp' || type === 'Status Indicator' || type === 'Pilot LED') {
+          width = 60; height = 60;
+        } else if (type === 'Tower Light') {
+          width = 50; height = 130;
+        } else if (type === 'Alarm Beacon') {
+          width = 64; height = 64;
+        } else if (type === 'Selector Switch') {
+          width = 80; height = 80;
+        } else if (type === 'Toggle Switch') {
+          width = 70; height = 70;
+        } else if (type === 'Keypad') {
+          width = 96; height = 96;
+        } else if (type === 'Process Tank') {
+          width = 120; height = 160;
+        } else if (type === 'Motor' || type === 'Motor Drive') {
+          width = 100; height = 80;
+        } else if (type === 'Centrifugal Pump') {
+          width = 100; height = 80;
+        } else if (type === 'Pneumatic Cylinder' || type === 'Cylinder') {
+          width = 160; height = 56;
+        } else if (type === 'Valve' || type === 'Solenoid Valve') {
+          width = 80; height = 60;
+        } else if (type === 'Pipe') {
+          width = 180; height = 24;
+        } else if (type === 'Conveyor') {
+          width = 180; height = 50;
+        } else if (type === 'Analog Slider') {
+          width = 54; height = 160;
+        } else if (type === 'Word Lamp') {
+          width = 120; height = 48;
+        } else if (type === 'Static Text' || type === 'Text' || type === 'String Display') {
+          width = 150; height = 36;
+        } else if (type === 'Date/Time') {
+          width = 140; height = 36;
+        } else if (type === 'Line') {
+          width = 180; height = 4;
+        } else if (type === 'Divider Line') {
+          width = 220; height = 4;
+        } else if (type === 'Rectangle') {
+          width = 160; height = 100;
+        } else if (type === 'Circle') {
+          width = 80; height = 80;
+        } else if (type === 'Numeric Display' || type === 'Numeric Input') {
+          width = 130; height = 44;
+        } else if (type === 'Screen Navigation' || type === 'Go To Screen Switch') {
+          width = 130; height = 44;
+        } else if (type === 'Alarm Display') {
+          width = 340; height = 140;
+        } else if (type === 'Alarm History') {
+          width = 360; height = 160;
+        } else if (type === 'Alarm Acknowledge' || type === 'Alarm Reset' || type === 'Alarm Status Lamp') {
+          width = 130; height = 44;
+        }
+
+        let defaultTag = 'M100';
+        if (cat === 'lamp') defaultTag = 'Y0';
+        else if (cat === 'numeric') defaultTag = 'D200';
+        else if (cat === 'alarm') defaultTag = (type === 'Alarm History' ? 'D500' : (type === 'Alarm Acknowledge' ? 'M501' : (type === 'Alarm Reset' ? 'M502' : 'M500')));
+        else if (cat === 'process') defaultTag = (type === 'Process Tank' ? 'D300' : 'Y20');
+        else if (cat === 'graph') defaultTag = 'D100';
+
+        return {
+          type: type,
+          category: cat,
+          action: getDefaultAction(type),
+          style: getDefaultStyle(type),
+          tag: defaultTag,
+          device: defaultTag,
+          text: type,
+          left: x,
+          top: y,
+          width: width,
+          height: height,
+          min: '0',
+          max: '100',
+          dec: '0',
+          colorOn: '#22A06B',
+          colorOff: '#9AA0A6',
+          bg: (cat === 'switch' ? '#D9261C' : (cat === 'lamp' ? '#9AA0A6' : (cat === 'graph' ? '#1E1E1E' : '#FFFFFF'))),
+          fg: (cat === 'switch' || cat === 'lamp' || cat === 'graph' ? '#FFFFFF' : '#000000'),
+          navTarget: 'Base_Screen_1',
+          fontSize: 13,
+          borderWidth: 2,
+          borderColor: '#000000',
+          lineStyle: 'solid',
+          cornerRadius: 4,
+          fontFamily: 'Arial',
+          bold: false,
+          italic: false,
+          textAlign: 'center',
+          rotation: 0,
+          dataFormat: 'BIN16',
+          integerDigits: 5,
+          zeroSuppress: true,
+          comma: false,
+          showSign: false,
+          scaling: 1,
+          offset: 0,
+          dateFormat: 'yyyy-MM-dd HH:mm:ss',
+          charCount: 16,
+          setValue: 0,
+          objectId: '',
+          comment: '',
+          layer: 0,
+          visibilityMode: 'always',
+          visibilityTag: '',
+          flash: false,
+          interlockMode: 'none',
+          interlockTag: '',
+          securityLevel: 0,
+          notificationDevice: '',
+          buzzer: false
+        };
+      }
+
+      function renderWidgetContent(el, cfg) {
+        const t = cfg.type;
+        const cat = cfg.category || getCategory(t);
+
+        el.setAttribute('data-type', t);
+        el.setAttribute('data-action', cfg.action || '');
+        el.setAttribute('data-style', cfg.style || '');
+        el.setAttribute('data-tag', cfg.tag || cfg.device || '');
+        el.setAttribute('data-text', cfg.text || '');
+        el.setAttribute('data-min', cfg.min || '0');
+        el.setAttribute('data-max', cfg.max || '100');
+        el.setAttribute('data-dec', cfg.dec || '0');
+        el.setAttribute('data-on', cfg.colorOn || '#22A06B');
+        el.setAttribute('data-off', cfg.colorOff || '#9AA0A6');
+        el.setAttribute('data-nav', cfg.navTarget || '');
+        el.setAttribute('data-object-id', cfg.objectId || '');
+        el.setAttribute('data-comment', cfg.comment || '');
+        el.setAttribute('data-layer', cfg.layer === undefined ? '0' : String(cfg.layer));
+        el.setAttribute('data-font-size', cfg.fontSize || 13);
+        el.setAttribute('data-font-family', cfg.fontFamily || 'Arial');
+        el.setAttribute('data-bold', cfg.bold ? '1' : '0');
+        el.setAttribute('data-italic', cfg.italic ? '1' : '0');
+        el.setAttribute('data-text-align', cfg.textAlign || 'center');
+        el.setAttribute('data-rotation', cfg.rotation || 0);
+        el.setAttribute('data-line-style', cfg.lineStyle || 'solid');
+        el.setAttribute('data-border-width', cfg.borderWidth === undefined ? '2' : String(cfg.borderWidth));
+        el.setAttribute('data-border-color', cfg.borderColor || '#000000');
+        el.setAttribute('data-corner-radius', cfg.cornerRadius === undefined ? '4' : String(cfg.cornerRadius));
+        el.setAttribute('data-format', cfg.dataFormat || 'BIN16');
+        el.setAttribute('data-integer-digits', cfg.integerDigits || 5);
+        el.setAttribute('data-zero-suppress', cfg.zeroSuppress === undefined || cfg.zeroSuppress ? '1' : '0');
+        el.setAttribute('data-comma', cfg.comma ? '1' : '0');
+        el.setAttribute('data-show-sign', cfg.showSign ? '1' : '0');
+        el.setAttribute('data-scaling', cfg.scaling === undefined ? '1' : String(cfg.scaling));
+        el.setAttribute('data-offset', cfg.offset === undefined ? '0' : String(cfg.offset));
+        el.setAttribute('data-date-format', cfg.dateFormat || 'yyyy-MM-dd HH:mm:ss');
+        el.setAttribute('data-char-count', cfg.charCount || 16);
+        el.setAttribute('data-set-value', cfg.setValue === undefined ? '0' : String(cfg.setValue));
+        el.setAttribute('data-word-action', cfg.wordAction || 'Write');
+        el.setAttribute('data-vis-mode', cfg.visibilityMode || 'always');
+        el.setAttribute('data-vis-tag', cfg.visibilityTag || '');
+        el.setAttribute('data-flash', cfg.flash ? '1' : '0');
+        el.setAttribute('data-interlock-mode', cfg.interlockMode || 'none');
+        el.setAttribute('data-interlock-tag', cfg.interlockTag || '');
+        el.setAttribute('data-security-level', cfg.securityLevel || 0);
+        el.setAttribute('data-notification-device', cfg.notificationDevice || '');
+        el.setAttribute('data-buzzer', cfg.buzzer ? '1' : '0');
+        el.setAttribute('data-switch-preset', cfg.switchPreset || '');
+        el.setAttribute('data-switch-shape', cfg.switchShape || '');
+        el.setAttribute('data-switch-finish', cfg.switchFinish || '');
+        el.setAttribute('data-switch-ind', cfg.switchIndicator || '');
+
+        el.style.left = cfg.left + 'px';
+        el.style.top = cfg.top + 'px';
+        el.style.width = cfg.width + 'px';
+        el.style.height = cfg.height + 'px';
+        el.style.backgroundColor = cfg.bg || 'transparent';
+        el.style.color = cfg.fg || '#000';
+        el.style.zIndex = String(Math.max(0, parseInt(cfg.layer, 10) || 0));
+        el.style.transform = `rotate(${Math.max(-180, Math.min(180, parseInt(cfg.rotation, 10) || 0))}deg)`;
+        el.style.textAlign = cfg.textAlign || 'center';
+        el.style.setProperty('--object-font-size', `${Math.max(6, Math.min(96, parseInt(cfg.fontSize, 10) || 13))}px`);
+        el.style.setProperty('--object-font-family', cfg.fontFamily || 'Arial, sans-serif');
+        el.style.setProperty('--object-text-align', cfg.textAlign || 'center');
+        el.style.setProperty('--object-font-weight', cfg.bold ? '700' : '400');
+        el.style.setProperty('--object-font-style', cfg.italic ? 'italic' : 'normal');
+        el.style.border = (t === 'Process Tank' || t === 'Pipe' || t === 'Tower Light' || t === 'Analog Slider' || t === 'Divider Line' || cat === 'alarm' || (t === 'Bit Switch' && cfg.switchPreset))
+          ? 'none'
+          : `${Math.max(0, Math.min(20, cfg.borderWidth === undefined ? 2 : (parseInt(cfg.borderWidth, 10) || 0)))}px ${cfg.lineStyle || 'solid'} ${cfg.borderColor || '#000'}`;
+
+        if (cfg.style === 'Circle') {
+          el.style.borderRadius = '50%';
+        } else if (cfg.style === 'Raised') {
+          el.style.borderRadius = '4px';
+          el.style.boxShadow = 'inset 0 -3px 0 rgba(0,0,0,.3)';
+        } else if (cfg.style === 'Pill') {
+          el.style.borderRadius = '999px';
+        } else {
+          el.style.borderRadius = `${Math.max(0, Math.min(100, parseInt(cfg.cornerRadius, 10) || 0))}px`;
+        }
+
+        // 1. Process Tank
+        if (t === 'Process Tank') {
+          const fillPct = Math.min(100, Math.max(0, parseInt(cfg.min || '65', 10) || 65));
+          const fillHeight = Math.round(116 * (fillPct / 100));
+          const fillY = 138 - fillHeight;
+          const fluidCol = cfg.colorOn || '#0284C7';
+
+          el.innerHTML = `
+        <div style="width:100%;height:100%;position:relative;user-select:none;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <svg viewBox="0 0 120 160" width="100%" height="100%" preserveAspectRatio="none" style="display:block">
+            <defs>
+              <linearGradient id="tankFluidGrad_${t}" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="${fluidCol}" />
+                <stop offset="50%" stop-color="#38BDF8" />
+                <stop offset="100%" stop-color="${fluidCol}" />
+              </linearGradient>
+            </defs>
+            <!-- Tank Shell -->
+            <rect x="8" y="16" width="104" height="128" rx="10" fill="#18181B" stroke="#52525B" stroke-width="2"/>
+            <!-- Fluid Fill -->
+            <rect x="11" y="${fillY}" width="98" height="${fillHeight}" rx="6" fill="url(#tankFluidGrad_${t})"/>
+            <!-- Scale Graduation Ticks -->
+            <line x1="14" y1="26" x2="24" y2="26" stroke="#FFFFFF" stroke-width="1.5" opacity="0.8"/>
+            <line x1="14" y1="56" x2="20" y2="56" stroke="#FFFFFF" stroke-width="1" opacity="0.6"/>
+            <line x1="14" y1="80" x2="24" y2="80" stroke="#FFFFFF" stroke-width="1.5" opacity="0.8"/>
+            <line x1="14" y1="106" x2="20" y2="106" stroke="#FFFFFF" stroke-width="1" opacity="0.6"/>
+            <line x1="14" y1="134" x2="24" y2="134" stroke="#FFFFFF" stroke-width="1.5" opacity="0.8"/>
+            <!-- Text & Tag Overlays -->
+            <text x="60" y="36" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="bold" font-family="sans-serif">${cfg.text || 'TANK'}</text>
+            <text x="60" y="90" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="900" font-family="Consolas,monospace">${fillPct}%</text>
+            <text x="60" y="110" text-anchor="middle" fill="#93C5FD" font-size="9" font-family="Consolas,monospace">[${cfg.tag || 'D300'}]</text>
+          </svg>
+        </div>
+      `;
+          return;
+        }
+
+        // 2. Tower Light (3-tier Andon)
+        if (t === 'Tower Light') {
+          el.innerHTML = `
+        <svg viewBox="0 0 50 130" width="100%" height="100%" preserveAspectRatio="none" style="display:block;user-select:none">
+          <!-- Mounting Stem & Base -->
+          <rect x="22" y="96" width="6" height="26" fill="#71717A"/>
+          <rect x="14" y="122" width="22" height="6" rx="2" fill="#27272A"/>
+          <!-- Stack Housing Body -->
+          <rect x="10" y="6" width="30" height="90" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1.5"/>
+          <!-- Red Tier (Top) -->
+          <rect x="12" y="8" width="26" height="26" rx="3" fill="#EF4444" opacity="0.95"/>
+          <rect x="14" y="10" width="8" height="22" rx="2" fill="#FFFFFF" opacity="0.25"/>
+          <!-- Amber Tier (Middle) -->
+          <rect x="12" y="38" width="26" height="26" rx="3" fill="#F59E0B" opacity="0.95"/>
+          <rect x="14" y="40" width="8" height="22" rx="2" fill="#FFFFFF" opacity="0.25"/>
+          <!-- Green Tier (Bottom) -->
+          <rect x="12" y="68" width="26" height="26" rx="3" fill="#10B981" opacity="0.95"/>
+          <rect x="14" y="70" width="8" height="22" rx="2" fill="#FFFFFF" opacity="0.25"/>
+        </svg>
+      `;
+          return;
+        }
+
+        // 3. Selector Switch (Rotary dial)
+        if (t === 'Selector Switch') {
+          el.innerHTML = `
+        <svg viewBox="0 0 80 80" width="100%" height="100%" style="display:block;user-select:none">
+          <!-- Outer Dial Bezel -->
+          <circle cx="40" cy="40" r="37" fill="#1F2937" stroke="#4B5563" stroke-width="2"/>
+          <!-- Scale Position Markers -->
+          <line x1="22" y1="24" x2="28" y2="30" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+          <line x1="40" y1="16" x2="40" y2="24" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+          <line x1="58" y1="24" x2="52" y2="30" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+          <!-- Labels -->
+          <text x="16" y="22" font-size="7" fill="#E5E7EB" font-weight="bold" text-anchor="end">MAN</text>
+          <text x="40" y="13" font-size="7" fill="#E5E7EB" font-weight="bold" text-anchor="middle">OFF</text>
+          <text x="64" y="22" font-size="7" fill="#E5E7EB" font-weight="bold" text-anchor="start">AUTO</text>
+          <!-- Center Rotary Knob -->
+          <circle cx="40" cy="40" r="22" fill="#111827" stroke="#374151" stroke-width="2"/>
+          <rect x="37" y="22" width="6" height="22" rx="3" fill="#D9261C"/>
+          <circle cx="40" cy="40" r="6" fill="#374151"/>
+          <!-- Tag text -->
+          <text x="40" y="72" font-size="8" fill="#9CA3AF" font-family="Consolas,monospace" text-anchor="middle">${cfg.tag || 'D100'}</text>
+        </svg>
+      `;
+          return;
+        }
+
+        // 4. Toggle Switch (Heavy-duty bat toggle)
+        if (t === 'Toggle Switch') {
+          el.innerHTML = `
+        <svg viewBox="0 0 70 70" width="100%" height="100%" style="display:block;user-select:none">
+          <!-- Brushed Metal Faceplate -->
+          <rect x="5" y="5" width="60" height="60" rx="6" fill="#27272A" stroke="#52525B" stroke-width="2"/>
+          <!-- Screws -->
+          <circle cx="11" cy="11" r="2" fill="#71717A"/>
+          <circle cx="59" cy="11" r="2" fill="#71717A"/>
+          <circle cx="11" cy="59" r="2" fill="#71717A"/>
+          <circle cx="59" cy="59" r="2" fill="#71717A"/>
+          <!-- Position Marks -->
+          <text x="35" y="16" font-size="7" fill="#22C55E" font-weight="900" text-anchor="middle">ON</text>
+          <text x="35" y="60" font-size="7" fill="#EF4444" font-weight="900" text-anchor="middle">OFF</text>
+          <!-- Bat Switch Lever Base -->
+          <circle cx="35" cy="35" r="14" fill="#18181B" stroke="#3F3F46" stroke-width="2"/>
+          <!-- Chrome Lever Flipped UP -->
+          <polygon points="32,35 38,35 36,20 34,20" fill="#E4E4E7"/>
+          <circle cx="35" cy="20" r="4.5" fill="#FAFAFA" stroke="#A1A1AA" stroke-width="1"/>
+        </svg>
+      `;
+          return;
+        }
+
+        // 5. Centrifugal Pump
+        if (t === 'Centrifugal Pump') {
+          el.innerHTML = `
+        <svg viewBox="0 0 100 80" width="100%" height="100%" style="display:block;user-select:none">
+          <!-- Base mount -->
+          <rect x="15" y="68" width="70" height="6" rx="2" fill="#374151"/>
+          <!-- Drive motor back housing -->
+          <rect x="48" y="24" width="36" height="40" rx="3" fill="#0284C7" stroke="#0369A1" stroke-width="1.5"/>
+          <line x1="56" y1="24" x2="56" y2="64" stroke="#0369A1" stroke-width="1.5"/>
+          <line x1="64" y1="24" x2="64" y2="64" stroke="#0369A1" stroke-width="1.5"/>
+          <line x1="72" y1="24" x2="72" y2="64" stroke="#0369A1" stroke-width="1.5"/>
+          <!-- Volute Scroll Pump Casing -->
+          <circle cx="34" cy="44" r="22" fill="#0369A1" stroke="#075985" stroke-width="2"/>
+          <!-- Discharge Nozzle Port (Top) -->
+          <rect x="28" y="10" width="12" height="18" fill="#0369A1" stroke="#075985" stroke-width="1.5"/>
+          <rect x="24" y="8" width="20" height="4" rx="1" fill="#075985"/>
+          <!-- Suction Port -->
+          <circle cx="34" cy="44" r="12" fill="#075985" stroke="#38BDF8" stroke-width="1.5"/>
+          <circle cx="34" cy="44" r="5" fill="#38BDF8"/>
+          <text x="34" y="47" font-size="8" fill="#FFF" font-weight="bold" text-anchor="middle">P</text>
+          <text x="50" y="74" font-size="8" fill="#FFF" font-family="Consolas,monospace" text-anchor="middle">${cfg.tag || 'Y30'}</text>
+        </svg>
+      `;
+          return;
+        }
+
+        // 6. Pneumatic Cylinder
+        if (t === 'Pneumatic Cylinder' || t === 'Cylinder') {
+          el.innerHTML = `
+        <svg viewBox="0 0 160 56" width="100%" height="100%" style="display:block;user-select:none">
+          <!-- Piston Rod extending right -->
+          <rect x="90" y="23" width="55" height="10" fill="#E4E4E7" stroke="#A1A1AA" stroke-width="1"/>
+          <!-- Rod Clevis / Eyelet -->
+          <circle cx="150" cy="28" r="7" fill="#52525B" stroke="#27272A" stroke-width="1.5"/>
+          <circle cx="150" cy="28" r="3" fill="#FFFFFF"/>
+          <!-- Cylinder Extrusion Barrel -->
+          <rect x="15" y="10" width="85" height="36" rx="3" fill="#3F3F46" stroke="#27272A" stroke-width="2"/>
+          <line x1="15" y1="18" x2="100" y2="18" stroke="#52525B" stroke-width="1"/>
+          <line x1="15" y1="38" x2="100" y2="38" stroke="#52525B" stroke-width="1"/>
+          <!-- End Caps -->
+          <rect x="10" y="8" width="10" height="40" rx="2" fill="#18181B"/>
+          <rect x="95" y="8" width="10" height="40" rx="2" fill="#18181B"/>
+          <!-- Magnetic Reed Sensor Leds -->
+          <circle cx="26" cy="11" r="3" fill="#EF4444"/>
+          <circle cx="84" cy="11" r="3" fill="#10B981"/>
+          <text x="55" y="31" font-size="9" fill="#FFFFFF" font-weight="bold" text-anchor="middle">${cfg.text || 'CYLINDER'}</text>
+          <text x="55" y="44" font-size="8" fill="#D4D4D8" font-family="Consolas,monospace" text-anchor="middle">${cfg.tag || 'Y20'}</text>
+        </svg>
+      `;
+          return;
+        }
+
+        // 7. Analog Slider
+        if (t === 'Analog Slider') {
+          el.innerHTML = `
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;background:#242424;border:2px solid #3A3A3A;border-radius:4px;padding:6px 4px;box-sizing:border-box;color:#FFF;user-select:none">
+          <span style="font-size:9px;font-family:Consolas,monospace;font-weight:700;color:#22C55E">${cfg.max || '100'}</span>
+          <div style="flex:1;width:12px;background:#111;border:1px solid #444;border-radius:6px;position:relative;margin:4px 0;display:flex;justify-content:center">
+            <div style="position:absolute;bottom:0;width:100%;height:60%;background:#0284C7;border-radius:6px"></div>
+            <div style="position:absolute;bottom:55%;width:24px;height:14px;background:linear-gradient(#E0E0E0,#9E9E9E);border:1px solid #333;border-radius:3px;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center">
+              <div style="width:14px;height:2px;background:#333"></div>
+            </div>
+          </div>
+          <span style="font-size:9px;font-family:Consolas,monospace;font-weight:700;color:#888">${cfg.min || '0'}</span>
+          <span style="font-size:8px;font-family:Consolas,monospace;color:#38BDF8;margin-top:2px">${cfg.tag || 'D210'}</span>
+        </div>
+      `;
+          return;
+        }
+
+        // 8. Word Lamp (Multi-state)
+        if (t === 'Word Lamp') {
+          el.innerHTML = `
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#18181B;border:2px solid #3F3F46;border-radius:4px;padding:4px;box-sizing:border-box;color:#FFF;user-select:none">
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:#22C55E">
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#22C55E;box-shadow:0 0 8px #22C55E"></span>
+            <span>${cfg.text || 'STATE 1: RUN'}</span>
+          </div>
+          <span style="font-size:9px;color:#A1A1AA;font-family:Consolas,monospace;margin-top:2px">[${cfg.tag || 'D150'}]</span>
+        </div>
+      `;
+          return;
+        }
+
+        // 9. Alarm Beacon
+        if (t === 'Alarm Beacon') {
+          el.innerHTML = `
+        <svg viewBox="0 0 64 64" width="100%" height="100%" style="display:block;user-select:none">
+          <defs>
+            <radialGradient id="beaconGlow_${t}" cx="50%" cy="40%" r="50%">
+              <stop offset="0%" stop-color="#FEF08A" />
+              <stop offset="60%" stop-color="#F59E0B" />
+              <stop offset="100%" stop-color="#B45309" />
+            </radialGradient>
+          </defs>
+          <rect x="16" y="48" width="32" height="12" rx="2" fill="#374151" stroke="#1F2937" stroke-width="1.5"/>
+          <path d="M18,48 C18,22 46,22 46,48 Z" fill="url(#beaconGlow_${t})" stroke="#D97706" stroke-width="2"/>
+          <line x1="22" y1="36" x2="42" y2="36" stroke="#FEF3C7" stroke-width="1.5" opacity="0.6"/>
+          <line x1="20" y1="42" x2="44" y2="42" stroke="#FEF3C7" stroke-width="1.5" opacity="0.6"/>
+          <line x1="32" y1="6" x2="32" y2="12" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+          <line x1="14" y1="16" x2="19" y2="20" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+          <line x1="50" y1="16" x2="45" y2="20" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      `;
+          return;
+        }
+
+        // 10. Keypad
+        if (t === 'Keypad') {
+          el.innerHTML = `
+        <div style="width:100%;height:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#27272A;border:2px solid #3F3F46;border-radius:4px;padding:3px;box-sizing:border-box;user-select:none">
+          <div style="background:#3F3F46;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:2px">1</div>
+          <div style="background:#3F3F46;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:2px">2</div>
+          <div style="background:#3F3F46;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:2px">3</div>
+          <div style="background:#3F3F46;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:2px">4</div>
+          <div style="background:#3F3F46;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:2px">5</div>
+          <div style="background:#3F3F46;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:2px">6</div>
+          <div style="background:#3F3F46;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:2px">7</div>
+          <div style="background:#3F3F46;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:2px">8</div>
+          <div style="background:#3F3F46;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:2px">9</div>
+          <div style="background:#B3261E;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;border-radius:2px">CLR</div>
+          <div style="background:#3F3F46;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:2px">0</div>
+          <div style="background:#22A06B;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;border-radius:2px">ENT</div>
+        </div>
+      `;
+          return;
+        }
+
+        // 11. Pipe Conduit
+        if (t === 'Pipe') {
+          el.innerHTML = `
+        <div style="width:100%;height:100%;background:linear-gradient(to bottom, #71717A 0%, #E4E4E7 50%, #52525B 100%);border-top:1px solid #3F3F46;border-bottom:1px solid #27272A;position:relative;display:flex;align-items:center;justify-content:center;user-select:none">
+          <div style="position:absolute;left:0;top:-2px;bottom:-2px;width:6px;background:#3F3F46;border-radius:1px"></div>
+          <div style="position:absolute;right:0;top:-2px;bottom:-2px;width:6px;background:#3F3F46;border-radius:1px"></div>
+          <div style="color:#18181B;font-size:11px;font-weight:bold;letter-spacing:6px;opacity:0.6">▶ ▶ ▶</div>
+        </div>
+      `;
+          return;
+        }
+
+        // 12. Divider Line
+        if (t === 'Divider Line') {
+          el.innerHTML = `
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;user-select:none">
+          <div style="width:100%;height:2px;background:#D1D5DB;border-bottom:1px solid #FFFFFF"></div>
+        </div>
+      `;
+          return;
+        }
+
+        // 13. Analog Gauge
+        if (t === 'Gauge' || t === 'Analog Gauge') {
+          el.innerHTML = `
+        <svg viewBox="0 0 140 140" width="100%" height="100%" style="display:block;user-select:none">
+          <circle cx="70" cy="70" r="66" fill="#18181B" stroke="#3F3F46" stroke-width="3"/>
+          <path d="M 25 95 A 55 55 0 1 1 115 95" fill="none" stroke="#374151" stroke-width="8" stroke-linecap="round"/>
+          <path d="M 25 95 A 55 55 0 0 1 70 15" fill="none" stroke="#22C55E" stroke-width="8" stroke-linecap="round"/>
+          <path d="M 70 15 A 55 55 0 0 1 100 35" fill="none" stroke="#F59E0B" stroke-width="8"/>
+          <path d="M 100 35 A 55 55 0 0 1 115 95" fill="none" stroke="#EF4444" stroke-width="8" stroke-linecap="round"/>
+          <!-- Pointer Needle -->
+          <line x1="70" y1="70" x2="88" y2="35" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="70" cy="70" r="8" fill="#D9261C"/>
+          <!-- Text Value -->
+          <text x="70" y="105" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="900" font-family="Consolas,monospace">65.0</text>
+          <text x="70" y="120" text-anchor="middle" fill="#9CA3AF" font-size="9" font-family="Consolas,monospace">${cfg.tag || 'D200'}</text>
+        </svg>
+      `;
+          return;
+        }
+
+        // 14. Alarm Objects
+        if (t === 'Alarm Display') {
+          el.innerHTML = `
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;background:#FFFFFF;border:2px solid #B91C1C;border-radius:4px;overflow:hidden;user-select:none;font-family:sans-serif;box-sizing:border-box">
+          <div style="background:#B91C1C;color:#FFFFFF;padding:4px 8px;font-size:11px;font-weight:800;display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span>⚠</span><span>${cfg.text || 'ACTIVE ALARM SUMMARY'}</span>
+            </div>
+            <span style="background:#7F1D1D;padding:1px 6px;border-radius:10px;font-size:9px">2 ACTIVE</span>
+          </div>
+          <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;background:#FFF">
+            <div style="display:flex;align-items:center;padding:4px 8px;font-size:10px;font-weight:700;color:#991B1B;background:#FEF2F2;border-bottom:1px solid #FEE2E2">
+              <span style="background:#DC2626;color:#FFF;padding:1px 4px;border-radius:2px;font-size:8px;margin-right:6px">CRIT</span>
+              <span style="font-family:Consolas,monospace;margin-right:6px">[${cfg.tag || 'M500'}]</span>
+              <span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Motor Inverter Trip Overload</span>
+              <span style="font-size:9px;opacity:0.7">14:32:01</span>
+            </div>
+            <div style="display:flex;align-items:center;padding:4px 8px;font-size:10px;font-weight:700;color:#92400E;background:#FFFBEB;border-bottom:1px solid #FEF3C7">
+              <span style="background:#D97706;color:#FFF;padding:1px 4px;border-radius:2px;font-size:8px;margin-right:6px">WARN</span>
+              <span style="font-family:Consolas,monospace;margin-right:6px">[D300]</span>
+              <span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Process Tank High Level 90%</span>
+              <span style="font-size:9px;opacity:0.7">14:30:15</span>
+            </div>
+          </div>
+        </div>
+      `;
+          return;
+        }
+
+        if (t === 'Alarm History') {
+          el.innerHTML = `
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;background:#FFFFFF;border:2px solid #334155;border-radius:4px;overflow:hidden;user-select:none;font-family:sans-serif;box-sizing:border-box">
+          <div style="background:#1E293B;color:#FFFFFF;padding:4px 8px;font-size:11px;font-weight:800;display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span>🕘</span><span>${cfg.text || 'ALARM & EVENT LOG'}</span>
+            </div>
+            <span style="color:#94A3B8;font-size:9px;font-family:Consolas,monospace">[${cfg.tag || 'D500'}]</span>
+          </div>
+          <div style="display:grid;grid-template-columns:55px 45px 1fr 40px;gap:4px;background:#F1F5F9;padding:3px 6px;font-size:9px;font-weight:700;color:#475569;border-bottom:1px solid #E2E8F0">
+            <span>TIME</span><span>TAG</span><span>EVENT</span><span>STAT</span>
+          </div>
+          <div style="flex:1;overflow:hidden;font-size:10px;display:flex;flex-direction:column">
+            <div style="display:grid;grid-template-columns:55px 45px 1fr 40px;gap:4px;padding:3px 6px;border-bottom:1px solid #F1F5F9;font-family:Consolas,monospace">
+              <span>14:32:01</span><span style="color:#DC2626">M500</span><span style="font-family:sans-serif">Inverter Trip</span><span style="color:#DC2626;font-weight:bold">ACT</span>
+            </div>
+            <div style="display:grid;grid-template-columns:55px 45px 1fr 40px;gap:4px;padding:3px 6px;border-bottom:1px solid #F1F5F9;font-family:Consolas,monospace">
+              <span>14:30:15</span><span style="color:#D97706">D300</span><span style="font-family:sans-serif">Tank High Level</span><span style="color:#D97706;font-weight:bold">ACK</span>
+            </div>
+            <div style="display:grid;grid-template-columns:55px 45px 1fr 40px;gap:4px;padding:3px 6px;font-family:Consolas,monospace;color:#64748B">
+              <span>14:15:20</span><span>M100</span><span style="font-family:sans-serif">System Started</span><span style="color:#10B981;font-weight:bold">OK</span>
+            </div>
+          </div>
+        </div>
+      `;
+          return;
+        }
+
+        if (t === 'Alarm Acknowledge') {
+          el.innerHTML = `
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(to bottom, #F59E0B, #D97706);color:#FFFFFF;border:2px solid #B45309;border-radius:4px;font-weight:800;font-size:11px;user-select:none;box-shadow:inset 0 1px 0 rgba(255,255,255,0.4)">
+          <span>✔</span>
+          <span>${cfg.text || 'ACK ALARM'}</span>
+          <span style="font-size:8px;opacity:0.8;font-family:Consolas,monospace">[${cfg.tag || 'M501'}]</span>
+        </div>
+      `;
+          return;
+        }
+
+        if (t === 'Alarm Reset') {
+          el.innerHTML = `
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(to bottom, #374151, #1F2937);color:#FFFFFF;border:2px solid #111827;border-radius:4px;font-weight:800;font-size:11px;user-select:none;box-shadow:inset 0 1px 0 rgba(255,255,255,0.2)">
+          <span>↺</span>
+          <span>${cfg.text || 'FAULT RESET'}</span>
+          <span style="font-size:8px;opacity:0.8;font-family:Consolas,monospace">[${cfg.tag || 'M502'}]</span>
+        </div>
+      `;
+          return;
+        }
+
+        if (t === 'Alarm Status Lamp') {
+          el.innerHTML = `
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 8px;background:#18181B;border:2px solid #EF4444;border-radius:4px;color:#FFFFFF;user-select:none;box-sizing:border-box">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#EF4444;box-shadow:0 0 8px #EF4444"></span>
+            <span style="font-size:11px;font-weight:800;color:#FCA5A5">${cfg.text || 'ALARM ACTIVE'}</span>
+          </div>
+          <span style="font-size:8px;color:#94A3B8;font-family:Consolas,monospace">[${cfg.tag || 'M500'}]</span>
+        </div>
+      `;
+          return;
+        }
+
+        // 14. Graph / Trend
+        if (cat === 'graph') {
+          el.innerHTML = `
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;background:#181818;color:#FFF;padding:4px;box-sizing:border-box">
+          <div style="font-size:10px;font-weight:700;color:#888;padding-bottom:2px">${t} [${cfg.tag || 'D200'}]</div>
+          <canvas data-graph-canvas width="${Math.max(60, cfg.width - 10)}" height="${Math.max(40, cfg.height - 24)}" style="flex:1;background:#0A0A0A;border:1px solid #333"></canvas>
+        </div>
+      `;
+          const cv = el.querySelector('canvas');
+          if (cv) {
+            const ctx = cv.getContext('2d');
+            ctx.strokeStyle = '#222';
+            ctx.lineWidth = 1;
+            for (let y = 0; y <= cv.height; y += 20) {
+              ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(cv.width, y); ctx.stroke();
+            }
+            ctx.strokeStyle = '#22C55E';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, cv.height * 0.7);
+            ctx.bezierCurveTo(cv.width * 0.3, cv.height * 0.2, cv.width * 0.7, cv.height * 0.9, cv.width, cv.height * 0.4);
+            ctx.stroke();
+          }
+          return;
+        }
+
+        // 15. Numeric Display / Input
+        if (cat === 'numeric') {
+          const dec = parseInt(cfg.dec || '0', 10);
+          const valStr = (123.456).toFixed(dec);
+          el.innerHTML = `
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 8px;font-family:Consolas,monospace;font-size:16px;font-weight:700;box-sizing:border-box">
+          <span style="font-size:10px;font-weight:600;opacity:0.6">${cfg.tag || 'D200'}</span>
+          <span>${valStr}</span>
+        </div>
+      `;
+          return;
+        }
+
+        // 16. Lamps
+        if (cat === 'lamp') {
+          el.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;width:100%;height:100%">
+          <span style="font-size:11px;font-weight:700">${cfg.text || 'LAMP'}</span>
+          <span style="font-size:9px;opacity:0.8">${cfg.tag || 'Y0'}</span>
+        </div>
+      `;
+          return;
+        }
+
+        // 17. Navigation
+        if (t === 'Screen Navigation' || t === 'Go To Screen Switch') {
+          el.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:center;gap:6px;font-weight:700;width:100%;height:100%">
+          <span>➔</span><span>${cfg.text || cfg.navTarget || 'Goto Screen'}</span>
+        </div>
+      `;
+          return;
+        }
+
+        // 18. Switch
+        if (cat === 'switch') {
+          if (t === 'Bit Switch' && cfg.switchPreset) {
+            el.style.backgroundColor = 'transparent';
+            el.style.boxShadow = 'none';
+            el.innerHTML = renderBitSwitchSvg(cfg, false);
+            return;
+          }
+          el.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;width:100%;height:100%">
+          <span style="font-size:12px;font-weight:700">${cfg.text || t}</span>
+          <span style="font-size:9px;opacity:0.8">[${t === 'Word Switch' ? `${cfg.wordAction || 'Write'} ${cfg.setValue || 0}` : (cfg.action || 'Momentary')}: ${cfg.tag || 'M100'}]</span>
+        </div>
+      `;
+          return;
+        }
+
+        // 19. Process Machines (Motor, Valve, Conveyor)
+        if (cat === 'process') {
+          let icon = '⚙';
+          if (t === 'Valve' || t === 'Solenoid Valve') icon = '🔧';
+          else if (t === 'Conveyor') icon = '➡';
+
+          el.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:22px;width:100%;height:100%">
+          <span>${icon}</span>
+          <span style="font-size:11px;font-weight:700">${cfg.text || t}</span>
+        </div>
+      `;
+          return;
+        }
+
+        // 20. Default / Shapes
+        el.textContent = cfg.text || t;
+      }
+
+      // ======================================================================
+      // 240+ Parametric Bit Switch Design Library & Unified SVG Renderer
+      // ======================================================================
+      const BS_SHAPES = [
+        { id: 'rect', cat: 'Rectangular', label: 'Rectangular' },
+        { id: 'pill', cat: 'Rectangular', label: 'Rounded Pill' },
+        { id: 'bevel', cat: '3D & Metallic', label: '3D Bevel Key' },
+        { id: 'circle', cat: 'Circular', label: 'Round Pushbutton' },
+        { id: 'oct', cat: 'Circular', label: 'Octagon Industrial' },
+        { id: 'tri-up', cat: 'Triangle / Jog', label: 'Triangle Up Jog' },
+        { id: 'tri-down', cat: 'Triangle / Jog', label: 'Triangle Down Jog' },
+        { id: 'tri-left', cat: 'Triangle / Jog', label: 'Triangle Left Jog' },
+        { id: 'tri-right', cat: 'Triangle / Jog', label: 'Triangle Right Jog' },
+        { id: 'toggle', cat: 'Toggle & Slide', label: 'Toggle Lever' },
+        { id: 'slide', cat: 'Toggle & Slide', label: 'Slide Switch' },
+        { id: 'estop', cat: 'Safety / E-Stop', label: 'E-Stop Mushroom' }
+      ];
+      const BS_FINISHES = [
+        { id: 'flat', label: 'Flat' },
+        { id: '3d', label: '3D Raised' },
+        { id: 'chrome', label: 'Chrome Bezel' },
+        { id: 'dark', label: 'Dark Panel' },
+        { id: 'gloss', label: 'Glass Gloss' }
+      ];
+      const BS_INDICATORS = [
+        { id: 'none', label: 'Clean' },
+        { id: 'led-top', label: 'Top LED Bar' },
+        { id: 'led-dot', label: 'Corner LED' },
+        { id: 'halo', label: 'Center Halo' },
+        { id: 'power', label: 'Power Glyph' }
+      ];
+      const BS_PALETTES = [
+        { id: 'emerald', label: 'Emerald Run', on: '#16A34A', off: '#1E293B', fg: '#FFFFFF' },
+        { id: 'crimson', label: 'Crimson Stop', on: '#DC2626', off: '#334155', fg: '#FFFFFF' },
+        { id: 'amber', label: 'Amber Caution', on: '#D97706', off: '#292524', fg: '#FFFFFF' },
+        { id: 'cobalt', label: 'Cobalt Cmd', on: '#2563EB', off: '#1E293B', fg: '#FFFFFF' },
+        { id: 'cyan', label: 'Cyan Auto', on: '#0891B2', off: '#0F172A', fg: '#FFFFFF' },
+        { id: 'violet', label: 'Violet Setup', on: '#7C3AED', off: '#1E293B', fg: '#FFFFFF' },
+        { id: 'slate', label: 'Industrial Gray', on: '#0EA5E9', off: '#475569', fg: '#FFFFFF' },
+        { id: 'yellow', label: 'Safety Yellow', on: '#EAB308', off: '#27272A', fg: '#111827' }
+      ];
+
+      const BIT_SWITCH_PRESETS = [];
+      (() => {
+        let idx = 1;
+        for (const sh of BS_SHAPES) {
+          for (const fin of BS_FINISHES) {
+            for (let pIdx = 0; pIdx < 4; pIdx++) {
+              const pal = BS_PALETTES[(idx + pIdx) % BS_PALETTES.length];
+              const ind = BS_INDICATORS[(idx + pIdx) % BS_INDICATORS.length];
+              const id = 'bs_' + String(idx).padStart(3, '0');
+              BIT_SWITCH_PRESETS.push({
+                id,
+                name: `${sh.label} ${fin.label} (${pal.label} / ${ind.label})`,
+                category: sh.cat,
+                shape: sh.id,
+                finish: fin.id,
+                indicator: ind.id,
+                colorOn: pal.on,
+                colorOff: pal.off,
+                fg: pal.fg
+              });
+              idx++;
+            }
+          }
+        }
+      })();
+
+      function renderBitSwitchSvg(cfg, isOn) {
+        const preset = BIT_SWITCH_PRESETS.find(p => p.id === cfg.switchPreset);
+        const shape = cfg.switchShape || (preset ? preset.shape : 'rect');
+        const finish = cfg.switchFinish || (preset ? preset.finish : '3d');
+        const ind = cfg.switchIndicator || (preset ? preset.indicator : 'led-top');
+        const onCol = cfg.colorOn || (preset ? preset.colorOn : '#16A34A');
+        const offCol = cfg.colorOff || (preset ? preset.colorOff : '#1E293B');
+        const fill = isOn ? onCol : offCol;
+        const bezelStroke = finish === 'chrome' ? '#94A3B8' : (finish === 'dark' ? '#0F172A' : '#334155');
+        const bezelWidth = finish === 'chrome' ? 4 : (finish === 'flat' ? 1.5 : 2.5);
+        const label = (cfg.text || 'SW').replace(/[<>&"]/g, '');
+        const ledCol = isOn ? '#4ADE80' : '#475569';
+        const glow = isOn ? `filter:drop-shadow(0 0 4px ${onCol});` : '';
+
+        let bodySvg = '';
+        if (shape === 'circle' || shape === 'oct' || shape === 'estop') {
+          const outer = shape === 'oct'
+            ? `<polygon points="34,6 86,6 114,34 114,66 86,94 34,94 6,66 6,34" fill="${fill}" stroke="${bezelStroke}" stroke-width="${bezelWidth}"/>`
+            : `<circle cx="60" cy="50" r="42" fill="${shape === 'estop' ? '#DC2626' : fill}" stroke="${shape === 'estop' ? '#FACC15' : bezelStroke}" stroke-width="${shape === 'estop' ? 6 : bezelWidth}"/>`;
+          const innerRing = finish === 'chrome' || finish === '3d'
+            ? `<circle cx="60" cy="50" r="33" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2"/>` : '';
+          const gloss = finish === 'gloss'
+            ? `<ellipse cx="60" cy="34" rx="26" ry="12" fill="rgba(255,255,255,0.22)"/>` : '';
+          bodySvg = `${outer}${innerRing}${gloss}`;
+        } else if (shape.startsWith('tri-')) {
+          const pts = shape === 'tri-up' ? '60,8 110,90 10,90'
+            : shape === 'tri-down' ? '10,10 110,10 60,92'
+            : shape === 'tri-left' ? '10,50 108,10 108,90'
+            : '110,50 12,10 12,90';
+          bodySvg = `<polygon points="${pts}" fill="${fill}" stroke="${bezelStroke}" stroke-width="${bezelWidth}" stroke-linejoin="round"/>`;
+        } else if (shape === 'toggle') {
+          const knobY = isOn ? 26 : 74;
+          bodySvg = `
+            <rect x="24" y="8" width="72" height="84" rx="10" fill="#1E293B" stroke="${bezelStroke}" stroke-width="2.5"/>
+            <rect x="44" y="18" width="32" height="64" rx="6" fill="#0F172A"/>
+            <circle cx="60" cy="${knobY}" r="14" fill="${isOn ? onCol : '#94A3B8'}" stroke="#FFF" stroke-width="2"/>
+          `;
+        } else if (shape === 'slide') {
+          const thumbX = isOn ? 84 : 36;
+          bodySvg = `
+            <rect x="10" y="24" width="100" height="52" rx="26" fill="${isOn ? onCol : '#334155'}" stroke="${bezelStroke}" stroke-width="2.5"/>
+            <circle cx="${thumbX}" cy="50" r="20" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+          `;
+        } else {
+          const rx = shape === 'pill' ? 44 : (shape === 'bevel' ? 10 : 5);
+          const shadow = (finish === '3d' || shape === 'bevel') && !isOn
+            ? `<rect x="6" y="10" width="108" height="84" rx="${rx}" fill="rgba(0,0,0,0.35)"/>` : '';
+          const gloss = finish === 'gloss'
+            ? `<rect x="10" y="10" width="100" height="34" rx="${Math.max(2, rx - 4)}" fill="rgba(255,255,255,0.18)"/>` : '';
+          bodySvg = `${shadow}<rect x="6" y="${isOn ? 8 : 6}" width="108" height="84" rx="${rx}" fill="${fill}" stroke="${bezelStroke}" stroke-width="${bezelWidth}"/>${gloss}`;
+        }
+
+        let indSvg = '';
+        if (ind === 'led-top') {
+          indSvg = `<rect x="34" y="14" width="52" height="6" rx="3" fill="${ledCol}" style="${glow}"/>`;
+        } else if (ind === 'led-dot') {
+          indSvg = `<circle cx="96" cy="20" r="5.5" fill="${ledCol}" stroke="rgba(255,255,255,0.5)" stroke-width="1" style="${glow}"/>`;
+        } else if (ind === 'halo') {
+          indSvg = `<circle cx="60" cy="50" r="22" fill="none" stroke="${ledCol}" stroke-width="3" opacity="0.85" style="${glow}"/>`;
+        } else if (ind === 'power') {
+          indSvg = `<path d="M51 32a12 12 0 1 0 18 0M60 26v14" fill="none" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" opacity="0.85"/>`;
+        }
+
+        const textY = (shape === 'toggle' || shape === 'slide') ? 96 : (ind === 'power' ? 76 : 55);
+        const textEl = (shape === 'toggle' || shape === 'slide')
+          ? ''
+          : `<text x="60" y="${textY}" text-anchor="middle" fill="${cfg.fg || '#FFFFFF'}" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">${label}</text>`;
+
+        return `<svg viewBox="0 0 120 100" width="100%" height="100%" preserveAspectRatio="none" style="display:block;user-select:none;">${bodySvg}${indSvg}${textEl}</svg>`;
+      }
+
+      return {
+        SWITCHES,
+        LAMPS,
+        NUMERICS,
+        ALARMS,
+        PROCESS,
+        GRAPHS,
+        SHAPES,
+        BIT_SWITCH_PRESETS,
+        renderBitSwitchSvg,
+        getCategory,
+        createWidgetConfig,
+        renderWidgetContent
+      };
+    })();
+
+    if (typeof module !== 'undefined' && module.exports) {
+      module.exports = WidgetRegistry;
+    }
+
+
+
+  </script>
+
+  <!-- Runtime Engine -->
+  <script>
+  (function () {
+    let runtimeProject = null;
+    let currentScreen = null;
+    let connId = null;
+    let pollTimer = null;
+
+    const stage = document.getElementById('rt-stage');
+    const viewport = document.getElementById('rt-viewport');
+    const loaderCard = document.getElementById('rt-loader-card');
+    const dropzone = document.getElementById('rt-dropzone');
+    const fileInput = document.getElementById('rt-file-input');
+    const errBox = document.getElementById('rt-err');
+    const screenSel = document.getElementById('rt-screen-select');
+    const projPill = document.getElementById('rt-proj-pill');
+    const resPill = document.getElementById('rt-res-pill');
+    const commPill = document.getElementById('rt-comm-pill');
+
+    // Runtime Tag Store (backed by Virtual PLC or live C++ Driver DLLs)
+    const RuntimeStore = {
+      bits: {},
+      words: {},
+      getBit(addr) {
+        if (!addr) return 0;
+        return this.bits[addr.toUpperCase().trim()] ? 1 : 0;
+      },
+      setBit(addr, val) {
+        if (!addr) return;
+        const k = addr.toUpperCase().trim();
+        this.bits[k] = val ? 1 : 0;
+        refreshWidgets();
+        if (connId && window.electronAPI && window.electronAPI.commWriteTag) {
+          window.electronAPI.commWriteTag(connId, k, Boolean(val)).catch(() => {});
+        }
+      },
+      toggleBit(addr) {
+        this.setBit(addr, 1 - this.getBit(addr));
+      },
+      getWord(addr) {
+        if (!addr) return 0;
+        const k = addr.toUpperCase().trim();
+        return this.words[k] !== undefined ? this.words[k] : 0;
+      },
+      setWord(addr, val) {
+        if (!addr) return;
+        const k = addr.toUpperCase().trim();
+        const n = Number(val) || 0;
+        this.words[k] = n;
+        refreshWidgets();
+        if (connId && window.electronAPI && window.electronAPI.commWriteTag) {
+          window.electronAPI.commWriteTag(connId, k, n).catch(() => {});
+        }
+      }
+    };
+
+    function showError(msg) {
+      errBox.textContent = msg;
+      errBox.style.display = 'block';
+    }
+
+    function clearError() {
+      errBox.style.display = 'none';
+      errBox.textContent = '';
+    }
+
+    function mapDriverId(driverName) {
+      const s = String(driverName || '').toUpperCase();
+      if (s.includes('MODBUS') || s.includes('DELTA')) return 'modbus';
+      if (s.includes('SIEMENS') || s.includes('S7')) return 's7';
+      if (s.includes('OMRON') || s.includes('FINS')) return 'omron_fins';
+      if (s.includes('ETHERNET/IP') || s.includes('ALLEN') || s.includes('CIP')) return 'eip_cip';
+      if (s.includes('ETHERCAT')) return 'ethercat';
+      return 'melsec_mc';
+    }
+
+    async function connectPlcFromProject(proj) {
+      if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+      if (connId && window.electronAPI && window.electronAPI.commDisconnect) {
+        try { await window.electronAPI.commDisconnect(connId); } catch (_) {}
+        connId = null;
+      }
+
+      const cfg = proj.driverConfig || {};
+      if (!window.electronAPI || typeof window.electronAPI.commConnect !== 'function') {
+        commPill.textContent = 'Virtual PLC (Browser)';
+        commPill.classList.remove('online');
+        return;
+      }
+
+      const driverId = mapDriverId(cfg.driver);
+      const res = await window.electronAPI.commConnect({
+        driverId,
+        transport: 'TCP',
+        address: cfg.address || '192.168.1.10',
+        port: Number(cfg.port) || 5000,
+        unitId: 1
+      });
+
+      if (!res || !res.ok) {
+        commPill.textContent = 'PLC Offline (' + ((res && res.error) || 'No PLC') + ')';
+        commPill.classList.remove('online');
+        return;
+      }
+
+      connId = res.connId;
+      commPill.textContent = 'PLC Online: ' + (cfg.address || '') + ':' + (cfg.port || '');
+      commPill.classList.add('online');
+
+      pollTimer = setInterval(async () => {
+        if (!connId || !currentScreen || !runtimeProject) return;
+        const objs = (runtimeProject.screens && runtimeProject.screens[currentScreen]) || [];
+        const seen = new Set();
+        for (const o of objs) {
+          const addr = (o.tag || o.device || '').toUpperCase().trim();
+          if (!addr || seen.has(addr)) continue;
+          seen.add(addr);
+          try {
+            const r = await window.electronAPI.commReadTag(connId, addr);
+            if (r && r.ok) {
+              if (typeof r.value === 'boolean') RuntimeStore.bits[addr] = r.value ? 1 : 0;
+              else RuntimeStore.words[addr] = Number(r.value) || 0;
+            }
+          } catch (_) {}
+        }
+        refreshWidgets();
+      }, 250);
+    }
+
+    function normalizeProject(raw) {
+      const header = raw.header || {};
+      return {
+        name: raw.name || header.projectName || 'RuntimeProject',
+        resolution: raw.resolution || header.resolution || { w: 1280, h: 800 },
+        screens: raw.screens || {},
+        screenMeta: raw.screenMeta || {},
+        startupScreen: raw.startupScreen || null,
+        driverConfig: raw.driverConfig || {}
+      };
+    }
+
+    function loadProjectObject(rawObj) {
+      clearError();
+      runtimeProject = normalizeProject(rawObj);
+      const screenNames = Object.keys(runtimeProject.screens);
+      if (!screenNames.length) {
+        showError('The loaded project contains no screens.');
+        return;
+      }
+
+      const res = runtimeProject.resolution;
+      projPill.textContent = runtimeProject.name;
+      resPill.textContent = res.w + ' x ' + res.h;
+      screenSel.innerHTML = screenNames.map(s => '<option value="' + s.replace(/"/g, '&quot;') + '">' + s + '</option>').join('');
+      screenSel.style.display = 'inline-block';
+
+      loaderCard.style.display = 'none';
+      stage.style.display = 'block';
+
+      const startName = (runtimeProject.startupScreen && runtimeProject.screens[runtimeProject.startupScreen])
+        ? runtimeProject.startupScreen
+        : screenNames[0];
+      switchScreen(startName);
+      connectPlcFromProject(runtimeProject);
+    }
+
+    function switchScreen(name) {
+      if (!runtimeProject || !runtimeProject.screens[name]) return;
+      currentScreen = name;
+      screenSel.value = name;
+      renderRuntimeScreen(name);
+    }
+
+    function renderRuntimeScreen(name) {
+      const res = runtimeProject.resolution || { w: 1280, h: 800 };
+      const meta = (runtimeProject.screenMeta && runtimeProject.screenMeta[name]) || {};
+      const bg = meta.bgColor || '#FFFFFF';
+
+      stage.innerHTML = '';
+      stage.style.width = res.w + 'px';
+      stage.style.height = res.h + 'px';
+      stage.style.background = bg;
+      viewport.style.background = bg === '#FFFFFF' ? '#0F172A' : bg;
+
+      const list = runtimeProject.screens[name] || [];
+      list.forEach((cfg, idx) => {
+        const el = document.createElement('div');
+        el.className = 'obj sim-interactive';
+        el.id = 'rt-obj-' + idx;
+        const normalizedCfg = {
+          ...cfg,
+          colorOn: cfg.colorOn || cfg.on,
+          colorOff: cfg.colorOff || cfg.off,
+          bgColor: cfg.bgColor || cfg.bg,
+          fgColor: cfg.fgColor || cfg.fg
+        };
+        WidgetRegistry.renderWidgetContent(el, normalizedCfg);
+        attachRuntimeHandlers(el, normalizedCfg);
+        stage.appendChild(el);
+      });
+
+      refreshWidgets();
+      scaleStage();
+    }
+
+    function scaleStage() {
+      if (!runtimeProject || stage.style.display === 'none') return;
+      const res = runtimeProject.resolution || { w: 1280, h: 800 };
+      const vw = viewport.clientWidth;
+      const vh = viewport.clientHeight;
+      const scale = Math.min(1, Math.min(vw / res.w, vh / res.h));
+      stage.style.transform = 'scale(' + Math.max(0.2, scale) + ')';
+    }
+
+    // Touch Keypad
+    const kpOverlay = document.getElementById('rt-keypad-overlay');
+    const kpDisplay = document.getElementById('rt-keypad-display');
+    const kpTitle = document.getElementById('rt-keypad-title');
+    let kpCallback = null;
+
+    function openKeypad(label, initialVal, onCommit) {
+      kpTitle.textContent = label || 'ENTER VALUE';
+      kpDisplay.value = String(initialVal ?? 0);
+      kpCallback = onCommit;
+      kpOverlay.style.display = 'flex';
+    }
+
+    document.getElementById('rt-keypad-grid').addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-k]');
+      if (!btn) return;
+      const k = btn.getAttribute('data-k');
+      if (k === 'ESC') { kpOverlay.style.display = 'none'; return; }
+      if (k === 'CLR') { kpDisplay.value = '0'; return; }
+      if (k === '-') {
+        kpDisplay.value = kpDisplay.value.startsWith('-') ? kpDisplay.value.slice(1) : ('-' + kpDisplay.value);
+        return;
+      }
+      if (k === 'ENT') {
+        const val = Number(kpDisplay.value);
+        kpOverlay.style.display = 'none';
+        if (kpCallback && Number.isFinite(val)) kpCallback(val);
+        return;
+      }
+      if (kpDisplay.value === '0' && k !== '.') kpDisplay.value = k;
+      else kpDisplay.value += k;
+    });
+
+    function attachRuntimeHandlers(el, cfg) {
+      const t = cfg.type;
+      const cat = cfg.category || WidgetRegistry.getCategory(t);
+      const tag = (cfg.tag || cfg.device || '').toUpperCase().trim();
+      const act = cfg.action || '';
+
+      if (t === 'Screen Navigation' || t === 'Go To Screen Switch') {
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', () => {
+          const target = cfg.navTarget || el.getAttribute('data-nav');
+          if (target) switchScreen(target);
+        });
+        return;
+      }
+
+      if (t === 'Word Switch') {
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', () => {
+          const cur = RuntimeStore.getWord(tag);
+          const op = Number(cfg.setValue) || 0;
+          let next = op;
+          if (cfg.wordAction === 'Add') next = cur + op;
+          else if (cfg.wordAction === 'Subtract') next = cur - op;
+          RuntimeStore.setWord(tag, next);
+        });
+        return;
+      }
+
+      if (cat === 'switch') {
+        el.style.cursor = 'pointer';
+        if (act === 'Alternate' || t === 'Toggle Switch') {
+          el.addEventListener('click', () => RuntimeStore.toggleBit(tag));
+        } else if (act === 'Set') {
+          el.addEventListener('click', () => RuntimeStore.setBit(tag, 1));
+        } else if (act === 'Reset') {
+          el.addEventListener('click', () => RuntimeStore.setBit(tag, 0));
+        } else {
+          el.addEventListener('pointerdown', () => RuntimeStore.setBit(tag, 1));
+          const rel = () => RuntimeStore.setBit(tag, 0);
+          el.addEventListener('pointerup', rel);
+          el.addEventListener('pointerleave', rel);
+        }
+        return;
+      }
+
+      if (t === 'Numeric Input') {
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', () => {
+          openKeypad('SET ' + (tag || 'D200'), RuntimeStore.getWord(tag || 'D200'), (val) => {
+            RuntimeStore.setWord(tag || 'D200', val);
+          });
+        });
+      }
+
+      if (t === 'Analog Slider') {
+        el.style.cursor = 'ns-resize';
+        const minV = Number(cfg.min || 0);
+        const maxV = Number(cfg.max || 100);
+        el.addEventListener('pointerdown', (e) => {
+          e.preventDefault();
+          const updateFromEvent = (ev) => {
+            const rect = el.getBoundingClientRect();
+            const ratio = Math.max(0, Math.min(1, 1 - (ev.clientY - rect.top) / rect.height));
+            RuntimeStore.setWord(tag || 'D210', Math.round(minV + ratio * (maxV - minV)));
+          };
+          const up = () => {
+            window.removeEventListener('pointermove', updateFromEvent);
+            window.removeEventListener('pointerup', up);
+          };
+          window.addEventListener('pointermove', updateFromEvent);
+          window.addEventListener('pointerup', up);
+          updateFromEvent(e);
+        });
+      }
+    }
+
+    function refreshWidgets() {
+      stage.querySelectorAll('.obj').forEach((el) => {
+        const type = el.getAttribute('data-type') || '';
+        const tag = (el.getAttribute('data-tag') || '').toUpperCase().trim();
+        const cat = WidgetRegistry.getCategory(type);
+
+        if (type === 'Bit Lamp' || type === 'Status Indicator' || type === 'Alarm Beacon') {
+          const on = RuntimeStore.getBit(tag) === 1;
+          const onColor = el.getAttribute('data-color-on') || '#22C55E';
+          const offColor = el.getAttribute('data-color-off') || '#64748B';
+          const circle = el.querySelector('circle');
+          if (circle) circle.setAttribute('fill', on ? onColor : offColor);
+        } else if (cat === 'numeric' && type !== 'Analog Slider') {
+          const val = RuntimeStore.getWord(tag || 'D200');
+          const dec = parseInt(el.getAttribute('data-dec') || '0', 10);
+          const spans = el.querySelectorAll('span');
+          if (spans.length >= 2) spans[1].textContent = Number(val).toFixed(dec);
+        } else if (type === 'Process Tank') {
+          const pct = Math.max(0, Math.min(100, Math.round(RuntimeStore.getWord(tag || 'D300'))));
+          const h = Math.round(116 * (pct / 100));
+          const rect = el.querySelector('rect[fill="#0284C7"], rect[fill="#0EA5E9"]');
+          if (rect) { rect.setAttribute('y', String(138 - h)); rect.setAttribute('height', String(h)); }
+        }
+      });
+    }
+
+    function handleFile(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const text = String(reader.result || '').trim();
+          if (!text.startsWith('{') && !text.startsWith('[')) {
+            showError('This .prjr file is encrypted. Launch it with the native C++ MachineControlRuntime.exe host, or load an unencrypted .hmiproj / .json project file here.');
+            return;
+          }
+          loadProjectObject(JSON.parse(text));
+        } catch (err) {
+          showError('Failed to parse project file: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    document.getElementById('rt-open-btn').onclick = () => fileInput.click();
+    dropzone.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => {
+      if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]);
+      fileInput.value = '';
+    };
+    dropzone.ondragover = (e) => { e.preventDefault(); dropzone.classList.add('dragover'); };
+    dropzone.ondragleave = () => dropzone.classList.remove('dragover');
+    dropzone.ondrop = (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    };
+
+    screenSel.onchange = (e) => switchScreen(e.target.value);
+    document.getElementById('rt-fs-btn').onclick = () => {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+      else document.exitFullscreen().catch(() => {});
+    };
+    window.addEventListener('resize', scaleStage);
+  })();
+  </script>
+</body>
+</html>

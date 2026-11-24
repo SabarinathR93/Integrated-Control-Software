@@ -123,7 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
       colorOff: el.getAttribute('data-off') || '#9AA0A6',
       bg: el.style.backgroundColor || '#FFF',
       fg: el.style.color || '#000',
-      navTarget: el.getAttribute('data-nav') || ''
+      navTarget: el.getAttribute('data-nav') || '',
+      switchPreset: el.getAttribute('data-switch-preset') || '',
+      switchShape: el.getAttribute('data-switch-shape') || '',
+      switchFinish: el.getAttribute('data-switch-finish') || '',
+      switchIndicator: el.getAttribute('data-switch-ind') || ''
     };
   }
 
@@ -1080,128 +1084,36 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const toolboxBody = document.getElementById('toolbox-body');
-  const toolCategorySymbols = {
-    switches: '<rect x="3" y="6" width="18" height="12" rx="6" fill="#E2E8F0" stroke="#475569" stroke-width="1.5"/><circle cx="9" cy="12" r="4" fill="#22C55E"/>',
-    lamps: '<circle cx="12" cy="12" r="9" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/><circle cx="12" cy="12" r="6" fill="#22C55E"/>',
-    signals: '<circle cx="12" cy="12" r="9" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/><circle cx="12" cy="8" r="2" fill="#EF4444"/><circle cx="12" cy="12" r="2" fill="#F59E0B"/><circle cx="12" cy="16" r="2" fill="#22C55E"/>',
-    numerics: '<rect x="3" y="5" width="18" height="14" rx="2" fill="#0F172A" stroke="#334155" stroke-width="1.5"/><text x="12" y="15" fill="#10B981" font-size="8" font-family="Consolas,monospace" font-weight="700" text-anchor="middle">123</text>',
-    alarms: '<path d="M6 16h12l-1.5-2V10a4.5 4.5 0 0 0-9 0v4z" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 19h4" stroke="#D97706" stroke-width="1.5" stroke-linecap="round"/>',
-    'text-io': '<rect x="3" y="5" width="18" height="14" rx="2" fill="#F8FAFC" stroke="#64748B" stroke-width="1.5"/><text x="12" y="15" fill="#334155" font-size="9" font-family="sans-serif" font-weight="700" text-anchor="middle">Aa</text>',
-    'date-time': '<rect x="3" y="4" width="18" height="16" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><path d="M7 2v4m10-4v4M3 9h18" stroke="#475569" stroke-width="1.5"/><path d="M8 13h2m4 0h2m-8 3h2m4 0h2" stroke="#2563EB" stroke-width="1.5"/>',
-    comments: '<path d="M4 5h16v12H9l-5 4z" fill="#F8FAFC" stroke="#475569" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 9h8m-8 4h6" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round"/>',
-    parts: '<path d="m12 3 8 4v10l-8 4-8-4V7z" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/><path d="m4 7 8 4 8-4m-8 4v10" fill="none" stroke="#2563EB" stroke-width="1.5"/>',
-    'alarm-display': '<rect x="3" y="4" width="18" height="16" rx="2" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/><path d="M12 8v4m0 3h.01" stroke="#DC2626" stroke-width="2" stroke-linecap="round"/>',
-    recipes: '<rect x="5" y="3" width="14" height="18" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><path d="M8 8h8m-8 4h8m-8 4h5" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round"/>',
-    process: '<circle cx="12" cy="12" r="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/><circle cx="12" cy="12" r="3" fill="#2563EB"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3" stroke="#475569" stroke-width="1.5"/>',
-    graphs: '<rect x="3" y="4" width="18" height="16" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.4"/><path d="m6 15 4-5 3 3 5-6" fill="none" stroke="#16A34A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
-    meters: '<path d="M4 17a8 8 0 1 1 16 0" fill="none" stroke="#475569" stroke-width="2"/><path d="m12 15 4-5" stroke="#EF4444" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="15" r="2" fill="#2563EB"/>',
-    'analog-controls': '<path d="M12 3v18" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round"/><path d="M12 12v9" stroke="#0284C7" stroke-width="3" stroke-linecap="round"/><rect x="8" y="9" width="8" height="5" rx="1.5" fill="#FFF" stroke="#334155" stroke-width="1.5"/>',
-    shapes: '<rect x="4" y="5" width="16" height="14" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.6"/>'
+  const toolIconShapes = {
+    'Bit Switch': '<rect x="3" y="6" width="18" height="12" rx="6" fill="#E2E8F0" stroke="#64748B" stroke-width="1.5"/><circle cx="9" cy="12" r="4" fill="#22C55E"/>',
+    'Word Switch': '<rect x="3" y="6" width="18" height="12" rx="2" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/><text x="12" y="15" fill="#1D4ED8" font-size="8" font-family="Arial,sans-serif" font-weight="700" text-anchor="middle">123</text>',
+    'Go To Screen Switch': '<rect x="3" y="5" width="13" height="14" rx="2" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/><path d="M10 12h10m-4-4 4 4-4 4" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+    'Change Station No. Switch': '<circle cx="10" cy="12" r="7" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.5"/><path d="M7 9h6M7 12h6M7 15h6M16 8v8" stroke="#7C3AED" stroke-width="1.3" stroke-linecap="round"/>',
+    'Special Function Switch': '<path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1" stroke="#D97706" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="5" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>',
+    'Key Window Display Switch': '<rect x="3" y="5" width="18" height="14" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><path d="M6 9h2m2 0h2m2 0h2m-10 4h2m2 0h2m2 0h2" stroke="#475569" stroke-width="1.5" stroke-linecap="round"/><rect x="15" y="12" width="3" height="3" rx=".5" fill="#60A5FA"/>',
+    'Key Code Switch': '<rect x="3" y="5" width="18" height="14" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><circle cx="8" cy="10" r="1" fill="#475569"/><circle cx="12" cy="10" r="1" fill="#475569"/><circle cx="16" cy="10" r="1" fill="#475569"/><circle cx="8" cy="14" r="1" fill="#475569"/><circle cx="12" cy="14" r="1" fill="#475569"/><path d="M15 14h3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round"/>',
+    'Tower Light': '<rect x="8" y="4" width="8" height="16" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.3"/><circle cx="12" cy="7.5" r="2" fill="#EF4444"/><circle cx="12" cy="12" r="2" fill="#F59E0B"/><circle cx="12" cy="16.5" r="2" fill="#22C55E"/>',
+    'Status Indicator': '<circle cx="12" cy="12" r="9" fill="#E2E8F0" stroke="#475569" stroke-width="1.5"/><circle cx="12" cy="12" r="6" fill="#22C55E"/><circle cx="10" cy="10" r="2" fill="#FFFFFF" opacity=".65"/>',
+    'Alarm Beacon': '<path d="M6 16h12l-1.5-2V10a4.5 4.5 0 0 0-9 0v4z" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 19h4M12 2v2M4.5 5l1.5 1.5m12-1.5-1.5 1.5" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="10" r="2" fill="#EF4444"/>',
+    'Text Display': '<rect x="3" y="5" width="18" height="14" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><path d="M7 9h10M12 9v6m-2 0h4" stroke="#2563EB" stroke-width="1.7" stroke-linecap="round"/>',
+    'Text Input': '<rect x="3" y="5" width="18" height="14" rx="2" fill="#EFF6FF" stroke="#0284C7" stroke-width="1.5"/><path d="M6 9h8m-8 4h6m4 2 4-4 2 2-4 4-3 1z" fill="#FFFFFF" stroke="#0284C7" stroke-width="1.2" stroke-linejoin="round"/>',
+    'Date Display': '<rect x="4" y="5" width="16" height="15" rx="2" fill="#F8FAFC" stroke="#2563EB" stroke-width="1.5"/><path d="M8 3v4m8-4v4M4 9h16" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round"/><path d="M8 12h2m4 0h2M8 16h2" stroke="#64748B" stroke-width="1.5" stroke-linecap="round"/>',
+    'Time Display': '<circle cx="12" cy="12" r="9" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+    'Bit Comment': '<path d="M4 5h16v12H9l-5 4z" fill="#F0FDF4" stroke="#16A34A" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="11" r="2.5" fill="#22C55E"/>',
+    'Word Comment': '<path d="M4 5h16v12H9l-5 4z" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 9h10m-10 3h7" stroke="#2563EB" stroke-width="1.4" stroke-linecap="round"/>',
+    'Simple Comment': '<path d="M4 5h16v12H9l-5 4z" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 10h8m-8 3h5" stroke="#D97706" stroke-width="1.4" stroke-linecap="round"/>',
+    'Bit Part': '<rect x="4" y="5" width="16" height="14" rx="2" fill="#F0FDF4" stroke="#16A34A" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="#22C55E"/>',
+    'Word Part': '<rect x="4" y="5" width="16" height="14" rx="2" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/><path d="M7 9h10M7 12h10M7 15h10" stroke="#2563EB" stroke-width="1.3"/>',
+    'Display Part': '<rect x="3" y="5" width="18" height="14" rx="2" fill="#F8FAFC" stroke="#64748B" stroke-width="1.5"/><rect x="6" y="8" width="5" height="8" rx="1" fill="#93C5FD"/><path d="M13 9h5m-5 3h5m-5 3h3" stroke="#64748B" stroke-width="1.3" stroke-linecap="round"/>',
+    'Alarm Display': '<rect x="3" y="4" width="18" height="16" rx="2" fill="#FFF7ED" stroke="#EA580C" stroke-width="1.5"/><path d="M6 9h12M6 12h12M6 15h8" stroke="#C2410C" stroke-width="1.3" stroke-linecap="round"/><circle cx="17.5" cy="15" r="1.5" fill="#EF4444"/>',
+    'Simple Alarm Display': '<path d="M12 3 2.8 19h18.4z" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 9v4m0 3h.01" stroke="#B45309" stroke-width="2" stroke-linecap="round"/>',
+    'Recipe Display': '<path d="M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2z" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><path d="M8 8h8m-8 4h8m-8 4h5" stroke="#2563EB" stroke-width="1.4" stroke-linecap="round"/><path d="M5 18a2 2 0 0 1 2-2" stroke="#475569" stroke-width="1.5"/>',
+    'Sector Meter': '<path d="M4 17a8 8 0 1 1 16 0" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/><path d="M12 15l4-5" stroke="#DC2626" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="15" r="1.5" fill="#475569"/>',
+    'Semicircle Meter': '<path d="M3 17a9 9 0 0 1 18 0" fill="none" stroke="#2563EB" stroke-width="2"/><path d="M12 16l-3-6" stroke="#DC2626" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="1.5" fill="#475569"/>',
+    'Bar (Vertical) Meter': '<rect x="5" y="4" width="14" height="16" rx="2" fill="#F8FAFC" stroke="#64748B" stroke-width="1.3"/><path d="M7 17h10m-10-4h10m-10-4h10" stroke="#CBD5E1" stroke-width="1"/><rect x="7" y="11" width="10" height="7" rx="1" fill="#22C55E"/>',
+    'Bar (Horizontal) Meter': '<rect x="3" y="6" width="18" height="12" rx="2" fill="#F8FAFC" stroke="#64748B" stroke-width="1.3"/><path d="M7 8v8m4-8v8m4-8v8" stroke="#CBD5E1" stroke-width="1"/><rect x="5" y="8" width="9" height="8" rx="1" fill="#22C55E"/>',
+    'Analog Slider': '<rect x="3" y="9" width="18" height="6" rx="3" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.3"/><path d="M7 12h10" stroke="#2563EB" stroke-width="1.2"/><circle cx="14" cy="12" r="4" fill="#FFFFFF" stroke="#1D4ED8" stroke-width="1.5"/>'
   };
-  const toolCategoryDefinitions = [
-    {
-      key: 'switches',
-      name: 'Switch',
-      tools: [
-        ['Bit Switch'], ['Word Switch'], ['Go To Screen Switch'],
-        ['Change Station No. Switch'], ['Special Function Switch'],
-        ['Key Window Display Switch'], ['Key Code Switch'],
-        ['Push Button'], ['Selector Switch', 'Selector'], ['Toggle Switch', 'Toggle'],
-        ['Keypad'], ['Screen Navigation', 'Screen Nav']
-      ]
-    },
-    { key: 'lamps', name: 'Lamp Option', tools: [['Bit Lamp'], ['Word Lamp']] },
-    { key: 'signals', name: 'Signal Indicators', tools: [['Tower Light'], ['Status Indicator', 'Pilot LED'], ['Alarm Beacon']] },
-    { key: 'numerics', name: 'Numerical Display/Input', tools: [['Numeric Display', 'Numerical Display'], ['Numeric Input', 'Numerical Input']] },
-    {
-      key: 'alarms',
-      name: 'Other Alarms & Events',
-      tools: [['Alarm History'], ['Alarm Acknowledge', 'Alarm ACK'], ['Alarm Reset'], ['Alarm Status Lamp', 'Status Lamp']]
-    },
-    {
-      key: 'text-io',
-      name: 'Text Display/Input',
-      tools: [['Text Display'], ['Text Input'], ['Text', 'Static Text'], ['String Display', 'String Disp']]
-    },
-    { key: 'date-time', name: 'Date/Time Display', tools: [['Date Display'], ['Time Display'], ['Date/Time']] },
-    { key: 'comments', name: 'Comment Display', tools: [['Bit Comment'], ['Word Comment'], ['Simple Comment']] },
-    { key: 'parts', name: 'Part Display', tools: [['Bit Part'], ['Word Part'], ['Display Part']] },
-    { key: 'alarm-display', name: 'Alarm Display Option', tools: [['Alarm Display', 'Alarm Display (User)'], ['Simple Alarm Display']] },
-    { key: 'recipes', name: 'Recipe Display', tools: [['Recipe Display']] },
-    {
-      key: 'process',
-      name: 'Process & Actuators',
-      tools: [
-        ['Process Tank', 'Tank'], ['Motor', 'Motor Drive'], ['Centrifugal Pump', 'Pump'],
-        ['Valve'], ['Pneumatic Cylinder', 'Cylinder'], ['Pipe', 'Pipe Conduit'], ['Conveyor']
-      ]
-    },
-    { key: 'graphs', name: 'Charts & Gauges', tools: [['Trend Graph'], ['Historical Trend', 'History Trend'], ['Gauge'], ['Bar Graph']] },
-    { key: 'meters', name: 'Meters', tools: [['Sector Meter'], ['Semicircle Meter'], ['Bar (Vertical) Meter'], ['Bar (Horizontal) Meter']] },
-    { key: 'analog-controls', name: 'Analog Controls', tools: [['Analog Slider', 'Slider']] },
-    { key: 'shapes', name: 'Shapes & Layout', tools: [['Rectangle'], ['Circle'], ['Line'], ['Divider Line']] }
-  ];
-
-  const existingToolCards = new Map();
-  toolboxBody.querySelectorAll('.tool-card[data-obj]').forEach(card => {
-    existingToolCards.set(card.getAttribute('data-obj'), card);
-  });
-  toolboxBody.replaceChildren();
-
-  toolCategoryDefinitions.forEach(category => {
-    const group = document.createElement('div');
-    group.className = 'tool-cat-group';
-    group.setAttribute('data-cat', category.key);
-
-    const header = document.createElement('div');
-    header.className = 'tool-cat-header';
-    const arrow = document.createElement('span');
-    arrow.className = 'cat-arrow';
-    arrow.style.cssText = 'display:inline-flex;align-items:center';
-    arrow.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
-    const name = document.createElement('span');
-    name.className = 'cat-name';
-    name.textContent = category.name;
-    const badge = document.createElement('span');
-    badge.className = 'cat-badge';
-    badge.textContent = String(category.tools.length);
-    header.append(arrow, name, badge);
-
-    const items = document.createElement('div');
-    items.className = 'tool-cat-items';
-    category.tools.forEach(([type, label]) => {
-      let card = existingToolCards.get(type);
-      if (card) {
-        existingToolCards.delete(type);
-      } else {
-        card = document.createElement('button');
-        card.type = 'button';
-        card.className = 'tool-card';
-        card.draggable = true;
-        card.setAttribute('data-obj', type);
-        card.title = type;
-      }
-
-      let cardLabel = card.querySelector('.tool-card-label');
-      if (!cardLabel) {
-        const icon = document.createElement('span');
-        icon.className = 'tool-card-icon';
-        icon.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none">${toolCategorySymbols[category.key] || toolCategorySymbols.shapes}</svg>`;
-        cardLabel = document.createElement('span');
-        cardLabel.className = 'tool-card-label';
-        card.append(icon, cardLabel);
-      }
-      cardLabel.textContent = label || type;
-      items.appendChild(card);
-    });
-
-    group.append(header, items);
-    toolboxBody.appendChild(group);
-  });
-
-  existingToolCards.forEach(card => {
-    console.error(`HMI tool "${card.getAttribute('data-obj')}" is not assigned to a palette category.`);
-  });
 
   document.querySelectorAll('#toolbox-body .tool-card').forEach(card => {
     let button = card;
@@ -1214,10 +1126,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const label = button.querySelector('.tool-card-label');
-    const name = button.getAttribute('data-obj') || (label ? label.textContent.trim() : '');
+    const name = label ? label.textContent.trim() : button.getAttribute('data-obj');
     button.setAttribute('aria-label', name);
     if (!button.title) button.title = name;
+
+    if (!button.querySelector('.tool-card-icon')) {
+      const icon = document.createElement('span');
+      icon.className = 'tool-card-icon';
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('width', '20');
+      svg.setAttribute('height', '20');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'none');
+      svg.innerHTML = toolIconShapes[button.getAttribute('data-obj')] || '<rect x="4" y="4" width="16" height="16" rx="3" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/><path d="M8 12h8" stroke="#2563EB" stroke-width="1.7" stroke-linecap="round"/>';
+      icon.appendChild(svg);
+      button.insertBefore(icon, label || button.firstChild);
+    }
   });
+
+  const categorySymbolShapes = {
+    switches: '<rect x="3" y="6" width="18" height="12" rx="6" fill="#E2E8F0" stroke="#475569" stroke-width="1.5"/><circle cx="9" cy="12" r="4" fill="#22C55E"/>',
+    lamps: '<circle cx="12" cy="12" r="9" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/><circle cx="12" cy="12" r="6" fill="#22C55E"/>',
+    signals: '<rect x="8" y="3" width="8" height="18" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.3"/><circle cx="12" cy="7" r="2" fill="#EF4444"/><circle cx="12" cy="12" r="2" fill="#F59E0B"/><circle cx="12" cy="17" r="2" fill="#22C55E"/>',
+    numerics: '<rect x="3" y="5" width="18" height="14" rx="2" fill="#0F172A" stroke="#334155" stroke-width="1.5"/><text x="12" y="15" fill="#10B981" font-size="8" font-family="Consolas,monospace" font-weight="700" text-anchor="middle">123</text>',
+    alarms: '<path d="M6 16h12l-1.5-2V10a4.5 4.5 0 0 0-9 0v4z" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 19h4" stroke="#D97706" stroke-width="1.5" stroke-linecap="round"/>',
+    'text-io': '<rect x="3" y="5" width="18" height="14" rx="2" fill="#F8FAFC" stroke="#2563EB" stroke-width="1.5"/><text x="12" y="15" fill="#2563EB" font-size="7" font-family="Arial,sans-serif" font-weight="700" text-anchor="middle">ABC</text>',
+    'date-time': '<circle cx="12" cy="12" r="9" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>',
+    comments: '<path d="M4 5h16v12H9l-5 4z" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 10h8m-8 3h5" stroke="#D97706" stroke-width="1.4" stroke-linecap="round"/>',
+    parts: '<rect x="3" y="3" width="8" height="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.3"/><rect x="13" y="3" width="8" height="8" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.3"/><rect x="3" y="13" width="8" height="8" fill="#FEF3C7" stroke="#D97706" stroke-width="1.3"/><rect x="13" y="13" width="8" height="8" fill="#F1F5F9" stroke="#64748B" stroke-width="1.3"/>',
+    'alarm-display': '<path d="M12 3 2.8 19h18.4z" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 9v4m0 3h.01" stroke="#B45309" stroke-width="2" stroke-linecap="round"/>',
+    recipes: '<rect x="4" y="4" width="16" height="16" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#2563EB" stroke-width="1.4" stroke-linecap="round"/>',
+    process: '<circle cx="12" cy="12" r="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/><circle cx="12" cy="12" r="3" fill="#2563EB"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3" stroke="#475569" stroke-width="1.5"/>',
+    graphs: '<rect x="3" y="4" width="18" height="16" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.4"/><path d="m6 15 4-5 3 3 5-6" fill="none" stroke="#16A34A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+    meters: '<path d="M4 17a8 8 0 1 1 16 0" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/><path d="M12 15l4-5" stroke="#DC2626" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="15" r="1.5" fill="#475569"/>',
+    'analog-controls': '<rect x="3" y="9" width="18" height="6" rx="3" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.3"/><circle cx="14" cy="12" r="4" fill="#FFFFFF" stroke="#1D4ED8" stroke-width="1.5"/>',
+    shapes: '<rect x="4" y="5" width="16" height="14" rx="2" fill="#F8FAFC" stroke="#475569" stroke-width="1.6"/>'
+  };
 
   const categoryFlyout = document.createElement('div');
   categoryFlyout.className = 'tool-category-flyout';
@@ -1263,7 +1207,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('viewBox', '0 0 24 24');
     svg.setAttribute('fill', 'none');
-    svg.innerHTML = toolCategorySymbols[group.getAttribute('data-cat')] || toolCategorySymbols.shapes;
+    svg.innerHTML = categorySymbolShapes[group.getAttribute('data-cat')] || categorySymbolShapes.shapes;
     symbol.appendChild(svg);
     categoryButton.append(symbol, nameElement);
     if (badge) {
@@ -1273,7 +1217,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     header.replaceWith(categoryButton);
     group.classList.remove('collapsed');
-    const category = { group, button: categoryButton, name, count, items };
     categoryButton.addEventListener('click', () => {
       if (activeToolCategory === category) {
         closeToolCategoryFlyout();
@@ -1281,6 +1224,8 @@ document.addEventListener('DOMContentLoaded', () => {
         openToolCategoryFlyout(category);
       }
     });
+
+    const category = { group, button: categoryButton, name, count, items };
     return category;
   });
 
