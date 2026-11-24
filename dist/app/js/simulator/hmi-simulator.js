@@ -507,6 +507,19 @@
             });
           }
 
+          // Universal Template Rendering in Simulation
+          if (el.hasAttribute('data-template-id') && el.getAttribute('data-template-id') && type !== 'Bit Switch') {
+            const bit = VirtualPLC.getBit(tag || (type.includes('Alarm') ? 'M500' : 'M100')) === 1;
+            el.innerHTML = WidgetRegistry.renderTemplateSvg(type, {
+              templateId: el.getAttribute('data-template-id'),
+              colorOn: el.getAttribute('data-on'),
+              colorOff: el.getAttribute('data-off'),
+              fg: el.style.color || '',
+              text: el.getAttribute('data-text') || type,
+              tag: tag || 'TAG'
+            }, bit);
+          }
+
           // Bit Switch (240+ Preset SVG Designs)
           if (type === 'Bit Switch' && el.hasAttribute('data-switch-preset') && el.getAttribute('data-switch-preset')) {
             const bit = VirtualPLC.getBit(tag || 'M100') === 1;

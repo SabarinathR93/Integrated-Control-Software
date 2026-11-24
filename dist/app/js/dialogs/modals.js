@@ -698,16 +698,14 @@
         </div>
 
         <div class="prop-tab-page" id="dlg-tab-style">
-          ${type === 'Bit Switch' ? `
-          <div class="prop-sec-title">Bit Switch Design Library (240+ Styles)</div>
+          <div class="prop-sec-title">${type} Design &amp; Template Library</div>
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:10px;border:1px solid #DDD;border-radius:6px;background:#F8FAFC;">
-            <div id="dlg-bs-preview" style="width:76px;height:52px;flex-shrink:0;"></div>
+            <div id="dlg-bs-preview" style="width:92px;height:54px;flex-shrink:0;"></div>
             <div style="flex:1;min-width:0;">
-              <div id="dlg-bs-name" style="font-size:12px;font-weight:700;color:#111;margin-bottom:4px;">${escapeAttr(obj.getAttribute('data-switch-preset') || 'Default Button')}</div>
-              <button type="button" id="dlg-bs-browse" style="padding:5px 12px;border:0;border-radius:4px;background:#D9261C;color:#FFF;font-size:11px;font-weight:700;cursor:pointer;">Browse 240+ Switch Designs…</button>
+              <div id="dlg-bs-name" style="font-size:12px;font-weight:700;color:#111;margin-bottom:4px;">${escapeAttr(obj.getAttribute('data-switch-preset') || obj.getAttribute('data-template-id') || 'Default Template')}</div>
+              <button type="button" id="dlg-bs-browse" style="padding:5px 12px;border:0;border-radius:4px;background:#D9261C;color:#FFF;font-size:11px;font-weight:700;cursor:pointer;">Browse Templates…</button>
             </div>
           </div>
-          ` : ''}
           <div class="prop-sec-title">Shape & Colors</div>
           <div class="prop-grid-2">
             <div>
@@ -867,37 +865,48 @@
           };
         }
 
-        // Bit Switch 240+ Design Gallery
+        // Universal Object Template & Design Gallery (All 51 Objects)
         let pendingSwitchDesign = null;
+        let pendingTemplateDesign = null;
         const bsPreviewEl = document.getElementById('dlg-bs-preview');
         const bsNameEl = document.getElementById('dlg-bs-name');
         const bsBrowseBtn = document.getElementById('dlg-bs-browse');
-        if (bsPreviewEl && typeof WidgetRegistry !== 'undefined' && WidgetRegistry.renderBitSwitchSvg) {
-          const curPresetId = obj.getAttribute('data-switch-preset') || 'bs_001';
-          const curPreset = WidgetRegistry.BIT_SWITCH_PRESETS.find(p => p.id === curPresetId);
-          if (curPreset && bsNameEl) bsNameEl.textContent = curPreset.name;
-          bsPreviewEl.innerHTML = WidgetRegistry.renderBitSwitchSvg({
-            switchPreset: curPresetId,
+        const templatesForThis = (typeof WidgetRegistry !== 'undefined' && WidgetRegistry.getTemplatesForType)
+          ? WidgetRegistry.getTemplatesForType(type)
+          : [];
+        if (bsBrowseBtn && templatesForThis.length) {
+          bsBrowseBtn.textContent = `Browse ${templatesForThis.length} ${type} Templates…`;
+        }
+        if (bsPreviewEl && typeof WidgetRegistry !== 'undefined' && WidgetRegistry.renderTemplateSvg) {
+          const curId = type === 'Bit Switch'
+            ? (obj.getAttribute('data-switch-preset') || (templatesForThis[0] && templatesForThis[0].id) || '')
+            : (obj.getAttribute('data-template-id') || (templatesForThis[0] && templatesForThis[0].id) || '');
+          const curTpl = templatesForThis.find(p => p.id === curId);
+          if (curTpl && bsNameEl) bsNameEl.textContent = curTpl.name;
+          bsPreviewEl.innerHTML = WidgetRegistry.renderTemplateSvg(type, {
+            switchPreset: obj.getAttribute('data-switch-preset') || curId,
+            templateId: obj.getAttribute('data-template-id') || curId,
             switchShape: obj.getAttribute('data-switch-shape') || '',
             switchFinish: obj.getAttribute('data-switch-finish') || '',
             switchIndicator: obj.getAttribute('data-switch-ind') || '',
             colorOn: obj.getAttribute('data-on') || '#16A34A',
             colorOff: obj.getAttribute('data-off') || '#1E293B',
             fg: obj.style.color || '#FFFFFF',
-            text: obj.getAttribute('data-text') || 'SW'
+            text: obj.getAttribute('data-text') || type,
+            tag: obj.getAttribute('data-tag') || 'TAG'
           }, false);
         }
-        if (bsBrowseBtn && typeof WidgetRegistry !== 'undefined' && WidgetRegistry.BIT_SWITCH_PRESETS) {
+        if (bsBrowseBtn && templatesForThis.length) {
           bsBrowseBtn.onclick = () => {
             const ov = document.createElement('div');
             ov.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,0.6);z-index:10050;display:flex;align-items:center;justify-content:center;';
-            const cats = ['All', 'Rectangular', 'Circular', 'Triangle / Jog', '3D & Metallic', 'Toggle & Slide', 'Safety / E-Stop'];
+            const cats = ['All', ...Array.from(new Set(templatesForThis.map(p => p.category)))];
             let activeCat = 'All';
             let previewOn = false;
             ov.innerHTML = `
-              <div style="width:min(860px,94vw);height:min(620px,88vh);background:#FFF;border:1px solid #CBD5E1;border-radius:8px;box-shadow:0 24px 60px rgba(0,0,0,0.35);display:flex;flex-direction:column;overflow:hidden;font-family:Segoe UI,sans-serif;">
+              <div style="width:min(880px,94vw);height:min(620px,88vh);background:#FFF;border:1px solid #CBD5E1;border-radius:8px;box-shadow:0 24px 60px rgba(0,0,0,0.35);display:flex;flex-direction:column;overflow:hidden;font-family:Segoe UI,sans-serif;">
                 <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#F7F6F2;border-bottom:1px solid #DDD;">
-                  <div style="font-size:14px;font-weight:700;color:#111;">Bit Switch Design Gallery (${WidgetRegistry.BIT_SWITCH_PRESETS.length} Designs)</div>
+                  <div style="font-size:14px;font-weight:700;color:#111;">${type} Template Gallery (${templatesForThis.length} Templates)</div>
                   <div style="display:flex;align-items:center;gap:8px;">
                     <button type="button" id="bsg-state-btn" style="padding:5px 10px;border:1px solid #CBD5E1;border-radius:4px;background:#FFF;font-size:11px;font-weight:700;cursor:pointer;">Preview: OFF</button>
                     <button type="button" id="bsg-close" style="border:0;background:transparent;font-size:20px;cursor:pointer;color:#475569;">&times;</button>
@@ -905,9 +914,9 @@
                 </div>
                 <div style="padding:10px 16px;border-bottom:1px solid #EEE;display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
                   <div id="bsg-tabs" style="display:flex;flex-wrap:wrap;gap:4px;">${cats.map(c => `<button type="button" data-cat="${c}" style="padding:4px 10px;border:1px solid #CBD5E1;border-radius:4px;background:${c === 'All' ? '#111' : '#F8FAFC'};color:${c === 'All' ? '#FFF' : '#334155'};font-size:11px;font-weight:600;cursor:pointer;">${c}</button>`).join('')}</div>
-                  <input id="bsg-search" type="text" placeholder="Search (e.g. triangle, chrome, circle, estop)..." style="margin-left:auto;min-width:210px;padding:5px 9px;border:1px solid #CBD5E1;border-radius:4px;font-size:11px;">
+                  <input id="bsg-search" type="text" placeholder="Search templates..." style="margin-left:auto;min-width:210px;padding:5px 9px;border:1px solid #CBD5E1;border-radius:4px;font-size:11px;">
                 </div>
-                <div id="bsg-grid" style="flex:1;overflow:auto;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(122px,1fr));gap:10px;align-content:start;background:#F8FAFC;"></div>
+                <div id="bsg-grid" style="flex:1;overflow:auto;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;align-content:start;background:#F8FAFC;"></div>
               </div>
             `;
             document.body.appendChild(ov);
@@ -917,14 +926,16 @@
 
             function renderGrid() {
               const q = searchInp.value.trim().toLowerCase();
-              const list = WidgetRegistry.BIT_SWITCH_PRESETS.filter(p => {
+              const list = templatesForThis.filter(p => {
                 if (activeCat !== 'All' && p.category !== activeCat) return false;
                 if (q && !p.name.toLowerCase().includes(q) && !p.category.toLowerCase().includes(q)) return false;
                 return true;
               });
+              const txt = (document.getElementById('dlg-text')?.value || type).slice(0, 14);
+              const tg = document.getElementById('dlg-tag')?.value || 'TAG';
               grid.innerHTML = list.map(p => `
                 <button type="button" data-id="${p.id}" title="${p.name}" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px;border:1px solid #E2E8F0;border-radius:6px;background:#FFF;cursor:pointer;text-align:center;">
-                  <div style="width:82px;height:56px;">${WidgetRegistry.renderBitSwitchSvg({ switchPreset: p.id, text: (document.getElementById('dlg-text')?.value || 'SW').slice(0, 8) }, previewOn)}</div>
+                  <div style="width:118px;height:66px;">${WidgetRegistry.renderTemplateSvg(type, { switchPreset: p.id, templateId: p.id, text: txt, tag: tg }, previewOn)}</div>
                   <div style="font-size:10px;color:#334155;font-weight:600;line-height:1.2;max-height:24px;overflow:hidden;">${p.name}</div>
                 </button>
               `).join('');
@@ -951,18 +962,21 @@
             grid.onclick = (e) => {
               const card = e.target.closest('button[data-id]');
               if (!card) return;
-              const picked = WidgetRegistry.BIT_SWITCH_PRESETS.find(p => p.id === card.getAttribute('data-id'));
+              const picked = templatesForThis.find(p => p.id === card.getAttribute('data-id'));
               if (picked) {
-                pendingSwitchDesign = picked;
+                if (type === 'Bit Switch') pendingSwitchDesign = picked;
+                else pendingTemplateDesign = picked;
                 if (bsNameEl) bsNameEl.textContent = picked.name;
                 if (bsPreviewEl) {
-                  bsPreviewEl.innerHTML = WidgetRegistry.renderBitSwitchSvg({
+                  bsPreviewEl.innerHTML = WidgetRegistry.renderTemplateSvg(type, {
                     switchPreset: picked.id,
-                    text: document.getElementById('dlg-text')?.value || 'SW'
+                    templateId: picked.id,
+                    text: document.getElementById('dlg-text')?.value || type,
+                    tag: document.getElementById('dlg-tag')?.value || 'TAG'
                   }, false);
                 }
                 const fgInput = document.getElementById('dlg-fg');
-                if (fgInput) fgInput.value = picked.fg;
+                if (fgInput && picked.fg) fgInput.value = picked.fg;
               }
               ov.remove();
             };
@@ -1112,6 +1126,12 @@
             obj.setAttribute('data-on', pendingSwitchDesign.colorOn);
             obj.setAttribute('data-off', pendingSwitchDesign.colorOff);
             obj.style.color = pendingSwitchDesign.fg;
+          }
+          if (pendingTemplateDesign) {
+            obj.setAttribute('data-template-id', pendingTemplateDesign.id);
+            obj.setAttribute('data-on', pendingTemplateDesign.colorOn);
+            obj.setAttribute('data-off', pendingTemplateDesign.colorOff);
+            obj.style.color = pendingTemplateDesign.fg;
           }
 
           if (xEl) obj.style.left = Math.max(0, parseInt(xEl.value, 10) || 0) + 'px';

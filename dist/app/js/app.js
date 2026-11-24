@@ -127,7 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
       switchPreset: el.getAttribute('data-switch-preset') || '',
       switchShape: el.getAttribute('data-switch-shape') || '',
       switchFinish: el.getAttribute('data-switch-finish') || '',
-      switchIndicator: el.getAttribute('data-switch-ind') || ''
+      switchIndicator: el.getAttribute('data-switch-ind') || '',
+      templateId: el.getAttribute('data-template-id') || ''
     };
   }
 

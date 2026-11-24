@@ -2559,19 +2559,7 @@ button.tool-cat-header:hover,
         if (type === 'Selector Switch') return '3-Position';
         if (type === 'Toggle Switch') return 'Alternate';
         if (type === 'Word Switch') return 'Write Value';
-        if (type === 'Bit Switch' && el.getAttribute('data-switch-preset')) {
-          const on = RuntimeStore.getBit(tag || 'M100') === 1;
-          el.innerHTML = WidgetRegistry.renderBitSwitchSvg({
-            switchPreset: el.getAttribute('data-switch-preset'),
-            switchShape: el.getAttribute('data-switch-shape'),
-            switchFinish: el.getAttribute('data-switch-finish'),
-            switchIndicator: el.getAttribute('data-switch-ind'),
-            colorOn: el.getAttribute('data-on'),
-            colorOff: el.getAttribute('data-off'),
-            fg: el.style.color || '#FFFFFF',
-            text: el.getAttribute('data-text') || 'SW'
-          }, on);
-        } else if (type === 'Bit Lamp' || type === 'Pilot LED' || type === 'Status Indicator') return 'ON when bit ON';
+        if (type === 'Bit Lamp' || type === 'Pilot LED' || type === 'Status Indicator') return 'ON when bit ON';
         if (type === 'Word Lamp') return 'Multi-State';
         if (type === 'Tower Light') return '3-Tier Andon';
         if (type === 'Alarm Beacon') return 'Strobe Flash';
@@ -2768,6 +2756,14 @@ button.tool-cat-header:hover,
         el.setAttribute('data-switch-shape', cfg.switchShape || '');
         el.setAttribute('data-switch-finish', cfg.switchFinish || '');
         el.setAttribute('data-switch-ind', cfg.switchIndicator || '');
+        el.setAttribute('data-template-id', cfg.templateId || '');
+
+        if (cfg.templateId && t !== 'Bit Switch') {
+          el.style.backgroundColor = 'transparent';
+          el.style.boxShadow = 'none';
+          el.innerHTML = renderTemplateSvg(t, cfg, false);
+          return;
+        }
 
         el.style.left = cfg.left + 'px';
         el.style.top = cfg.top + 'px';
@@ -2783,7 +2779,7 @@ button.tool-cat-header:hover,
         el.style.setProperty('--object-text-align', cfg.textAlign || 'center');
         el.style.setProperty('--object-font-weight', cfg.bold ? '700' : '400');
         el.style.setProperty('--object-font-style', cfg.italic ? 'italic' : 'normal');
-        el.style.border = (t === 'Process Tank' || t === 'Pipe' || t === 'Tower Light' || t === 'Analog Slider' || t === 'Divider Line' || cat === 'alarm' || (t === 'Bit Switch' && cfg.switchPreset))
+        el.style.border = (t === 'Process Tank' || t === 'Pipe' || t === 'Tower Light' || t === 'Analog Slider' || t === 'Divider Line' || cat === 'alarm' || (t === 'Bit Switch' && cfg.switchPreset) || !!cfg.templateId)
           ? 'none'
           : `${Math.max(0, Math.min(20, cfg.borderWidth === undefined ? 2 : (parseInt(cfg.borderWidth, 10) || 0)))}px ${cfg.lineStyle || 'solid'} ${cfg.borderColor || '#000'}`;
 
@@ -3404,6 +3400,162 @@ button.tool-cat-header:hover,
         return `<svg viewBox="0 0 120 100" width="100%" height="100%" preserveAspectRatio="none" style="display:block;user-select:none;">${bodySvg}${indSvg}${textEl}</svg>`;
       }
 
+      // ======================================================================
+      // Universal Template Library for All 51 HMI Objects
+      // ======================================================================
+      const TPL_THEMES = [
+        { id: 'light', cat: 'Industrial Light', label: 'Industrial Light', bg: '#F8FAFC', card: '#FFFFFF', border: '#CBD5E1', accent: '#2563EB', on: '#16A34A', off: '#94A3B8', fg: '#0F172A', muted: '#64748B' },
+        { id: 'dark', cat: 'Dark SCADA', label: 'Dark SCADA', bg: '#0F172A', card: '#1E293B', border: '#334155', accent: '#38BDF8', on: '#22C55E', off: '#475569', fg: '#F8FAFC', muted: '#94A3B8' },
+        { id: 'swiss', cat: 'Minimal / Flat', label: 'Swiss Clean', bg: '#FAFAFA', card: '#FFFFFF', border: '#E2E8F0', accent: '#D9261C', on: '#D9261C', off: '#64748B', fg: '#111111', muted: '#71717A' },
+        { id: 'metal', cat: '3D & Metallic', label: 'Brushed Steel', bg: '#E2E8F0', card: '#F1F5F9', border: '#64748B', accent: '#0284C7', on: '#10B981', off: '#475569', fg: '#0F172A', muted: '#475569' },
+        { id: 'amber', cat: 'High Contrast', label: 'Amber Telemetry', bg: '#18181B', card: '#27272A', border: '#D97706', accent: '#F59E0B', on: '#F59E0B', off: '#52525B', fg: '#FEF3C7', muted: '#FBBF24' },
+        { id: 'emerald', cat: 'High Contrast', label: 'Emerald Matrix', bg: '#022C22', card: '#064E3B', border: '#10B981', accent: '#34D399', on: '#10B981', off: '#065F46', fg: '#ECFDF5', muted: '#6EE7B7' }
+      ];
+
+      function getLayoutsForType(type) {
+        const t = String(type || '');
+        if (t.includes('Alarm')) {
+          return [
+            { id: 'grid', label: 'Severity Grid' },
+            { id: 'banner', label: 'Compact Banner' },
+            { id: 'ticker', label: 'Fault Ticker' },
+            { id: 'audit', label: 'Audit Timeline' }
+          ];
+        }
+        if (t === 'Recipe Display') {
+          return [
+            { id: 'table', label: 'Parameter Table' },
+            { id: 'selector', label: 'Selector Card' },
+            { id: 'batch', label: 'Batch Header' },
+            { id: 'split', label: 'Master-Detail' }
+          ];
+        }
+        if (t === 'Bit Lamp' || t === 'Word Lamp' || t === 'Status Indicator' || t === 'Alarm Beacon' || t === 'Alarm Status Lamp') {
+          return [
+            { id: 'round', label: 'Round Bezel' },
+            { id: 'square', label: 'Annunciator Tile' },
+            { id: 'pill', label: 'Status Pill' },
+            { id: 'delta', label: 'Delta Indicator' }
+          ];
+        }
+        if (t === 'Tower Light') {
+          return [
+            { id: '3tier', label: '3-Tier Stack' },
+            { id: '5tier', label: '5-Tier Stack' },
+            { id: 'hbar', label: 'Horizontal Bar' },
+            { id: 'compact', label: 'Compact Beacon' }
+          ];
+        }
+        if (t.includes('Numeric') || t.includes('Text') || t.includes('Date') || t.includes('Time') || t.includes('Comment') || t.includes('Part')) {
+          return [
+            { id: 'led', label: '7-Seg / LED' },
+            { id: 'kpi', label: 'KPI Card' },
+            { id: 'lcd', label: 'Industrial LCD' },
+            { id: 'pill', label: 'Inline Badge' }
+          ];
+        }
+        if (t.includes('Meter') || t === 'Gauge' || t.includes('Trend') || t === 'Bar Graph' || t === 'Analog Slider') {
+          return [
+            { id: 'dial', label: 'Analog Dial / Scope' },
+            { id: 'seg', label: 'Segmented Bar' },
+            { id: 'modern', label: 'Modern Clean' },
+            { id: 'vu', label: 'Classic Panel' }
+          ];
+        }
+        if (t === 'Process Tank' || t === 'Motor' || t === 'Centrifugal Pump' || t === 'Valve' || t === 'Pneumatic Cylinder' || t === 'Pipe' || t === 'Conveyor') {
+          return [
+            { id: 'std', label: 'Standard ISO' },
+            { id: 'cutaway', label: 'Cutaway / Sight' },
+            { id: 'block', label: 'P&ID Symbol' },
+            { id: 'mimic', label: '3D Mimic' }
+          ];
+        }
+        return [
+          { id: 'flat', label: 'Flat Key' },
+          { id: '3d', label: '3D Raised' },
+          { id: 'pill', label: 'Rounded Pill' },
+          { id: 'badge', label: 'Icon Badge' }
+        ];
+      }
+
+      function getTemplatesForType(type) {
+        if (type === 'Bit Switch') return BIT_SWITCH_PRESETS;
+        const layouts = getLayoutsForType(type);
+        const list = [];
+        let n = 1;
+        for (const lay of layouts) {
+          for (const th of TPL_THEMES) {
+            list.push({
+              id: `tpl_${type.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase()}_${n++}`,
+              name: `${lay.label} — ${th.label}`,
+              category: th.cat,
+              layout: lay.id,
+              theme: th.id,
+              bg: th.bg,
+              card: th.card,
+              border: th.border,
+              accent: th.accent,
+              colorOn: th.on,
+              colorOff: th.off,
+              fg: th.fg,
+              muted: th.muted
+            });
+          }
+        }
+        return list;
+      }
+
+      function renderTemplateSvg(type, cfg, isOn) {
+        if (type === 'Bit Switch') return renderBitSwitchSvg(cfg, isOn);
+        const all = getTemplatesForType(type);
+        const tpl = all.find(p => p.id === cfg.templateId) || all[0];
+        const bg = tpl.bg;
+        const card = tpl.card;
+        const border = tpl.border;
+        const accent = tpl.accent;
+        const fg = cfg.fg || tpl.fg;
+        const muted = tpl.muted;
+        const stateCol = isOn ? (cfg.colorOn || tpl.colorOn) : (cfg.colorOff || tpl.colorOff);
+        const label = (cfg.text || type).replace(/[<>&"]/g, '');
+        const tag = (cfg.tag || 'TAG').replace(/[<>&"]/g, '');
+
+        if (type.includes('Alarm')) {
+          if (tpl.layout === 'banner' || tpl.layout === 'ticker') {
+            return `<svg viewBox="0 0 260 64" width="100%" height="100%" preserveAspectRatio="none" style="display:block"><rect x="2" y="2" width="256" height="60" rx="5" fill="${bg}" stroke="${isOn ? '#EF4444' : border}" stroke-width="2"/><rect x="2" y="2" width="8" height="60" rx="2" fill="${isOn ? '#EF4444' : accent}"/><polygon points="32,18 44,44 20,44" fill="${isOn ? '#EF4444' : '#F59E0B'}"/><text x="32" y="40" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">!</text><text x="56" y="28" fill="${fg}" font-size="12" font-weight="700" font-family="Segoe UI,sans-serif">${label}</text><text x="56" y="46" fill="${muted}" font-size="10" font-family="Consolas,monospace">${isOn ? 'ALM-01: FAULT ACTIVE [' + tag + ']' : '0 ACTIVE ALARMS — NORMAL'}</text></svg>`;
+          }
+          return `<svg viewBox="0 0 260 120" width="100%" height="100%" preserveAspectRatio="none" style="display:block"><rect x="2" y="2" width="256" height="116" rx="5" fill="${bg}" stroke="${border}" stroke-width="2"/><rect x="2" y="2" width="256" height="24" rx="4" fill="${card}"/><text x="12" y="18" fill="${fg}" font-size="11" font-weight="700" font-family="Segoe UI,sans-serif">${label}</text><rect x="188" y="6" width="60" height="16" rx="8" fill="${isOn ? '#EF4444' : accent}"/><text x="218" y="17" text-anchor="middle" fill="#FFF" font-size="9" font-weight="700">${isOn ? '1 ACTIVE' : '0 ACTIVE'}</text><rect x="10" y="34" width="240" height="22" rx="3" fill="${isOn ? 'rgba(239,68,68,0.2)' : card}" stroke="${border}" stroke-width="1"/><text x="18" y="49" fill="${isOn ? '#FCA5A5' : fg}" font-size="10" font-family="Consolas,monospace">10:42:05 | ${tag} | ${isOn ? 'CRITICAL TRIP' : 'SYSTEM READY'}</text><rect x="10" y="62" width="240" height="22" rx="3" fill="${card}" stroke="${border}" stroke-width="1"/><text x="18" y="77" fill="${muted}" font-size="10" font-family="Consolas,monospace">10:40:12 | M101 | DRIVE INTERLOCK OK</text><rect x="10" y="90" width="240" height="20" rx="3" fill="${card}" opacity="0.7"/></svg>`;
+        }
+
+        if (type === 'Recipe Display') {
+          return `<svg viewBox="0 0 260 130" width="100%" height="100%" preserveAspectRatio="none" style="display:block"><rect x="2" y="2" width="256" height="126" rx="5" fill="${bg}" stroke="${border}" stroke-width="2"/><rect x="2" y="2" width="256" height="26" rx="4" fill="${card}"/><rect x="2" y="2" width="6" height="26" fill="${accent}"/><text x="16" y="19" fill="${fg}" font-size="11" font-weight="700" font-family="Segoe UI,sans-serif">${label} — RCP #01</text><rect x="184" y="6" width="66" height="18" rx="3" fill="${accent}"/><text x="217" y="18" text-anchor="middle" fill="#FFF" font-size="9" font-weight="700">LOAD / SAVE</text><rect x="10" y="36" width="240" height="24" rx="2" fill="${card}" stroke="${border}" stroke-width="1"/><text x="18" y="52" fill="${fg}" font-size="10" font-family="Consolas,monospace">SPEED_SP</text><text x="240" y="52" text-anchor="end" fill="${accent}" font-size="10" font-weight="700" font-family="Consolas,monospace">1450 RPM</text><rect x="10" y="64" width="240" height="24" rx="2" fill="${card}" stroke="${border}" stroke-width="1"/><text x="18" y="80" fill="${fg}" font-size="10" font-family="Consolas,monospace">TEMP_SET</text><text x="240" y="80" text-anchor="end" fill="${accent}" font-size="10" font-weight="700" font-family="Consolas,monospace">82.5 C</text><rect x="10" y="92" width="240" height="24" rx="2" fill="${card}" stroke="${border}" stroke-width="1"/><text x="18" y="108" fill="${fg}" font-size="10" font-family="Consolas,monospace">BATCH_QTY</text><text x="240" y="108" text-anchor="end" fill="${accent}" font-size="10" font-weight="700" font-family="Consolas,monospace">500 PCS</text></svg>`;
+        }
+
+        if (type === 'Bit Lamp' || type === 'Word Lamp' || type === 'Status Indicator' || type === 'Alarm Beacon' || type === 'Alarm Status Lamp') {
+          if (tpl.layout === 'round' || tpl.layout === 'delta') {
+            return `<svg viewBox="0 0 100 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block"><circle cx="50" cy="50" r="42" fill="${card}" stroke="${border}" stroke-width="4"/><circle cx="50" cy="50" r="30" fill="${stateCol}"/><circle cx="40" cy="40" r="9" fill="#FFF" opacity="0.35"/><text x="50" y="96" text-anchor="middle" fill="${fg}" font-size="10" font-weight="700">${label}</text></svg>`;
+          }
+          const rx = tpl.layout === 'pill' ? 28 : 5;
+          return `<svg viewBox="0 0 140 60" width="100%" height="100%" preserveAspectRatio="none" style="display:block"><rect x="3" y="3" width="134" height="54" rx="${rx}" fill="${stateCol}" stroke="${border}" stroke-width="2.5"/><text x="70" y="35" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700" font-family="Segoe UI,sans-serif">${label}</text></svg>`;
+        }
+
+        if (type.includes('Numeric') || type.includes('Text') || type.includes('Date') || type.includes('Time') || type.includes('Comment') || type.includes('Part')) {
+          const rx = tpl.layout === 'pill' ? 24 : 5;
+          const valText = type.includes('Numeric') ? (cfg.text || '00125') : (type.includes('Date') ? '2026-11-24' : (type.includes('Time') ? '14:35:00' : label));
+          return `<svg viewBox="0 0 160 56" width="100%" height="100%" preserveAspectRatio="none" style="display:block"><rect x="2" y="2" width="156" height="52" rx="${rx}" fill="${bg}" stroke="${border}" stroke-width="2"/><rect x="2" y="2" width="5" height="52" rx="2" fill="${accent}"/><text x="14" y="18" fill="${muted}" font-size="9" font-weight="700" font-family="Segoe UI,sans-serif">[${tag}]</text><text x="146" y="42" text-anchor="end" fill="${fg}" font-size="18" font-weight="800" font-family="Consolas,monospace">${valText}</text></svg>`;
+        }
+
+        if (type.includes('Meter') || type === 'Gauge' || type.includes('Trend') || type === 'Bar Graph' || type === 'Analog Slider') {
+          if (type.includes('Trend') || type === 'Bar Graph') {
+            return `<svg viewBox="0 0 200 110" width="100%" height="100%" preserveAspectRatio="none" style="display:block"><rect x="2" y="2" width="196" height="106" rx="5" fill="${bg}" stroke="${border}" stroke-width="2"/><path d="M16 84 L52 54 L88 68 L128 30 L182 46" fill="none" stroke="${accent}" stroke-width="3" stroke-linecap="round"/><text x="14" y="20" fill="${fg}" font-size="10" font-weight="700">${label}</text></svg>`;
+          }
+          return `<svg viewBox="0 0 140 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block"><rect x="2" y="2" width="136" height="96" rx="6" fill="${bg}" stroke="${border}" stroke-width="2"/><path d="M26 76 A44 44 0 0 1 114 76" fill="none" stroke="${border}" stroke-width="8" stroke-linecap="round"/><path d="M26 76 A44 44 0 0 1 92 38" fill="none" stroke="${accent}" stroke-width="8" stroke-linecap="round"/><line x1="70" y1="76" x2="96" y2="42" stroke="#EF4444" stroke-width="3" stroke-linecap="round"/><circle cx="70" cy="76" r="5" fill="${fg}"/><text x="70" y="92" text-anchor="middle" fill="${muted}" font-size="9" font-weight="700">${label}</text></svg>`;
+        }
+
+        // Default / Switches / Process / Shapes
+        const rx = tpl.layout === 'pill' ? 28 : 5;
+        return `<svg viewBox="0 0 140 60" width="100%" height="100%" preserveAspectRatio="none" style="display:block"><rect x="2" y="2" width="136" height="56" rx="${rx}" fill="${card}" stroke="${border}" stroke-width="2"/><rect x="2" y="2" width="6" height="56" rx="2" fill="${isOn ? stateCol : accent}"/><text x="74" y="34" text-anchor="middle" fill="${fg}" font-size="12" font-weight="700" font-family="Segoe UI,sans-serif">${label}</text></svg>`;
+      }
+
       return {
         SWITCHES,
         LAMPS,
@@ -3414,6 +3566,8 @@ button.tool-cat-header:hover,
         SHAPES,
         BIT_SWITCH_PRESETS,
         renderBitSwitchSvg,
+        getTemplatesForType,
+        renderTemplateSvg,
         getCategory,
         createWidgetConfig,
         renderWidgetContent
@@ -3423,6 +3577,7 @@ button.tool-cat-header:hover,
     if (typeof module !== 'undefined' && module.exports) {
       module.exports = WidgetRegistry;
     }
+
 
 
 
