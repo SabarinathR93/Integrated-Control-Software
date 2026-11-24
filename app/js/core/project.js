@@ -13,7 +13,20 @@ const ProjectModel = (function() {
     alarms: [],
     openTabs: [],
     activeScreen: null,
-    driverConfig: { driver: 'MELSEC MC Protocol', address: '192.168.1.10', port: 5000 },
+    driverConfig: {
+      driver: 'MELSEC MC Protocol',
+      driverId: 'melsec_mc',
+      transport: 'TCP',
+      address: '192.168.1.10',
+      port: 5000,
+      unitId: 1,
+      comPort: 'COM1',
+      baudRate: 9600,
+      pollRate: 250,
+      testAddress: '',
+      testValue: '',
+      autoConnect: false
+    },
     createdAt: new Date().toISOString(),
     modifiedAt: new Date().toISOString(),
     version: '1.0.0'
@@ -55,7 +68,24 @@ const ProjectModel = (function() {
       alarms: [],
       openTabs: [],
       activeScreen: null,
-      driverConfig: { driver, address: '192.168.1.10', port },
+      driverConfig: {
+        driver,
+        driverId: b.includes('SIEMENS') ? 's7'
+          : b.includes('ROCKWELL') || b.includes('ALLEN') ? 'eip_cip'
+          : b.includes('OMRON') ? 'omron_fins'
+          : b.includes('DELTA') || b.includes('MODBUS') ? 'modbus'
+          : 'melsec_mc',
+        transport: 'TCP',
+        address: '192.168.1.10',
+        port,
+        unitId: 1,
+        comPort: 'COM1',
+        baudRate: 9600,
+        pollRate: 250,
+        testAddress: '',
+        testValue: '',
+        autoConnect: false
+      },
       createdAt: new Date().toISOString(),
       modifiedAt: new Date().toISOString(),
       version: '1.0.0'
@@ -174,6 +204,19 @@ const ProjectModel = (function() {
     return projectData.startupScreen || null;
   }
 
+  function setDriverConfig(config) {
+    projectData.driverConfig = {
+      ...(projectData.driverConfig || {}),
+      ...(config || {})
+    };
+    projectData.modifiedAt = new Date().toISOString();
+    isDirty = true;
+  }
+
+  function getDriverConfig() {
+    return JSON.parse(JSON.stringify(projectData.driverConfig || {}));
+  }
+
   function setScreenMeta(name, meta) {
     if (!name) return;
     if (!projectData.screenMeta) projectData.screenMeta = {};
@@ -216,7 +259,21 @@ const ProjectModel = (function() {
     projectData.openTabs = Array.isArray(data.openTabs) ? data.openTabs : [];
     projectData.activeScreen = data.activeScreen || null;
     projectData.alarms = data.alarms || [];
-    projectData.driverConfig = data.driverConfig || { driver: 'MELSEC MC Protocol', address: '192.168.1.10', port: 5000 };
+    projectData.driverConfig = {
+      driver: 'MELSEC MC Protocol',
+      driverId: 'melsec_mc',
+      transport: 'TCP',
+      address: '192.168.1.10',
+      port: 5000,
+      unitId: 1,
+      comPort: 'COM1',
+      baudRate: 9600,
+      pollRate: 250,
+      testAddress: '',
+      testValue: '',
+      autoConnect: false,
+      ...(data.driverConfig || {})
+    };
     projectData.createdAt = data.createdAt || new Date().toISOString();
     projectData.modifiedAt = data.modifiedAt || new Date().toISOString();
     projectData.version = data.version || '1.0.0';
@@ -263,6 +320,8 @@ const ProjectModel = (function() {
     duplicateScreen,
     setStartupScreen,
     getStartupScreen,
+    setDriverConfig,
+    getDriverConfig,
     setScreenMeta,
     getScreenMeta,
     serialize,

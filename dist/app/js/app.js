@@ -855,6 +855,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const w = parseInt(resVal[0], 10), h = parseInt(resVal[1], 10);
 
       ProjectModel.initNew(name, author, comment, w, h, plcBrand);
+      if (typeof CommClient !== 'undefined' && CommClient.isConnected() && CommClient.getActiveConfig) {
+        const activeCommConfig = CommClient.getActiveConfig();
+        if (activeCommConfig) ProjectModel.setDriverConfig(activeCommConfig);
+      }
       canvasInner.style.width = w + 'px';
       canvasInner.style.height = h + 'px';
       document.getElementById('canvas-size').textContent = `Screen: ${w} × ${h}`;
@@ -937,6 +941,9 @@ document.addEventListener('DOMContentLoaded', () => {
     ProjectModel.deserialize(data);
     ProjectModel.setFilePath(path);
     statusProject.textContent = `Project: ${path ? path.split(/[\\/]/).pop() : data.name}`;
+    if (typeof CommClient !== 'undefined' && CommClient.restoreAndAutoConnect) {
+      setTimeout(() => CommClient.restoreAndAutoConnect(), 500);
+    }
 
     const res = data.resolution || { w: 1280, h: 800 };
     canvasInner.style.width = res.w + 'px';

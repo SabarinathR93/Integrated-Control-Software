@@ -1,9 +1,19 @@
 #include <windows.h>
+#include <winhttp.h>
 #include <initguid.h>
 #include <shlwapi.h>
 #include <string>
 #include <atomic>
+#include <algorithm>
 #include <cstdio>
+#include <cwctype>
+#include <condition_variable>
+#include <deque>
+#include <mutex>
+#include <thread>
+#include <utility>
+#include <vector>
+#include <cmath>
 
 #include "WebView2.h"
 #include "json_mini.hpp"
@@ -22,6 +32,308 @@ static HWND g_hwnd = nullptr;
 static ICoreWebView2Controller* g_controller = nullptr;
 static ICoreWebView2* g_webview = nullptr;
 static std::wstring g_startupFilePath;
+static DWORD g_splashStartTick = 0;
+static int g_splashProgress = 0;
+static int g_splashTargetX = 0;
+static int g_splashTargetY = 0;
+static constexpr UINT WM_COMM_BRIDGE_REPLY = WM_APP + 1;
+
+struct CommBridgeRequest {
+    std::string id;
+    std::string method;
+    std::string argsJson;
+};
+
+struct CommBridgeReply {
+    std::string id;
+    std::string resultJson;
+};
+
+static std::mutex g_commRequestMutex;
+static std::condition_variable g_commRequestReady;
+static std::deque<CommBridgeRequest> g_commRequests;
+static bool g_commWorkerStopping = false;
+static std::thread g_commWorker;
+static std::mutex g_commReplyMutex;
+static std::deque<CommBridgeReply> g_commReplies;
+static std::mutex g_ollamaRequestMutex;
+static std::condition_variable g_ollamaRequestReady;
+static std::deque<CommBridgeRequest> g_ollamaRequests;
+static bool g_ollamaWorkerStopping = false;
+static std::thread g_ollamaWorker;
+
+static void drawSplashText(HDC dc, const wchar_t* text, RECT rect, int size, int weight, COLORREF color, UINT format) {
+    HFONT font = CreateFontW(-size, 0, 0, 0, weight, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
+                             OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY,
+                             DEFAULT_PITCH | FF_DONTCARE, L"Arial");
+    HGDIOBJ oldFont = SelectObject(dc, font);
+    SetTextColor(dc, color);
+    DrawTextW(dc, text, -1, &rect, format);
+    SelectObject(dc, oldFont);
+    DeleteObject(font);
+}
+
+static int drawSplashTitlePart(HDC dc, const wchar_t* text, int x, int y, COLORREF color) {
+    HFONT font = CreateFontW(-26, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
+                             OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY,
+                             DEFAULT_PITCH | FF_DONTCARE, L"Arial");
+    HGDIOBJ oldFont = SelectObject(dc, font);
+    SIZE extent{};
+    const int length = lstrlenW(text);
+    GetTextExtentPoint32W(dc, text, length, &extent);
+    SetTextColor(dc, color);
+    TextOutW(dc, x, y, text, length);
+    SelectObject(dc, oldFont);
+    DeleteObject(font);
+    return extent.cx;
+}
+
+static void drawSplashPercent(HDC dc, int value, int xRight, int y, COLORREF color) {
+    const std::wstring number = std::to_wstring(value);
+    HFONT numberFont = CreateFontW(-22, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
+                                   OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY,
+                                   DEFAULT_PITCH | FF_DONTCARE, L"Arial");
+    HFONT suffixFont = CreateFontW(-12, 0, 0, 0, FW_MEDIUM, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
+                                   OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY,
+                                   DEFAULT_PITCH | FF_DONTCARE, L"Arial");
+    SIZE numberSize{};
+    SIZE suffixSize{};
+    TEXTMETRICW numberMetrics{};
+    TEXTMETRICW suffixMetrics{};
+    HGDIOBJ oldFont = SelectObject(dc, numberFont);
+    GetTextExtentPoint32W(dc, number.c_str(), static_cast<int>(number.length()), &numberSize);
+    GetTextMetricsW(dc, &numberMetrics);
+    SelectObject(dc, suffixFont);
+    GetTextExtentPoint32W(dc, L"%", 1, &suffixSize);
+    GetTextMetricsW(dc, &suffixMetrics);
+
+    SetTextColor(dc, color);
+    const int percentWidth = numberSize.cx + 2 + suffixSize.cx;
+    const int numberX = xRight - percentWidth;
+    TextOutW(dc, numberX, y, number.c_str(), static_cast<int>(number.length()));
+    SelectObject(dc, suffixFont);
+    TextOutW(dc, numberX + numberSize.cx + 2,
+             y + numberMetrics.tmAscent - suffixMetrics.tmAscent, L"%", 1);
+    SelectObject(dc, oldFont);
+    DeleteObject(numberFont);
+    DeleteObject(suffixFont);
+}
+
+static void drawSplashLogo(HDC dc, int x, int y, int size) {
+    auto sx = [=](double value) -> int {
+        return x + static_cast<int>(value * size / 80.0);
+    };
+    auto sy = [=](double value) -> int {
+        return y + static_cast<int>(value * size / 80.0);
+    };
+
+    const int stroke = std::max(1, static_cast<int>(2.4 * size / 80.0));
+    HPEN pen = CreatePen(PS_SOLID, stroke, RGB(13, 13, 13));
+    HGDIOBJ oldPen = SelectObject(dc, pen);
+    HGDIOBJ oldBrush = SelectObject(dc, GetStockObject(HOLLOW_BRUSH));
+
+    POINT hexagon[] = {
+        {sx(40), sy(8)}, {sx(67.7), sy(24)}, {sx(67.7), sy(56)},
+        {sx(40), sy(72)}, {sx(12.3), sy(56)}, {sx(12.3), sy(24)},
+        {sx(40), sy(8)}
+    };
+    Polyline(dc, hexagon, 7);
+
+    Ellipse(dc, sx(30), sy(30), sx(50), sy(50));
+
+    HPEN detailPen = CreatePen(PS_SOLID, stroke, RGB(153, 153, 153));
+    SelectObject(dc, detailPen);
+    MoveToEx(dc, sx(40), sy(8), nullptr);
+    LineTo(dc, sx(40), sy(30));
+    MoveToEx(dc, sx(67.7), sy(56), nullptr);
+    LineTo(dc, sx(49), sy(45));
+    MoveToEx(dc, sx(12.3), sy(56), nullptr);
+    LineTo(dc, sx(31), sy(45));
+
+    SelectObject(dc, oldPen);
+    DeleteObject(detailPen);
+    SelectObject(dc, oldBrush);
+    DeleteObject(pen);
+
+    const double angle = ((GetTickCount() - g_splashStartTick) / 3200.0) * 2.0 * 3.141592653589793;
+    const int dotRadius = std::max(2, static_cast<int>(3.6 * size / 80.0));
+
+    const int orbitRadius = static_cast<int>(size * 22.0 / 80.0);
+    const int redDotCx = sx(40) + static_cast<int>(std::cos(angle) * orbitRadius);
+    const int redDotCy = sy(40) + static_cast<int>(std::sin(angle) * orbitRadius);
+    HBRUSH dotBrush = CreateSolidBrush(RGB(229, 50, 31));
+    HGDIOBJ oldDotBrush = SelectObject(dc, dotBrush);
+    Ellipse(dc, redDotCx - dotRadius, redDotCy - dotRadius,
+           redDotCx + dotRadius, redDotCy + dotRadius);
+    SelectObject(dc, oldDotBrush);
+    DeleteObject(dotBrush);
+}
+
+static LRESULT CALLBACK SplashWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+    switch (msg) {
+        case WM_CREATE:
+            g_splashStartTick = GetTickCount();
+            {
+                RECT bounds{};
+                GetClientRect(hwnd, &bounds);
+                SetWindowRgn(hwnd, CreateRoundRectRgn(0, 0, bounds.right, bounds.bottom, 12, 12), TRUE);
+            }
+            SetTimer(hwnd, 1, 80, nullptr);
+            return 0;
+        case WM_TIMER:
+            {
+                const DWORD elapsed = GetTickCount() - g_splashStartTick;
+                const double animation = std::min(elapsed / 350.0, 1.0);
+                const double eased = animation * animation * (3.0 - 2.0 * animation);
+                const int animatedW = 500 + static_cast<int>(20 * eased);
+                const int animatedH = 250 + static_cast<int>(10 * eased);
+                const int animatedX = g_splashTargetX + (520 - animatedW) / 2;
+                const int animatedY = g_splashTargetY + static_cast<int>(8 * (1.0 - eased));
+                SetWindowPos(hwnd, nullptr, animatedX, animatedY, animatedW, animatedH,
+                             SWP_NOZORDER | SWP_NOACTIVATE);
+
+                const double raw = std::min(elapsed / 2200.0, 1.0);
+                const double progress = raw < 0.5
+                    ? 2.0 * raw * raw
+                    : 1.0 - std::pow(-2.0 * raw + 2.0, 2.0) / 2.0;
+                g_splashProgress = std::min(static_cast<int>(progress * 100.0 + 0.5), 94);
+            }
+            InvalidateRect(hwnd, nullptr, FALSE);
+            return 0;
+        case WM_SIZE: {
+            HRGN region = CreateRoundRectRgn(0, 0, LOWORD(lParam), HIWORD(lParam), 12, 12);
+            SetWindowRgn(hwnd, region, TRUE);
+            return 0;
+        }
+        case WM_ERASEBKGND:
+            return 1;
+        case WM_PAINT: {
+            PAINTSTRUCT ps{};
+            HDC dc = BeginPaint(hwnd, &ps);
+            RECT client{};
+            GetClientRect(hwnd, &client);
+            const int width = client.right;
+            const int height = client.bottom;
+            FillRect(dc, &client, reinterpret_cast<HBRUSH>(GetStockObject(WHITE_BRUSH)));
+            HBRUSH bg = CreateSolidBrush(RGB(250, 250, 250));
+            FillRect(dc, &client, bg);
+            DeleteObject(bg);
+
+            RECT accent{0, 0, 8, height};
+            HBRUSH red = CreateSolidBrush(RGB(229, 50, 31));
+            FillRect(dc, &accent, red);
+            DeleteObject(red);
+
+            HPEN borderPen = CreatePen(PS_SOLID, 1, RGB(221, 221, 221));
+            HGDIOBJ oldBorderPen = SelectObject(dc, borderPen);
+            HGDIOBJ oldBorderBrush = SelectObject(dc, GetStockObject(HOLLOW_BRUSH));
+            RoundRect(dc, 0, 0, width, height, 12, 12);
+            SelectObject(dc, oldBorderBrush);
+            SelectObject(dc, oldBorderPen);
+            DeleteObject(borderPen);
+
+            const int margin = 32;
+            const int gridLeft = 24;
+            const int gridRight = width - 24;
+            HPEN gridPen = CreatePen(PS_SOLID, 1, RGB(246, 246, 246));
+            HGDIOBJ oldGridPen = SelectObject(dc, gridPen);
+            for (int i = 0; i <= 8; ++i) {
+                const int x = gridLeft + (gridRight - gridLeft) * i / 8;
+                MoveToEx(dc, x, 0, nullptr);
+                LineTo(dc, x, height);
+            }
+            SelectObject(dc, oldGridPen);
+            DeleteObject(gridPen);
+            const int textExtra = SetTextCharacterExtra(dc, 1);
+            drawSplashText(dc, L"ICS  /  STARTUP", RECT{margin, 25, width / 2, 43}, 10, FW_NORMAL,
+                           RGB(13, 13, 13), DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+            drawSplashText(dc, L"AUTOMATION PLATFORM", RECT{width / 2, 25, width - margin, 43}, 10, FW_NORMAL,
+                           RGB(119, 119, 119), DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
+            SetTextCharacterExtra(dc, textExtra);
+
+            const int logoX = 40;
+            const int logoY = 69;
+            const int logoSize = 46;
+            const int titleX = logoX + logoSize + 18;
+            drawSplashLogo(dc, logoX, logoY, logoSize);
+            int titleXNext = titleX;
+            titleXNext += drawSplashTitlePart(dc, L"Integrated ", titleXNext, 68, RGB(13, 13, 13));
+            titleXNext += drawSplashTitlePart(dc, L"Control", titleXNext, 68, RGB(229, 50, 31));
+            drawSplashTitlePart(dc, L" Software", titleXNext, 68, RGB(13, 13, 13));
+            drawSplashText(dc, L"Automation. Monitoring. Command.",
+                           RECT{titleX, 100, width - margin, 120}, 12, FW_NORMAL,
+                           RGB(119, 119, 119), DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+
+            const int barLeft = 40;
+            const int barRight = width - margin;
+            const int barY = 145;
+            RECT track{barLeft, barY, barRight, barY + 5};
+            HBRUSH trackBrush = CreateSolidBrush(RGB(226, 226, 226));
+            FillRect(dc, &track, trackBrush);
+            DeleteObject(trackBrush);
+            RECT progress = track;
+            progress.right = barLeft + (barRight - barLeft) * g_splashProgress / 100;
+            HBRUSH progressBrush = CreateSolidBrush(g_splashProgress >= 100 ? RGB(229, 50, 31) : RGB(13, 13, 13));
+            FillRect(dc, &progress, progressBrush);
+            DeleteObject(progressBrush);
+
+            const wchar_t* status = L"INITIALIZING";
+            if (g_splashProgress >= 100) status = L"READY";
+            else if (g_splashProgress >= 94) status = L"STARTING DASHBOARD";
+            else if (g_splashProgress >= 78) status = L"CHECKING SYSTEM HEALTH";
+            else if (g_splashProgress >= 58) status = L"SYNCING DEVICES";
+            else if (g_splashProgress >= 38) status = L"CONNECTING CONTROLLERS";
+            else if (g_splashProgress >= 18) status = L"LOADING MODULES";
+            const int statusExtra = SetTextCharacterExtra(dc, 1);
+            drawSplashText(dc, status, RECT{barLeft, barY + 13, barRight - 70, barY + 35}, 11, FW_NORMAL,
+                           RGB(119, 119, 119), DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+            SetTextCharacterExtra(dc, statusExtra);
+            drawSplashPercent(dc, g_splashProgress, barRight, barY + 7,
+                              g_splashProgress >= 100 ? RGB(229, 50, 31) : RGB(13, 13, 13));
+
+            HPEN dividerPen = CreatePen(PS_SOLID, 1, RGB(234, 234, 234));
+            HGDIOBJ oldDividerPen = SelectObject(dc, dividerPen);
+            MoveToEx(dc, margin, 205, nullptr);
+            LineTo(dc, width - margin, 205);
+            SelectObject(dc, oldDividerPen);
+            DeleteObject(dividerPen);
+            const int footerExtra = SetTextCharacterExtra(dc, 1);
+            drawSplashText(dc, L"VERSION 1.0", RECT{margin, 215, width / 2, 235}, 9, FW_NORMAL,
+                           RGB(119, 119, 119), DT_LEFT | DT_VCENTER | DT_SINGLELINE);
+            drawSplashText(dc, L"\x00A9 INTEGRATED CONTROL SOFTWARE", RECT{width / 2, 215, width - margin, 235},
+                           9, FW_NORMAL, RGB(119, 119, 119), DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
+            SetTextCharacterExtra(dc, footerExtra);
+            EndPaint(hwnd, &ps);
+            return 0;
+        }
+        case WM_CLOSE:
+            if (g_hwnd) DestroyWindow(g_hwnd);
+            DestroyWindow(hwnd);
+            return 0;
+        case WM_DESTROY:
+            KillTimer(hwnd, 1);
+            return 0;
+    }
+    return DefWindowProcW(hwnd, msg, wParam, lParam);
+}
+
+static void closeStartupWindows() {
+    if (g_hwnd) DestroyWindow(g_hwnd);
+}
+
+static void showStartupError(const wchar_t* message) {
+    MessageBoxW(g_hwnd, message, L"Machine Control Studio (C++)", MB_ICONERROR);
+    closeStartupWindows();
+}
+
+static void showMainWindow() {
+    if (g_controller) g_controller->put_IsVisible(TRUE);
+    ShowWindow(g_hwnd, SW_SHOWMAXIMIZED);
+    UpdateWindow(g_hwnd);
+    if (g_webview) {
+        g_webview->ExecuteScript(L"window.dispatchEvent(new Event('ics-native-window-shown'));", nullptr);
+    }
+}
 
 static std::wstring getExeDirectory() {
     wchar_t buf[MAX_PATH] = {};
@@ -36,6 +348,71 @@ static void sendBridgeReply(const std::string& id, const std::string& resultJson
         json_mini::escape(id) + ", " + resultJson + ");";
     std::wstring wScript = win32_dialogs::utf8ToWide(script);
     g_webview->ExecuteScript(wScript.c_str(), nullptr);
+}
+
+static std::string processCommBridgeRequest(const CommBridgeRequest& request) {
+    if (request.method == "comm-list-drivers") return comm_mgr::listDriversJson();
+    if (request.method == "comm-connect") return comm_mgr::connectJson(request.argsJson);
+    if (request.method == "comm-disconnect") return comm_mgr::disconnectJson(request.argsJson);
+    if (request.method == "comm-status") return comm_mgr::getStatusJson(request.argsJson);
+    if (request.method == "comm-read-tag") return comm_mgr::readTagJson(request.argsJson);
+    if (request.method == "comm-write-tag") return comm_mgr::writeTagJson(request.argsJson);
+    return "{\"ok\":false,\"error\":\"Unknown communication method\"}";
+}
+
+static void communicationWorkerLoop() {
+    for (;;) {
+        CommBridgeRequest request;
+        {
+            std::unique_lock<std::mutex> lock(g_commRequestMutex);
+            g_commRequestReady.wait(lock, [] {
+                return g_commWorkerStopping || !g_commRequests.empty();
+            });
+            if (g_commWorkerStopping) return;
+            request = std::move(g_commRequests.front());
+            g_commRequests.pop_front();
+        }
+
+        CommBridgeReply reply{ request.id, processCommBridgeRequest(request) };
+        {
+            std::lock_guard<std::mutex> lock(g_commReplyMutex);
+            g_commReplies.push_back(std::move(reply));
+        }
+        if (g_hwnd) PostMessageW(g_hwnd, WM_COMM_BRIDGE_REPLY, 0, 0);
+    }
+}
+
+static void startCommunicationWorker() {
+    g_commWorker = std::thread(communicationWorkerLoop);
+}
+
+static void stopCommunicationWorker() {
+    {
+        std::lock_guard<std::mutex> lock(g_commRequestMutex);
+        g_commWorkerStopping = true;
+        g_commRequests.clear();
+    }
+    g_commRequestReady.notify_all();
+    if (g_commWorker.joinable()) g_commWorker.join();
+    std::lock_guard<std::mutex> lock(g_commReplyMutex);
+    g_commReplies.clear();
+}
+
+static void enqueueCommBridgeRequest(const std::string& id, const std::string& method, const std::string& argsJson) {
+    bool unavailable = false;
+    {
+        std::lock_guard<std::mutex> lock(g_commRequestMutex);
+        if (!g_commWorker.joinable() || g_commWorkerStopping) {
+            unavailable = true;
+        } else {
+            g_commRequests.push_back(CommBridgeRequest{ id, method, argsJson });
+        }
+    }
+    if (unavailable) {
+        sendBridgeReply(id, "{\"ok\":false,\"error\":\"Communication worker is unavailable\"}");
+        return;
+    }
+    g_commRequestReady.notify_one();
 }
 
 static bool isAbsoluteWinPath(const std::wstring& p) {
@@ -57,6 +434,13 @@ static void handleBridgeMessage(const std::string& msgJson) {
         return;
     }
     json_mini::getRawField(msgJson, "args", argsRaw);
+
+    if (method == "comm-list-drivers" || method == "comm-connect" ||
+        method == "comm-disconnect" || method == "comm-status" ||
+        method == "comm-read-tag" || method == "comm-write-tag") {
+        enqueueCommBridgeRequest(id, method, argsRaw);
+        return;
+    }
 
     if (method == "get-startup-file") {
         if (!g_startupFilePath.empty() && PathFileExistsW(g_startupFilePath.c_str())) {
@@ -237,31 +621,6 @@ static void handleBridgeMessage(const std::string& msgJson) {
         return;
     }
 
-    if (method == "comm-list-drivers") {
-        sendBridgeReply(id, comm_mgr::listDriversJson());
-        return;
-    }
-    if (method == "comm-connect") {
-        sendBridgeReply(id, comm_mgr::connectJson(argsRaw));
-        return;
-    }
-    if (method == "comm-disconnect") {
-        sendBridgeReply(id, comm_mgr::disconnectJson(argsRaw));
-        return;
-    }
-    if (method == "comm-status") {
-        sendBridgeReply(id, comm_mgr::getStatusJson(argsRaw));
-        return;
-    }
-    if (method == "comm-read-tag") {
-        sendBridgeReply(id, comm_mgr::readTagJson(argsRaw));
-        return;
-    }
-    if (method == "comm-write-tag") {
-        sendBridgeReply(id, comm_mgr::writeTagJson(argsRaw));
-        return;
-    }
-
     sendBridgeReply(id, "{\"success\":false,\"error\":\"Unknown method\"}");
 }
 
@@ -304,16 +663,30 @@ public:
     }
 };
 
+class NavigationCompletedHandler : public ComBase<ICoreWebView2NavigationCompletedEventHandler> {
+public:
+    HRESULT STDMETHODCALLTYPE Invoke(ICoreWebView2*, ICoreWebView2NavigationCompletedEventArgs* args) override {
+        BOOL success = FALSE;
+        if (!args || FAILED(args->get_IsSuccess(&success)) || !success) {
+            showStartupError(L"The project launcher could not be loaded. Check that the app folder is installed next to the executable.");
+            return S_OK;
+        }
+        showMainWindow();
+        return S_OK;
+    }
+};
+
 class ControllerCompletedHandler : public ComBase<ICoreWebView2CreateCoreWebView2ControllerCompletedHandler> {
 public:
     HRESULT STDMETHODCALLTYPE Invoke(HRESULT result, ICoreWebView2Controller* controller) override {
         if (FAILED(result) || !controller) {
-            MessageBoxW(g_hwnd, L"Failed to initialize WebView2 Controller.", L"Machine Control Studio (C++)", MB_ICONERROR);
+            showStartupError(L"Failed to initialize the WebView2 Controller.");
             return S_OK;
         }
         g_controller = controller;
         g_controller->AddRef();
         g_controller->get_CoreWebView2(&g_webview);
+        g_controller->put_IsVisible(FALSE);
 
         RECT bounds;
         GetClientRect(g_hwnd, &bounds);
@@ -341,6 +714,7 @@ public:
         // Inject window.electronAPI C++ Native Bridge before any page script executes
         static const wchar_t* kBridgeScript = LR"JS(
 (function() {
+          window.__cppNativeHost = true;
   if (window.electronAPI) return;
   let seq = 1;
   const pending = new Map();
@@ -390,8 +764,14 @@ public:
 
         EventRegistrationToken token{};
         g_webview->add_WebMessageReceived(new WebMessageHandler(), &token);
+        if (FAILED(g_webview->add_NavigationCompleted(new NavigationCompletedHandler(), &token))) {
+            showStartupError(L"Failed to monitor project launcher loading.");
+            return S_OK;
+        }
 
-        g_webview->Navigate(L"https://app.local/index.html");
+        if (FAILED(g_webview->Navigate(L"https://app.local/index.html"))) {
+            showStartupError(L"Failed to start loading the project launcher.");
+        }
         return S_OK;
     }
 };
@@ -400,18 +780,29 @@ class EnvironmentCompletedHandler : public ComBase<ICoreWebView2CreateCoreWebVie
 public:
     HRESULT STDMETHODCALLTYPE Invoke(HRESULT result, ICoreWebView2Environment* env) override {
         if (FAILED(result) || !env) {
-            MessageBoxW(g_hwnd,
-                        L"Microsoft Edge WebView2 Runtime is required to run Machine Control Studio (C++).",
-                        L"Machine Control Studio (C++)", MB_ICONERROR);
+            showStartupError(L"Microsoft Edge WebView2 Runtime is required to run Machine Control Studio (C++).");
             return S_OK;
         }
-        env->CreateCoreWebView2Controller(g_hwnd, new ControllerCompletedHandler());
+        if (FAILED(env->CreateCoreWebView2Controller(g_hwnd, new ControllerCompletedHandler()))) {
+            showStartupError(L"Failed to start the WebView2 Controller.");
+        }
         return S_OK;
     }
 };
 
 static LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch (msg) {
+        case WM_COMM_BRIDGE_REPLY: {
+            std::deque<CommBridgeReply> replies;
+            {
+                std::lock_guard<std::mutex> lock(g_commReplyMutex);
+                replies.swap(g_commReplies);
+            }
+            for (const auto& reply : replies) {
+                sendBridgeReply(reply.id, reply.resultJson);
+            }
+            return 0;
+        }
         case WM_GETMINMAXINFO: {
             MINMAXINFO* mmi = reinterpret_cast<MINMAXINFO*>(lParam);
             if (mmi) {
@@ -513,9 +904,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int nCmdShow) {
 
     if (!g_hwnd) return 1;
 
-    ShowWindow(g_hwnd, SW_SHOWMAXIMIZED);
-    UpdateWindow(g_hwnd);
-
     std::wstring loaderPath = getExeDirectory() + L"\\WebView2Loader.dll";
     HMODULE hLoader = LoadLibraryW(loaderPath.c_str());
     if (!hLoader) hLoader = LoadLibraryW(L"WebView2Loader.dll");
@@ -526,7 +914,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int nCmdShow) {
         : nullptr;
 
     if (!pfnCreateEnv) {
-        MessageBoxW(g_hwnd, L"WebView2Loader.dll not found next to executable.", L"Machine Control Studio (C++)", MB_ICONERROR);
+        showStartupError(L"WebView2Loader.dll not found next to executable.");
         return 1;
     }
 
@@ -537,9 +925,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int nCmdShow) {
     } else {
         userDataDir = getExeDirectory() + L"\\webview2_userdata";
     }
-    pfnCreateEnv(nullptr, userDataDir.c_str(), nullptr, new EnvironmentCompletedHandler());
+    if (FAILED(pfnCreateEnv(nullptr, userDataDir.c_str(), nullptr, new EnvironmentCompletedHandler()))) {
+        showStartupError(L"Failed to start WebView2 Runtime initialization.");
+        return 1;
+    }
 
     comm_mgr::initDrivers(getExeDirectory());
+    startCommunicationWorker();
 
     MSG msg;
     while (GetMessageW(&msg, nullptr, 0, 0)) {
@@ -547,6 +939,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int nCmdShow) {
         DispatchMessageW(&msg);
     }
 
+    stopCommunicationWorker();
     comm_mgr::shutdown();
     CoUninitialize();
     return static_cast<int>(msg.wParam);

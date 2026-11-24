@@ -6,8 +6,75 @@ const CommClient = (() => {
   let connId = null;
   let connected = false;
   let pollTimer = null;
+  let pollInFlight = false;
   let drivers = [];
+  let activeConfig = null;
+  let activeConnId = null;
   const liveValues = {};
+
+  function getStorageKey() {
+    let projectKey = 'unsaved';
+    if (typeof ProjectModel !== 'undefined') {
+      const path = ProjectModel.getFilePath();
+      if (path) projectKey = path;
+      else projectKey = ProjectModel.getProject().name || 'unsaved';
+    }
+    return 'ics_comm_config:' + projectKey;
+  }
+
+  function mapDriverNameToId(name) {
+    const value = String(name || '').toUpperCase();
+    if (value.includes('MODBUS') || value.includes('DELTA')) return 'modbus';
+    if (value.includes('MELSEC') || value.includes('MC')) return 'melsec_mc';
+    if (value.includes('SIEMENS') || value.includes('S7')) return 's7';
+    if (value.includes('OMRON') || value.includes('FINS')) return 'omron_fins';
+    if (value.includes('ETHERNET/IP') || value.includes('ALLEN') || value.includes('ROCKWELL')) return 'eip_cip';
+    if (value.includes('ETHERCAT')) return 'ethercat';
+    return '';
+  }
+
+  function getSavedConfig() {
+    let localConfig = {};
+    try {
+      localConfig = JSON.parse(localStorage.getItem(getStorageKey()) || '{}');
+    } catch (_) {}
+
+    let projectConfig = {};
+    if (typeof ProjectModel !== 'undefined' && ProjectModel.getDriverConfig) {
+      projectConfig = ProjectModel.getDriverConfig();
+    }
+    return { ...localConfig, ...projectConfig };
+  }
+
+  function saveConfig(extra) {
+    const config = {
+      ...getSavedConfig(),
+      ...(extra || {})
+    };
+    try {
+      localStorage.setItem(getStorageKey(), JSON.stringify(config));
+    } catch (_) {}
+    if (typeof ProjectModel !== 'undefined' && ProjectModel.setDriverConfig) {
+      ProjectModel.setDriverConfig(config);
+    }
+  }
+
+  function readDialogConfig() {
+    const isSer = document.getElementById('comm-transport').value === 'SERIAL';
+    return {
+      driverId: document.getElementById('comm-driver').value,
+      driver: document.getElementById('comm-driver').selectedOptions[0]?.text || '',
+      transport: document.getElementById('comm-transport').value,
+      address: document.getElementById('comm-ip').value.trim(),
+      port: Number(document.getElementById('comm-port').value) || 502,
+      unitId: Number(isSer ? document.getElementById('comm-rtu-unit').value : document.getElementById('comm-unit').value) || 1,
+      comPort: document.getElementById('comm-com').value.trim(),
+      baudRate: Number(document.getElementById('comm-baud').value) || 9600,
+      pollRate: Number(document.getElementById('comm-poll').value) || 250,
+      testAddress: document.getElementById('comm-test-addr').value.trim(),
+      testValue: document.getElementById('comm-test-val').value.trim()
+    };
+  }
 
   const DEFAULT_DRIVERS = [
     { id: 'modbus', name: 'Modbus TCP / RTU', defaultPort: 502, transportMask: 3 },
@@ -61,30 +128,39 @@ const CommClient = (() => {
     stopPolling();
     const ms = Math.max(100, Number(intervalMs) || 250);
     pollTimer = setInterval(async () => {
-      if (!connected || !connId || !hasNativeBridge()) return;
+      if (pollInFlight || !connected || !connId || !hasNativeBridge()) return;
       if (typeof TagManager === 'undefined' || !TagManager.getTags) return;
-      const tags = TagManager.getTags();
-      for (const tag of tags) {
-        if (!tag.device) continue;
-        try {
-          const r = await window.electronAPI.commReadTag(connId, tag.device);
-          if (r && r.ok) {
-            liveValues[tag.name] = r.value;
-            liveValues[tag.device] = r.value;
-          }
-        } catch (_) {}
+      pollInFlight = true;
+      try {
+        const tags = TagManager.getTags();
+        for (const tag of tags) {
+          if (!connected || !connId) break;
+          if (!tag.device) continue;
+          try {
+            const r = await window.electronAPI.commReadTag(connId, tag.device);
+            if (r && r.ok) {
+              liveValues[tag.name] = r.value;
+              liveValues[tag.device] = r.value;
+            }
+          } catch (_) {}
+        }
+      } finally {
+        pollInFlight = false;
       }
     }, ms);
   }
 
   async function disconnect() {
+    const previousConnId = connId;
     stopPolling();
-    if (connId && hasNativeBridge()) {
-      try { await window.electronAPI.commDisconnect(connId); } catch (_) {}
-    }
     connId = null;
     connected = false;
     updateToolbarBadge();
+    if (previousConnId && hasNativeBridge()) {
+      try { await window.electronAPI.commDisconnect(previousConnId); } catch (_) {}
+    }
+    activeConnId = null;
+    activeConfig = null;
   }
 
   function ensureModal() {
@@ -110,7 +186,7 @@ const CommClient = (() => {
               Protocol Driver (DLL)
               <select id="comm-driver" style="padding:6px 8px;border:1px solid #CCC;border-radius:4px;background:#FFF;"></select>
             </label>
-            <label style="display:flex;flex-direction:column;gap:4px;font-weight:600;">
+            <label id="comm-transport-field" style="display:flex;flex-direction:column;gap:4px;font-weight:600;">
               Transport
               <select id="comm-transport" style="padding:6px 8px;border:1px solid #CCC;border-radius:4px;background:#FFF;">
                 <option value="TCP">TCP / Ethernet</option>
@@ -119,18 +195,18 @@ const CommClient = (() => {
             </label>
           </div>
 
-          <div id="comm-tcp-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;">
-            <label style="display:flex;flex-direction:column;gap:4px;font-weight:600;">
+          <div id="comm-tcp-row" style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);gap:10px;min-width:0;">
+            <label style="display:flex;flex-direction:column;gap:4px;font-weight:600;min-width:0;">
               PLC IP Address
               <input id="comm-ip" type="text" value="192.168.1.10" style="padding:6px 8px;border:1px solid #CCC;border-radius:4px;">
             </label>
-            <label style="display:flex;flex-direction:column;gap:4px;font-weight:600;">
+            <label style="display:flex;flex-direction:column;gap:4px;font-weight:600;min-width:0;">
               Port
               <input id="comm-port" type="number" value="5000" style="padding:6px 8px;border:1px solid #CCC;border-radius:4px;">
             </label>
-            <label style="display:flex;flex-direction:column;gap:4px;font-weight:600;">
+            <label style="display:flex;flex-direction:column;gap:4px;font-weight:600;min-width:0;">
               Unit / Station ID
-              <input id="comm-unit" type="number" value="1" style="padding:6px 8px;border:1px solid #CCC;border-radius:4px;">
+              <input id="comm-unit" type="number" value="1" style="width:100%;min-width:0;box-sizing:border-box;padding:6px 8px;border:1px solid #CCC;border-radius:4px;">
             </label>
           </div>
 
@@ -196,15 +272,31 @@ const CommClient = (() => {
 
     const drvSel = document.getElementById('comm-driver');
     const transSel = document.getElementById('comm-transport');
-    drvSel.onchange = () => {
-      const d = drivers.find(x => x.id === drvSel.value);
-      if (d) document.getElementById('comm-port').value = d.defaultPort || 0;
-    };
-    transSel.onchange = () => {
+    const updateConnectionFields = () => {
       const isSer = transSel.value === 'SERIAL';
+      document.getElementById('comm-transport-field').style.display = 'flex';
       document.getElementById('comm-tcp-row').style.display = isSer ? 'none' : 'grid';
       document.getElementById('comm-serial-row').style.display = isSer ? 'grid' : 'none';
     };
+    drvSel.onchange = () => {
+      const d = drivers.find(x => x.id === drvSel.value);
+      if (d) document.getElementById('comm-port').value = d.defaultPort || 0;
+      document.getElementById('comm-transport').onchange();
+      saveConfig(readDialogConfig());
+    };
+    transSel.onchange = updateConnectionFields;
+
+    [
+      'comm-ip', 'comm-port', 'comm-unit', 'comm-com', 'comm-baud',
+      'comm-rtu-unit', 'comm-poll', 'comm-test-addr', 'comm-test-val'
+    ].forEach(id => {
+      const el = document.getElementById(id);
+      el.addEventListener('change', () => saveConfig(readDialogConfig()));
+      el.addEventListener('input', () => {
+        if (id === 'comm-test-addr' || id === 'comm-test-val') return;
+        saveConfig(readDialogConfig());
+      });
+    });
 
     document.getElementById('comm-connect-btn').onclick = async () => {
       if (!hasNativeBridge()) {
@@ -214,12 +306,17 @@ const CommClient = (() => {
       const isSer = transSel.value === 'SERIAL';
       const cfg = {
         driverId: drvSel.value,
+        driver: drvSel.selectedOptions[0]?.text || drvSel.value,
         transport: transSel.value,
         address: document.getElementById('comm-ip').value.trim(),
         port: Number(document.getElementById('comm-port').value) || 502,
         unitId: Number(isSer ? document.getElementById('comm-rtu-unit').value : document.getElementById('comm-unit').value) || 1,
         comPort: document.getElementById('comm-com').value.trim(),
-        baudRate: Number(document.getElementById('comm-baud').value) || 9600
+        baudRate: Number(document.getElementById('comm-baud').value) || 9600,
+        pollRate: Number(document.getElementById('comm-poll').value) || 250,
+        testAddress: document.getElementById('comm-test-addr').value.trim(),
+        testValue: document.getElementById('comm-test-val').value.trim(),
+        autoConnect: true
       };
       setStatus('Connecting...', false);
       const res = await window.electronAPI.commConnect(cfg);
@@ -228,27 +325,34 @@ const CommClient = (() => {
         return;
       }
       connId = res.connId;
+      activeConnId = res.connId;
+      activeConfig = cfg;
       connected = true;
       updateToolbarBadge();
       document.getElementById('comm-connect-btn').disabled = true;
       document.getElementById('comm-disconnect-btn').disabled = false;
       startPolling(document.getElementById('comm-poll').value);
-      setStatus(`Connected (connId=${connId}) via ${cfg.driverId} (${isSer ? cfg.comPort : cfg.address + ':' + cfg.port})`, false);
+      saveConfig(cfg);
+      const endpoint = isSer ? cfg.comPort : cfg.address + ':' + cfg.port;
+      setStatus(`Connected (connId=${connId}) via ${cfg.driverId} (${endpoint})`, false);
     };
 
     document.getElementById('comm-disconnect-btn').onclick = async () => {
       await disconnect();
       document.getElementById('comm-connect-btn').disabled = false;
       document.getElementById('comm-disconnect-btn').disabled = true;
+      saveConfig({ autoConnect: false });
       setStatus('Status: Disconnected', false);
     };
 
     document.getElementById('comm-read-btn').onclick = async () => {
       if (!connected || !connId) return setStatus('Not connected.', true);
       const addr = document.getElementById('comm-test-addr').value.trim();
+      setStatus(`Reading ${addr}...`, false);
       const r = await window.electronAPI.commReadTag(connId, addr);
       if (!r || !r.ok) return setStatus('Read error: ' + (r && r.error ? r.error : 'Failed'), true);
       document.getElementById('comm-test-val').value = String(r.value);
+      saveConfig({ testAddress: addr, testValue: String(r.value) });
       setStatus(`READ ${addr} => ${r.value}`, false);
     };
 
@@ -260,8 +364,10 @@ const CommClient = (() => {
       if (raw.toLowerCase() === 'true') val = true;
       else if (raw.toLowerCase() === 'false') val = false;
       else if (raw !== '' && !isNaN(Number(raw))) val = Number(raw);
+      setStatus(`Writing ${addr}...`, false);
       const r = await window.electronAPI.commWriteTag(connId, addr, val);
       if (!r || !r.ok) return setStatus('Write error: ' + (r && r.error ? r.error : 'Failed'), true);
+      saveConfig({ testAddress: addr, testValue: String(val) });
       setStatus(`WRITE ${addr} <= ${val} (OK)`, false);
     };
 
@@ -274,23 +380,38 @@ const CommClient = (() => {
     const drvSel = document.getElementById('comm-driver');
     drvSel.innerHTML = drivers.map(d => `<option value="${d.id}">${d.name}</option>`).join('');
 
-    if (typeof Project !== 'undefined' && Project.getData) {
-      const proj = Project.getData();
-      if (proj && proj.driverConfig) {
-        if (proj.driverConfig.address) document.getElementById('comm-ip').value = proj.driverConfig.address;
-        if (proj.driverConfig.port) document.getElementById('comm-port').value = proj.driverConfig.port;
-        const drvName = (proj.driverConfig.driver || '').toUpperCase();
-        if (drvName.includes('MODBUS')) drvSel.value = 'modbus';
-        else if (drvName.includes('MELSEC') || drvName.includes('MC')) drvSel.value = 'melsec_mc';
-        else if (drvName.includes('SIEMENS') || drvName.includes('S7')) drvSel.value = 's7';
-        else if (drvName.includes('OMRON') || drvName.includes('FINS')) drvSel.value = 'omron_fins';
-        else if (drvName.includes('ETHERNET/IP') || drvName.includes('ALLEN')) drvSel.value = 'eip_cip';
-      }
+    const cfg = getSavedConfig();
+    const legacyDriverId = mapDriverNameToId(cfg.driver);
+    const savedConfig = legacyDriverId ? { ...cfg, driverId: legacyDriverId } : cfg;
+    const displayConfig = connected && activeConfig ? activeConfig : savedConfig;
+    if (displayConfig.driverId && drivers.some(d => d.id === displayConfig.driverId)) {
+      drvSel.value = displayConfig.driverId;
     }
+    document.getElementById('comm-transport').value = displayConfig.transport || 'TCP';
+    if (displayConfig.address) document.getElementById('comm-ip').value = displayConfig.address;
+    if (displayConfig.port) document.getElementById('comm-port').value = displayConfig.port;
+    if (displayConfig.unitId) document.getElementById('comm-unit').value = displayConfig.unitId;
+    if (displayConfig.comPort) document.getElementById('comm-com').value = displayConfig.comPort;
+    if (displayConfig.baudRate) document.getElementById('comm-baud').value = displayConfig.baudRate;
+    if (displayConfig.unitId) document.getElementById('comm-rtu-unit').value = displayConfig.unitId;
+    document.getElementById('comm-poll').value = displayConfig.pollRate || 250;
+    document.getElementById('comm-test-addr').value = displayConfig.testAddress || '';
+    document.getElementById('comm-test-val').value = displayConfig.testValue || '';
+    document.getElementById('comm-transport').onchange();
 
     document.getElementById('comm-native-warn').style.display = hasNativeBridge() ? 'none' : 'block';
     document.getElementById('comm-connect-btn').disabled = connected;
     document.getElementById('comm-disconnect-btn').disabled = !connected;
+    const statusBox = document.getElementById('comm-status-box');
+    if (connected && activeConfig && statusBox) {
+      const endpoint = activeConfig.transport === 'SERIAL'
+        ? activeConfig.comPort
+        : `${activeConfig.address}:${activeConfig.port}`;
+      statusBox.textContent = `Connected (connId=${activeConnId}) via ${activeConfig.driverId} (${endpoint})`;
+      statusBox.style.color = '#1E293B';
+    } else if (statusBox) {
+      statusBox.textContent = 'Status: Disconnected';
+    }
     overlay.style.display = 'flex';
   }
 
@@ -309,19 +430,64 @@ const CommClient = (() => {
       return { ok: false, error: 'Native C++ bridge unavailable in standalone browser' };
     }
     const driverId = mapBrandToDriver(brand);
-    const res = await window.electronAPI.commConnect({
+    const driverInfo = drivers.find(driver => driver.id === driverId) ||
+      DEFAULT_DRIVERS.find(driver => driver.id === driverId);
+    const config = {
       driverId,
+      driver: driverInfo ? driverInfo.name : String(brand || driverId),
       transport: 'TCP',
       address: String(ip || '192.168.1.10').trim(),
-      port: Number(port) || 5000,
-      unitId: 1
+      port: Number(port) || (driverInfo ? driverInfo.defaultPort : 5000),
+      unitId: 1,
+      comPort: 'COM1',
+      baudRate: 9600,
+      pollRate: Number(getSavedConfig().pollRate) || 250,
+      testAddress: '',
+      testValue: '',
+      autoConnect: true
+    };
+    const previousConnId = connId;
+    const res = await window.electronAPI.commConnect(config);
+    if (res && res.ok) {
+      connId = res.connId;
+      activeConnId = res.connId;
+      activeConfig = config;
+      connected = true;
+      updateToolbarBadge();
+      startPolling(config.pollRate);
+      saveConfig(config);
+      if (previousConnId && previousConnId !== connId) {
+        try { await window.electronAPI.commDisconnect(previousConnId); } catch (_) {}
+      }
+      return { ok: true, connId: res.connId, driverId };
+    }
+    return { ok: false, error: (res && res.error) ? res.error : 'Connection failed' };
+  }
+
+  async function restoreAndAutoConnect() {
+    const cfg = getSavedConfig();
+    if (!cfg.autoConnect || !hasNativeBridge()) return { ok: false, skipped: true };
+
+    const res = await window.electronAPI.commConnect({
+      driverId: cfg.driverId || mapBrandToDriver(cfg.driver),
+      transport: cfg.transport || 'TCP',
+      address: cfg.address || '192.168.1.10',
+      port: Number(cfg.port) || 5000,
+      unitId: Number(cfg.unitId) || 1,
+      comPort: cfg.comPort || 'COM1',
+      baudRate: Number(cfg.baudRate) || 9600
     });
     if (res && res.ok) {
       connId = res.connId;
+      activeConnId = res.connId;
+      activeConfig = cfg;
       connected = true;
       updateToolbarBadge();
-      return { ok: true, connId: res.connId, driverId };
+      startPolling(cfg.pollRate || 250);
+      saveConfig(cfg);
+      return { ok: true, connId: res.connId };
     }
+    saveConfig({ autoConnect: false });
     return { ok: false, error: (res && res.error) ? res.error : 'Connection failed' };
   }
 
@@ -329,6 +495,8 @@ const CommClient = (() => {
     openDialog,
     disconnect,
     connectPlcByBrand,
+    restoreAndAutoConnect,
+    getActiveConfig: () => activeConfig ? { ...activeConfig } : null,
     isConnected: () => connected,
     getLiveValues: () => liveValues
   };

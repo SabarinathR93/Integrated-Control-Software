@@ -8453,6 +8453,37 @@ const CommClient = (() => {
   let drivers = [];
   const liveValues = {};
 
+  function getStandaloneConfig() {
+    try {
+      return JSON.parse(localStorage.getItem('ics_standalone_comm_config') || '{}');
+    } catch (_) {
+      return {};
+    }
+  }
+
+  function saveStandaloneConfig(extra) {
+    const cfg = { ...getStandaloneConfig(), ...(extra || {}) };
+    try {
+      localStorage.setItem('ics_standalone_comm_config', JSON.stringify(cfg));
+    } catch (_) {}
+  }
+
+  function readStandaloneDialogConfig() {
+    const isSer = document.getElementById('comm-transport').value === 'SERIAL';
+    return {
+      driverId: document.getElementById('comm-driver').value,
+      transport: document.getElementById('comm-transport').value,
+      address: document.getElementById('comm-ip').value.trim(),
+      port: Number(document.getElementById('comm-port').value) || 502,
+      unitId: Number(isSer ? document.getElementById('comm-rtu-unit').value : document.getElementById('comm-unit').value) || 1,
+      comPort: document.getElementById('comm-com').value.trim(),
+      baudRate: Number(document.getElementById('comm-baud').value) || 9600,
+      pollRate: Number(document.getElementById('comm-poll').value) || 250,
+      testAddress: document.getElementById('comm-test-addr').value.trim(),
+      testValue: document.getElementById('comm-test-val').value.trim()
+    };
+  }
+
   const DEFAULT_DRIVERS = [
     { id: 'modbus', name: 'Modbus TCP / RTU', defaultPort: 502, transportMask: 3 },
     { id: 'melsec_mc', name: 'Mitsubishi MELSEC MC Protocol (3E)', defaultPort: 5000, transportMask: 1 },
@@ -8563,18 +8594,18 @@ const CommClient = (() => {
             </label>
           </div>
 
-          <div id="comm-tcp-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;">
-            <label style="display:flex;flex-direction:column;gap:4px;font-weight:600;">
+          <div id="comm-tcp-row" style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);gap:10px;min-width:0;">
+            <label style="display:flex;flex-direction:column;gap:4px;font-weight:600;min-width:0;">
               PLC IP Address
               <input id="comm-ip" type="text" value="192.168.1.10" style="padding:6px 8px;border:1px solid #CCC;border-radius:4px;">
             </label>
-            <label style="display:flex;flex-direction:column;gap:4px;font-weight:600;">
+            <label style="display:flex;flex-direction:column;gap:4px;font-weight:600;min-width:0;">
               Port
               <input id="comm-port" type="number" value="5000" style="padding:6px 8px;border:1px solid #CCC;border-radius:4px;">
             </label>
-            <label style="display:flex;flex-direction:column;gap:4px;font-weight:600;">
+            <label style="display:flex;flex-direction:column;gap:4px;font-weight:600;min-width:0;">
               Unit / Station ID
-              <input id="comm-unit" type="number" value="1" style="padding:6px 8px;border:1px solid #CCC;border-radius:4px;">
+              <input id="comm-unit" type="number" value="1" style="width:100%;min-width:0;box-sizing:border-box;padding:6px 8px;border:1px solid #CCC;border-radius:4px;">
             </label>
           </div>
 
@@ -8677,6 +8708,7 @@ const CommClient = (() => {
       document.getElementById('comm-connect-btn').disabled = true;
       document.getElementById('comm-disconnect-btn').disabled = false;
       startPolling(document.getElementById('comm-poll').value);
+      saveStandaloneConfig({ ...cfg, pollRate: Number(document.getElementById('comm-poll').value) || 250, testAddress: document.getElementById('comm-test-addr').value.trim(), testValue: document.getElementById('comm-test-val').value.trim(), autoConnect: true });
       setStatus(`Connected (connId=${connId}) via ${cfg.driverId} (${isSer ? cfg.comPort : cfg.address + ':' + cfg.port})`, false);
     };
 
@@ -8684,6 +8716,7 @@ const CommClient = (() => {
       await disconnect();
       document.getElementById('comm-connect-btn').disabled = false;
       document.getElementById('comm-disconnect-btn').disabled = true;
+      saveStandaloneConfig({ autoConnect: false });
       setStatus('Status: Disconnected', false);
     };
 
@@ -8693,6 +8726,7 @@ const CommClient = (() => {
       const r = await window.electronAPI.commReadTag(connId, addr);
       if (!r || !r.ok) return setStatus('Read error: ' + (r && r.error ? r.error : 'Failed'), true);
       document.getElementById('comm-test-val').value = String(r.value);
+      saveStandaloneConfig({ testAddress: addr, testValue: String(r.value) });
       setStatus(`READ ${addr} => ${r.value}`, false);
     };
 
@@ -8706,6 +8740,7 @@ const CommClient = (() => {
       else if (raw !== '' && !isNaN(Number(raw))) val = Number(raw);
       const r = await window.electronAPI.commWriteTag(connId, addr, val);
       if (!r || !r.ok) return setStatus('Write error: ' + (r && r.error ? r.error : 'Failed'), true);
+      saveStandaloneConfig({ testAddress: addr, testValue: String(val) });
       setStatus(`WRITE ${addr} <= ${val} (OK)`, false);
     };
 

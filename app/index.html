@@ -1249,6 +1249,7 @@
     #ics-splash-overlay .content {
       position: relative;
       z-index: 2;
+      width: 100%;
     }
     #ics-splash-overlay .brand-row {
       display: flex;
@@ -1336,7 +1337,7 @@
 <body>
 <div id="ics-splash-overlay" role="status" aria-live="polite">
   <div class="stage" id="ics-splash-stage">
-    <div class="grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="top"><span><b>ICS</b> / Startup</span><span>Automation Platform</span></div>
     <div class="content" id="ics-splash-content">
       <div class="brand-row">
@@ -1370,9 +1371,11 @@
   const pc = document.getElementById('ics-splash-pct');
   if (!overlay || !stage) return;
 
+  const nativeHost = !!window.__cppNativeHost;
   let backendReady = false;
+  let started = false;
   let raf = 0;
-  const t0 = performance.now();
+  let t0 = 0;
   const minBootMs = 2200;
 
   function markReady() { backendReady = true; }
@@ -1409,7 +1412,17 @@
       }, 350);
     }
   }
-  raf = requestAnimationFrame(tick);
+  function startSplash() {
+    if (started) return;
+    started = true;
+    t0 = performance.now();
+    raf = requestAnimationFrame(tick);
+  }
+  if (nativeHost) {
+    window.addEventListener('ics-native-window-shown', startSplash, { once: true });
+  } else {
+    startSplash();
+  }
 })();
 </script>
 <input type="file" id="import-image-input" style="display:none" accept="image/*">
